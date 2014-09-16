@@ -1,4 +1,4 @@
 js-lib
 ======
 
-My person library of common and useful things for javascript projects
+My personal library of common and useful things for javascript projects
