@@ -129,6 +129,10 @@ var StringTools = (function(){
     return !isNaN(sr);
   }
 
+  function isAlpha(character){
+    return /^[a-zA-Z]+$/.test(character);
+  }
+
   function spliceString(str, index, count, add) {
       return str.slice(0, index) + add + str.slice(index + count);
   }
@@ -165,6 +169,7 @@ var StringTools = (function(){
     getEscapes : getEscapes,
     isAlphanumeric : isAlphanumeric,
     isNumber : isNumber,
+    isAlpha : isAlpha,
     spliceString : spliceString,
     printStringAsTable : printStringAsTable,
     printStringAsTableHorizontal : printStringAsTableHorizontal
