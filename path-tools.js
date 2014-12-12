@@ -37,6 +37,21 @@ var pathTools = (function(){
     return path.split("#")[0];
   }
 
+  function getHashValue(key){
+    var map = getQueryMap(window.location.hash);
+    return map[key];
+  }
+
+  function getQueryMap(queryString){
+    var map = {};
+    var andSplit = queryString.split("&");
+    for(var i = 0; i < andSplit.length; i++){
+      var equalSplit = andSplit[i].split("=");
+      map[equalSplit[0]] = equalSplit[1];
+    }
+    return map;
+  }
+
 	return {
 		getFilename : getFilename,
 		getFilenameNoExtension : getFilenameNoExtension,
@@ -45,7 +60,9 @@ var pathTools = (function(){
 		isAbsolute : isAbsolute,
 		removePreceedingSlash : removePreceedingSlash,
 		removeQueryString : removeQueryString,
-		removeHash : removeHash
+		removeHash : removeHash,
+		getHashValue : getHashValue,
+		getQueryValue : getQueryValue
 	};
 
 })();
