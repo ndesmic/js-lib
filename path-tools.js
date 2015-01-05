@@ -1,4 +1,4 @@
-var pathTools = (function(){
+var PathTools = (function(){
 
 	function getFilename(path){
 		var split = path.split("/");
