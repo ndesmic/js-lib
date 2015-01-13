@@ -42,6 +42,11 @@ var PathTools = (function(){
     return map[key];
   }
 
+  function getQueryValue(key){
+    var map = getQueryMap(window.location.search);
+    return map[key];
+  }
+
   function getQueryMap(queryString){
     var map = {};
     var andSplit = queryString.split("&");
