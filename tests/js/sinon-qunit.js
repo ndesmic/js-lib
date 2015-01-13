@@ -1,11 +1,11 @@
 /**
- * Sinon.JS 0.8.0, 2010/10/30
+ * sinon-qunit 1.0.0, 2010/12/09
  *
  * @author Christian Johansen (christian@cjohansen.no)
  *
  * (The BSD License)
  *
- * Copyright (c) 2010, Christian Johansen, christian@cjohansen.no
+ * Copyright (c) 2010-2011, Christian Johansen, christian@cjohansen.no
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,29 +30,33 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
+/*global sinon, QUnit, test*/
 sinon.assert.fail = function (msg) {
-  QUnit.ok(false, msg);
+    QUnit.ok(false, msg);
+};
+
+sinon.assert.pass = function (assertion) {
+    QUnit.ok(true, assertion);
 };
 
 sinon.config = {
-  injectIntoThis: true,
-  injectInto: null,
-  properties: ["spy", "stub", "mock", "clock", "sandbox"],
-  useFakeTimers: true,
-  useFakeServer: false
+    injectIntoThis: true,
+    injectInto: null,
+    properties: ["spy", "stub", "mock", "clock", "sandbox"],
+    useFakeTimers: true,
+    useFakeServer: false
 };
 
-(function () {
-  var qTest = QUnit.test;
+(function (global) {
+    var qTest = QUnit.test;
 
-  QUnit.test = test = function (testName, expected, callback, async) {
-    if (arguments.length === 2) {
-      callback = expected;
-      expected = null;
-    }
+    QUnit.test = global.test = function (testName, expected, callback, async) {
+        if (arguments.length === 2) {
+            callback = expected;
+            expected = null;
+        }
 
-    return qTest(testName, expected, sinon.test(callback), async);
-  };
-}());
+        return qTest(testName, expected, sinon.test(callback), async);
+    };
+}(this));
