@@ -15,7 +15,7 @@ var ObjectTools = (function(){
 	}
 
 	function extend() {
-		var target = arguments[0];
+		var target = arguments[0] || {};
 		var sources = Array.prototype.slice.call(arguments, 1);
 		for(var i = 0; i < sources.length; i++){
 			var source = sources[i];
