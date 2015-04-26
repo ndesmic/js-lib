@@ -2,7 +2,7 @@ var ObjectTools = (function(){
 
 	function isPlainObject(value){
 		if(typeof(value) !== "object" || value === null){
-			return false
+			return false;
 		}
 		if(value.nodeType){
 			return false;
@@ -11,7 +11,7 @@ var ObjectTools = (function(){
 			return false;
 		}
 
-		return true
+		return true;
 	}
 
 	function extend() {

@@ -7,7 +7,7 @@ QUnit.test("gets parentDirectory", function(assert){
 	assert.equal(parent2, "http://www.website.com/path/path2/path3", "web url");
 });
 
-QUnit.module(".isAbsolute")
+QUnit.module(".isAbsolute");
 QUnit.test("determines if absolute", function(assert){
 	var test1 = PathTools.isAbsolute("path/to/file.ext");
 	assert.equal(test1, false, "relative local file");
