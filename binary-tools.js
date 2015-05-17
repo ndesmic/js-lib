@@ -17,7 +17,7 @@ var BinaryTools = (function(){
 			var newHex = dataView.getUint8(i).toString(16);
 			hex += pad(newHex, 2);
 			if(splitLength && ((i + 1) % splitLength) == 0 && i != dataView.byteLength - 1){
-				hex += ", "
+				hex += ", ";
 			}
 		}
 
@@ -32,7 +32,7 @@ var BinaryTools = (function(){
 			var newBin = dataView.getUint8(i).toString(2);
 			bin += pad(newBin, 8) + " ";
 			if(splitLength && ((i + 1) % splitLength) == 0 && i != dataView.byteLength - 1){
-				bin += ", "
+				bin += ", ";
 			}
 		}
 
@@ -43,7 +43,7 @@ var BinaryTools = (function(){
 		start = start || 0;
 		length = length || arrayBuffer.byteLength;
 		var dataView = new DataView(arrayBuffer, start, length);
-		var newString = ""
+		var newString = "";
 		for(var i = 0; i < dataView.byteLength; i++){
 			newString += String.fromCharCode(dataView.getUint8(start + i));
 		}

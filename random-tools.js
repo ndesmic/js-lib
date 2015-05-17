@@ -5,7 +5,7 @@ var RandomTools = (function(){
 	}
 
 	function getBool(){
-		if(getInt(2) == 0){
+		if(getInt(2) === 0){
 			return true;
 		}else{
 			return false;
