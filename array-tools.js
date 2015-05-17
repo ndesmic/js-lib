@@ -319,4 +319,4 @@ var arrayTools = (function(){
 		arrayNextClosest : arrayNextClosest
 	};
 
-))();
+})();
