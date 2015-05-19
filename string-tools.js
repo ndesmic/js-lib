@@ -152,6 +152,11 @@ var StringTools = (function(){
       }
       console.table(table);
   }
+  
+  function stringToFileUrl(text){
+    var file = new Blob([text], {type:'text/plain'});
+		return Url.createObjectURL(file);
+  }
 
   return {
     replaceAll : replaceAll,
@@ -172,6 +177,7 @@ var StringTools = (function(){
     isAlpha : isAlpha,
     spliceString : spliceString,
     printStringAsTable : printStringAsTable,
-    printStringAsTableHorizontal : printStringAsTableHorizontal
+    printStringAsTableHorizontal : printStringAsTableHorizontal,
+    stringToFileUrl : stringToFileUrl
   };
 })();

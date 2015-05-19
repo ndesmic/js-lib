@@ -1,4 +1,4 @@
-var TextTools = (function(){
+var EncodingTools = (function(){
   function findNonUtf8(text){
     var nonUtf = [];
     for(var i = 0; i < text.length; i++){
