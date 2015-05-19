@@ -4,21 +4,21 @@ var StringTools = (function(){
     return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
   }
   //pads string to length with character
-  function pad(text, length, pad){
+  function pad(text, length, padChar){
     text = text.toString();
-    pad = pad || "0";
+    padChar = padChar || "0";
     var lengthToPad = length - text.length;
 
     if(lengthToPad > 0){
       for(var i = 0; i < lengthToPad; i++){
-        text = pad + text;
+        text = padChar + text;
       }
     }
     return text;
   }
 
-    //pads string end to length with character
-    function padEnd(text, length, pad){
+  //pads string end to length with character
+  function padEnd(text, length, pad){
         text = text.toString();
         pad = pad || "0";
         var lengthToPad = length - text.length;
@@ -40,11 +40,6 @@ var StringTools = (function(){
         return text;
     }
 
-    //gets in value from css px string
-    function parsePx(value){
-        return parseInt(value.replace("px", ""));
-    }
-
     //takes number and converts to bytes
     function getUnitSuffixedBytes(bytes, significantDecimal){
         var unitSuffix = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
@@ -55,20 +50,25 @@ var StringTools = (function(){
             currentSuffixIndex++;
         }
 
-        var rounded = significantDecimal == undefined ? bytes : bytes.toFixed(significantDecimal);
+        var rounded = significantDecimal === undefined ? bytes : bytes.toFixed(significantDecimal);
 
         return rounded + " " + unitSuffix[currentSuffixIndex];
     }
 
     //adds s to word if count > 1 or 0
     function pluralize(word, count){
-        return count == 0 || count > 1 ? word + 's' : word;
-    };
+        return count === 0 || count > 1 ? word + 's' : word;
+    }
 
     //capitalizes first letter
-    function capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
+    function capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    //capitalizes first letter
+    function capitalizeAll(str) {
+        return str.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+    }
 
     //generates a random string
     function generateRandomString(length){
@@ -122,7 +122,7 @@ var StringTools = (function(){
     }
 
   function isAlphanumeric(character){
-    return /^[a-z0-9]+$/i.test(character)
+    return /^[a-z0-9]+$/i.test(character);
   }
 
   function isNumber(str){
@@ -158,10 +158,10 @@ var StringTools = (function(){
     pad : pad,
     padEnd : padEnd,
     truncate : truncate,
-    parsePx : parsePx,
     getUnitSuffixedBytes : getUnitSuffixedBytes,
     pluralize : pluralize,
-    capitalize : capitalize,
+    capitalizeFirst : capitalizeFirst,
+    capitalizeAll : capitalizeAll,
     generateRandomString : generateRandomString,
     stringTrimEnd : stringTrimEnd,
     stringEndsWith : stringEndsWith,
