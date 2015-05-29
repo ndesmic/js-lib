@@ -35,6 +35,27 @@ var ObjectTools = (function(){
 			resolve();
 		});
 	}
+	
+	//Takes object of form { a : [], b : [], c : [] } and converts to [{a, b, c},...]
+	function unpivot(pivotObject){
+		var maxLength = 0;
+				
+		for(let key in pivotObject){
+			maxLength = Math.max(pivotObject[key].length, maxLength);
+		}
+		
+		var unpivotObjs = [];
+		for(let i = 0; i < maxLength; i++){
+			var unpivotObj = {};
+			for(let key in pivotObject){
+				if(pivotObject[key][i]){
+					unpivotObj[key] = pivotObject[key][i];
+				}
+			}
+			unpivotObjs.push(unpivotObj);
+		}
+		return unpivotObjs;
+	}
 
   return {
     isPlainObject : isPlainObject,
