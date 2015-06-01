@@ -2,7 +2,7 @@ var DomTools = (function(){
   
   function removeChildren(element){
     while (element.firstChild) {
-      element.removeChildelement.firstChild);
+      element.removeChild(element.firstChild);
     }
   }
   
