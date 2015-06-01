@@ -1,8 +1,8 @@
 var DomTools = (function(){
   
   function removeChildren(element){
-    while (myNode.firstChild) {
-      myNode.removeChild(myNode.firstChild);
+    while (element.firstChild) {
+      element.removeChildelement.firstChild);
     }
   }
   
