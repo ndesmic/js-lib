@@ -37,13 +37,23 @@ var PathTools = (function(){
     return path.split("#")[0];
   }
 
-  function getHashValue(key){
-    var map = getQueryMap(window.location.hash);
+  function getHashValue(key, url){
+    if(url){
+      url = url.split("#")[1];
+    }else{
+      url = window.location.hash;
+    }
+    var map = getQueryMap(url);
     return map[key];
   }
 
-  function getQueryValue(key){
-    var map = getQueryMap(window.location.search);
+  function getQueryValue(key, url){
+    if(url){
+      url = url.split("?")[1];
+    }else{
+      url = window.location.search;
+    }
+    var map = getQueryMap(url);
     return map[key];
   }
 

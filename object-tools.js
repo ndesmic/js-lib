@@ -56,11 +56,21 @@ var ObjectTools = (function(){
 		}
 		return unpivotObjs;
 	}
+	
+	function searchMap(map, key){
+		for(var currentKey in map){
+			if(currentKey == key){
+				return map[key];
+			}
+		}
+		return null;
+	}
 
   return {
     isPlainObject : isPlainObject,
     extend : extend,
-    promiseStub : promiseStub
+    promiseStub : promiseStub,
+    searchMap : searchMap
   };
 
 })();

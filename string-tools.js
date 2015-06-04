@@ -157,6 +157,30 @@ var StringTools = (function(){
     var file = new Blob([text], {type:'text/plain'});
 		return Url.createObjectURL(file);
   }
+  
+  function lengthChunk(text, chunkLength){
+    var chunks = [];
+    var remaining = text;
+    
+    while(remaining.length > chunkLength){
+      chunks.push(remaining.substring(0, chunkLength));
+      remaining = remaining.substr(chunkLength);
+    }
+    
+    chunks.push(remaining);
+    return chunks;
+  }
+  
+  function countChunk(text, count){
+    var chunks = [];
+    var chunkLength = Math.ceil(text.length / count);
+    
+    for(var i = 0; i < count; i++){
+      chunks.push(text.substring(i*chunkLength, (i+1)*chunkLength));
+    }
+    
+    return chunks;
+  }
 
   return {
     replaceAll : replaceAll,
@@ -178,6 +202,8 @@ var StringTools = (function(){
     spliceString : spliceString,
     printStringAsTable : printStringAsTable,
     printStringAsTableHorizontal : printStringAsTableHorizontal,
-    stringToFileUrl : stringToFileUrl
+    stringToFileUrl : stringToFileUrl,
+    lengthChunk : lengthChunk,
+    countChunk : countChunk
   };
 })();
