@@ -181,6 +181,31 @@ var StringTools = (function(){
     
     return chunks;
   }
+  
+  function lengthChunkWords(text, chunkLength){
+    var chunks = [];
+    var words = text.split(" ");
+    var currentChunk = "";
+    var i = 0;
+    
+    while(i < words.length){
+      currentChunk = "";
+      
+      while(i < words.length && (currentChunk.length - 1) + words[i].length <= chunkLength){
+        currentChunk += words[i] + " ";
+        i++;
+      }
+      
+      if(i < words.length && words[i].length > chunkLength){
+        throw "a word was bigger than chunk length: " + chunkLength;
+      }
+      currentChunk = stringTrimEnd(currentChunk, 1);
+            
+      chunks.push(currentChunk);
+    }
+    
+    return chunks;
+  }
 
   return {
     replaceAll : replaceAll,
@@ -204,6 +229,7 @@ var StringTools = (function(){
     printStringAsTableHorizontal : printStringAsTableHorizontal,
     stringToFileUrl : stringToFileUrl,
     lengthChunk : lengthChunk,
-    countChunk : countChunk
+    countChunk : countChunk,
+    lengthChunkWords : lengthChunkWords
   };
 })();

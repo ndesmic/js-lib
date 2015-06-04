@@ -56,3 +56,36 @@ QUnit.test("chunks string (2 chunks, remainder)", function(assert){
 	assert.equal(chunks[0], "1234561", "got first chunk");
 	assert.equal(chunks[1], "234567", "got second chunk");
 });
+QUnit.module(".lengthChunkWords");
+QUnit.test("chunks words (partial fit)", function(assert){
+	var chunks = StringTools.lengthChunkWords("12345 123456", 6);
+	assert.equal(chunks.length, 2, "length correct");
+	assert.equal(chunks[0], "12345", "got first chunk");
+	assert.equal(chunks[1], "123456", "got second chunk");
+});
+QUnit.test("chunks words (complete fit)", function(assert){
+	var chunks = StringTools.lengthChunkWords("123456 123456", 6);
+	assert.equal(chunks.length, 2, "length correct");
+	assert.equal(chunks[0], "123456", "got first chunk");
+	assert.equal(chunks[1], "123456", "got second chunk");
+});
+QUnit.test("throws error if word too big", function(assert){
+  try{
+    StringTools.lengthChunkWords("1234567", 6);
+  }catch(e){
+    assert.ok(true, "threw exception");
+    return;
+  }
+  assert.notOk(false, "did not throw");
+});
+QUnit.test("chunks words (single)", function(assert){
+	var chunks = StringTools.lengthChunkWords("123456", 6);
+	assert.equal(chunks.length, 1, "length correct");
+	assert.equal(chunks[0], "123456", "got first chunk");
+});
+QUnit.test("chunks words (multiple)", function(assert){
+	var chunks = StringTools.lengthChunkWords("123456 123456 123456", 13);
+	assert.equal(chunks.length, 2, "length correct");
+	assert.equal(chunks[0], "123456 123456", "got first chunk");
+	assert.equal(chunks[1], "123456", "got second chunk");
+});
