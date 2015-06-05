@@ -1,4 +1,4 @@
-var arrayTools = (function(){
+var ArrayTools = (function(){
 	//push into array if it does match another item
 	function arrayPushNoDupe(array, item){
 		if(array.indexOf(item) == -1){
@@ -60,6 +60,7 @@ var arrayTools = (function(){
 		return null;
 	}
 	
+	//gets index of first match
 	function arrayFirstIndex(array, whereFunction){
 		for(var i = 0; i < array.length; i++){
 			if(whereFunction(array[i])){
@@ -67,6 +68,17 @@ var arrayTools = (function(){
 			}
 		}
 		return null;
+	}
+	
+	//gets all matching indexes
+	function arrayIndexes(array, whereFunction){
+	  var matches = [];
+		for(var i = 0; i < array.length; i++){
+			if(whereFunction(array[i])){
+				matches.push(i);
+			}
+		}
+		return matches;
 	}
 	
 	//creates an aggregator
@@ -307,6 +319,7 @@ var arrayTools = (function(){
 		arrayEach : arrayEach,
 		arrayAggregate : arrayAggregate,
 		arrayFirstIndex : arrayFirstIndex,
+		arrayIndexes : arrayIndexes,
 		arrayFirst : arrayFirst,
 		arrayReplaceWhere : arrayReplaceWhere,
 		arrayRemoveWhere : arrayRemoveWhere,
@@ -314,7 +327,7 @@ var arrayTools = (function(){
 		arrayPushNoDupe : arrayPushNoDupe,
 		arrayImmediatelyPrevious : arrayImmediatelyPrevious,
 		arrayIndexImmediatelyPrevious : arrayIndexImmediatelyPrevious,
-		arraySeriesText : getSeriesText,
+		arraySeriesText : arraySeriesText,
 		arrayPreviousClosest : arrayPreviousClosest,
 		arrayNextClosest : arrayNextClosest
 	};
