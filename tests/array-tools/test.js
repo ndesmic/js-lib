@@ -1,3 +1,12 @@
+QUnit.module(".arrayAny");
+QUnit.test("gets true if any item matches", function(assert){
+  var result = ArrayTools.arrayAny([1,2,3], function(item){ return item == 3; });
+	assert.ok(result, "found item");
+});
+QUnit.test("gets false if no item matches", function(assert){
+  var result = ArrayTools.arrayAny([1,2,3], function(item){ return item == 4; });
+	assert.notOk(result, "did not find item");
+});
 QUnit.module(".arrayFirstIndex");
 QUnit.test("gets first index", function(assert){
   var index = ArrayTools.arrayFirstIndex([1,2,3], function(item){ return item == 3; });
