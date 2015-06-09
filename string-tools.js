@@ -215,6 +215,11 @@ var StringTools = (function(){
     
     return chunks;
   }
+  
+  function htmlStringToDom(htmlString){
+    	parser = new DOMParser();
+	    return parser.parseFromString(htmlString, "text/html");
+  }
 
   return {
     replaceAll : replaceAll,
@@ -240,6 +245,7 @@ var StringTools = (function(){
     stringToFileUrl : stringToFileUrl,
     lengthChunk : lengthChunk,
     countChunk : countChunk,
-    lengthChunkWords : lengthChunkWords
+    lengthChunkWords : lengthChunkWords,
+    htmlStringToDom : htmlStringToDom
   };
 })();

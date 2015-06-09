@@ -103,3 +103,10 @@ QUnit.test("chunks words (multiple)", function(assert){
 	assert.equal(chunks[0], "123456 123456", "got first chunk");
 	assert.equal(chunks[1], "123456", "got second chunk");
 });
+QUnit.module(".htmlStringToDom");
+QUnit.test("changes html string into DOM elements", function(assert){
+	var dom = StringTools.htmlStringToDom("<div><span></span></div>");
+	var element = dom.querySelector("span");
+	assert.ok(!!element, "go element");
+
+});
