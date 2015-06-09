@@ -3,6 +3,15 @@ var StringTools = (function(){
   function replaceAll(currentString, stringToReplace, replacement){
     return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
   }
+  
+  function stringRemove(text, thingsToRemove){
+    thingsToRemove = [].concat(thingsToRemove);
+    for(var i = 0; i < thingsToRemove.length; i++){
+      text = text.replace(new RegExp(thingsToRemove[i], ["g"]), "");
+    }
+    return text;
+  }
+  
   //pads string to length with character
   function pad(text, length, padChar){
     text = text.toString();
@@ -209,6 +218,7 @@ var StringTools = (function(){
 
   return {
     replaceAll : replaceAll,
+    stringRemove : stringRemove,
     pad : pad,
     padEnd : padEnd,
     truncate : truncate,

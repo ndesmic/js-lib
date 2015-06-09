@@ -1,3 +1,17 @@
+QUnit.module(".stringRemove");
+QUnit.test("removes a word", function(assert){
+  var text = StringTools.stringRemove("lorem ipsum", "ipsum");
+	assert.equal(text, "lorem ", "removed first");
+});
+QUnit.test("removes a word (multi)", function(assert){
+  var text = StringTools.stringRemove("lorem ipsum, lorem ipsum", "ipsum");
+	assert.equal(text, "lorem , lorem ", "removed multi");
+});
+QUnit.test("removes multiple words", function(assert){
+  var text = StringTools.stringRemove("hello lorem ipsum world", ["hello", "ipsum"]);
+	assert.equal(text, " lorem  world", "removed multiple words");
+});
+
 QUnit.module(".capitalizeFirst");
 QUnit.test("capitalizes first word", function(assert){
   var capitalText = StringTools.capitalizeFirst("lorem");
