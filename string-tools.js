@@ -4,10 +4,16 @@ var StringTools = (function(){
     return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
   }
   
+  //this is ghetto hacked for now, handles only single characters and only a subset
   function stringRemove(text, thingsToRemove){
+    var regExSymbols = [".", "$", "^"];
     thingsToRemove = [].concat(thingsToRemove);
     for(var i = 0; i < thingsToRemove.length; i++){
-      text = text.replace(new RegExp(thingsToRemove[i], ["g"]), "");
+      var regex = thingsToRemove[i];
+      if(regExSymbols.indexOf(regex) != -1){
+        regex = "\\" + regex;
+      }
+      text = text.replace(new RegExp(regex, ["g"]), "");
     }
     return text;
   }
@@ -72,6 +78,10 @@ var StringTools = (function(){
     //capitalizes first letter
     function capitalizeFirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    
+    function lowerCaseFirst(str) {
+        return str.charAt(0).toLowerCase() + str.slice(1);
     }
 
     //capitalizes first letter
@@ -230,6 +240,7 @@ var StringTools = (function(){
     getUnitSuffixedBytes : getUnitSuffixedBytes,
     pluralize : pluralize,
     capitalizeFirst : capitalizeFirst,
+    lowerCaseFirst : lowerCaseFirst,
     capitalizeAll : capitalizeAll,
     generateRandomString : generateRandomString,
     stringTrimEnd : stringTrimEnd,

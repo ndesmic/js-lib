@@ -53,6 +53,7 @@ var PathTools = (function(){
     }else{
       url = window.location.search;
     }
+    url = url.split("#")[0]; //remove hash
     var map = getQueryMap(url);
     return map[key];
   }
@@ -66,6 +67,11 @@ var PathTools = (function(){
     }
     return map;
   }
+  
+  function urlToHttps(url){
+    url = url.split(":")[1];
+    return "https:" + url;
+  }
 
 	return {
 		getFilename : getFilename,
@@ -77,7 +83,8 @@ var PathTools = (function(){
 		removeQueryString : removeQueryString,
 		removeHash : removeHash,
 		getHashValue : getHashValue,
-		getQueryValue : getQueryValue
+		getQueryValue : getQueryValue,
+		urlToHttps : urlToHttps
 	};
 
 })();

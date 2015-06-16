@@ -3,6 +3,10 @@ QUnit.test("removes a word", function(assert){
   var text = StringTools.stringRemove("lorem ipsum", "ipsum");
 	assert.equal(text, "lorem ", "removed first");
 });
+QUnit.test("does not bork on periods", function(assert){
+  var text = StringTools.stringRemove("lorem", ["."]);
+	assert.equal(text, "lorem", "removed none");
+});
 QUnit.test("removes a word (multi)", function(assert){
   var text = StringTools.stringRemove("lorem ipsum, lorem ipsum", "ipsum");
 	assert.equal(text, "lorem , lorem ", "removed multi");
