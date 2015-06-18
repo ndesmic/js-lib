@@ -112,5 +112,11 @@ QUnit.test("changes html string into DOM elements", function(assert){
 	var dom = StringTools.htmlStringToDom("<div><span></span></div>");
 	var element = dom.querySelector("span");
 	assert.ok(!!element, "go element");
-
+});
+QUnit.module(".transformToken");
+QUnit.test("changes token", function(assert){
+	var result = StringTools.transformToken("apple hello orange world", /(apple|orange)/g, function(item){
+	  return "big " + item;
+	});
+	assert.equal(result, "big apple hello big orange world");
 });

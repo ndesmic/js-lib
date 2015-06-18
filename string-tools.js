@@ -230,6 +230,14 @@ var StringTools = (function(){
     	parser = new DOMParser();
 	    return parser.parseFromString(htmlString, "text/html");
   }
+  
+  function transformToken(text, regex, replaceFunc){
+		var matches = text.match(regex);
+		for(var i = 0; i < matches.length; i++){
+			text = text.replace(matches[i], replaceFunc(matches[i]));
+		}
+		return text;
+	}
 
   return {
     replaceAll : replaceAll,
@@ -257,6 +265,7 @@ var StringTools = (function(){
     lengthChunk : lengthChunk,
     countChunk : countChunk,
     lengthChunkWords : lengthChunkWords,
-    htmlStringToDom : htmlStringToDom
+    htmlStringToDom : htmlStringToDom,
+    transformToken : transformToken
   };
 })();
