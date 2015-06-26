@@ -20,3 +20,11 @@ QUnit.test("gets indexes", function(assert){
   var index = ArrayTools.arrayIndexes([1,2,3,4,3], function(item){ return item == 3; });
 	assert.deepEqual(index, [2,4], "got indexes");
 });
+QUnit.module(".arrayClone");
+QUnit.test("clones array", function(assert){
+  var arr = [1,2,3];
+  var clone = ArrayTools.arrayClone(arr);
+	assert.deepEqual(clone, arr, "arrays match");
+	clone[1] = 0;
+	assert.deepEqual(arr[0], 1, "did not modify first (new reference)");
+});

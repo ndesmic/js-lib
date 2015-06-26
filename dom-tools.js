@@ -22,4 +22,4 @@ var DomTools = (function(){
     insertAtCursor : insertAtCursor
   };
   
-});
+})();

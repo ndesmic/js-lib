@@ -303,6 +303,11 @@ var ArrayTools = (function(){
 		}
 	}
 	
+	function arrayClone(array){
+	  return array.slice(0);
+	}
+	
+	
 	return {
 		arrayOrderIndex : arrayOrderIndex,
 		arrayTotal : arrayTotal,
@@ -329,7 +334,8 @@ var ArrayTools = (function(){
 		arrayIndexImmediatelyPrevious : arrayIndexImmediatelyPrevious,
 		arraySeriesText : arraySeriesText,
 		arrayPreviousClosest : arrayPreviousClosest,
-		arrayNextClosest : arrayNextClosest
+		arrayNextClosest : arrayNextClosest,
+		arrayClone : arrayClone
 	};
 
 })();
