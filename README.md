@@ -13,6 +13,7 @@ FileTools - A library for dealing with files<br>
 FunctionTools - A library of useful things pertaining to functions<br>
 OauthTools - A library for dealing with Oauth stuff<br>
 PathTools - A library for dealing with file paths (local and web)<br>
+ObjectStorage - A serialization wrapper for local storage to easily store objects
 ObjectTools - A library for common operations related to object<br>
 BinaryTools - A library for all sorts of operation related to binary data and transformations<br>
 RandomTools - A library for getting random values<br>
