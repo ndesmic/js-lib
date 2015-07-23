@@ -6,6 +6,10 @@ var DomTools = (function(){
     }
   }
   
+  function removeElement(element){
+    element.parentNode.removeChild(element);
+  }
+  
   function insertAtCursor(element, value){
 		if(element.tagName == "TEXTAREA"){
 			var startPosition = element.selectionStart;
@@ -16,10 +20,18 @@ var DomTools = (function(){
 			element.setSelectionRange(newIndex, newIndex);
 		}
 	}
+	
+	function fireEvent(element,event){
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+    return !element.dispatchEvent(evt);
+  }
   
   return {
     removeChildren : removeChildren,
-    insertAtCursor : insertAtCursor
+    removeElement : removeElement,
+    insertAtCursor : insertAtCursor,
+    fireEvent : fireEvent
   };
   
 })();

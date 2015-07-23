@@ -120,3 +120,24 @@ QUnit.test("changes token", function(assert){
 	});
 	assert.equal(result, "big apple hello big orange world");
 });
+QUnit.module(".isNumber");
+QUnit.test("returns true if number", function(assert){
+	var result = StringTools.isNumber("1");
+	assert.ok(result, "is number");
+	var result2 = StringTools.isNumber("1.23");
+	assert.ok(result2, "is number");
+	var result3 = StringTools.isNumber("-1");
+	assert.ok(result3, "is number");
+});
+QUnit.test("returns false if not number", function(assert){
+	var result = StringTools.isNumber("abc");
+	assert.notOk(result, "is not number text");
+	var result2 = StringTools.isNumber("");
+	assert.notOk(result2, "is not number empty string");
+	var result3 = StringTools.isNumber(null);
+	assert.notOk(result3, "is not number null");
+	var result4 = StringTools.isNumber(undefined);
+	assert.notOk(result4, "is not number undefined");
+	var result5 = StringTools.isNumber({});
+	assert.notOk(result5, "is not number object");
+});

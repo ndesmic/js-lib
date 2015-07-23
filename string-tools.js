@@ -145,7 +145,10 @@ var StringTools = (function(){
   }
 
   function isNumber(str){
-    return !isNaN(sr);
+    if(str === null || str === ""){
+      return false;
+    }
+    return !isNaN(str);
   }
 
   function isAlpha(character){

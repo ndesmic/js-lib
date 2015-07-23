@@ -11,11 +11,14 @@ var DataTools = (function(){
   function xsvToArray(csv, columns, seperator){
     var lines = csv.split("\n");
     var array = [];
+    var i = 0;
     
     if(!columns){
       columns = lines[0].split(seperator);
+      i = 1;
     }
-    for(var i = 0; i < lines.length; i++){
+    
+    for(; i < lines.length; i++){
       if(!lines[i].trim()){
 				continue;
 			}
@@ -26,7 +29,7 @@ var DataTools = (function(){
   }
   
   function xsvLineToObject(line, columns, seperator){
-    var values = xsvLine.split(seperator);
+    var values = line.split(seperator);
 		var obj = {};
 		
 		for(var i = 0; i < columns.length; i++){
