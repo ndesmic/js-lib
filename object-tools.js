@@ -1,3 +1,4 @@
+"use strict";
 var ObjectTools = (function(){
 
 	function isPlainObject(value){

@@ -23,3 +23,7 @@ QUnit.test("overwrites object props", function(assert){
 	var result = ObjectTools.extend({ a : "a" }, { a : "b" });
 	assert.deepEqual(result, { a : "b" }, "overwrote prop");
 });
+QUnit.test("extends undefined object", function(assert){
+	var result = ObjectTools.extend(undefined, { b : "b" });
+	assert.deepEqual(result, { b : "b" }, "extended object");
+});
