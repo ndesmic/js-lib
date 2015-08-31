@@ -27,3 +27,20 @@ QUnit.test("extends undefined object", function(assert){
 	var result = ObjectTools.extend(undefined, { b : "b" });
 	assert.deepEqual(result, { b : "b" }, "extended object");
 });
+QUnit.module(".isEmpty");
+QUnit.test("return true if empty", function(assert){
+	var result = ObjectTools.isEmpty({});
+	assert.ok(result);
+});
+QUnit.test("return false if not empty", function(assert){
+	var result = ObjectTools.isEmpty({ a : 1 });
+	assert.notOk(result);
+});
+QUnit.test("return true if empty array", function(assert){
+	var result = ObjectTools.isEmpty([]);
+	assert.ok(result);
+});
+QUnit.test("return false if not empty array", function(assert){
+	var result = ObjectTools.isEmpty([1]);
+	assert.notOk(result);
+});

@@ -5,6 +5,15 @@ var FileTools = (function(){
     link.download = fileName;
     link.click();
   }
+  function createFile(text, mime){
+		var dataUrl = "data:" + mime + ";utf-8,";
+		dataUrl += text;
+		return dataUrl;
+	}
+	
+	function createEmptyFile(mime){
+		return "data:" + mime + ";utf-8,";
+	}
   return {
     download : download
   };
