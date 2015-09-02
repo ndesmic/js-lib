@@ -141,3 +141,27 @@ QUnit.test("returns false if not number", function(assert){
 	var result5 = StringTools.isNumber({});
 	assert.notOk(result5, "is not number object");
 });
+QUnit.module(".splitCamelCase");
+QUnit.test("splits camel case string", function(assert){
+	var result = StringTools.splitCamelCase("abcAbc");
+	assert.deepEqual(result, ["abc", "Abc"]);
+	
+	var result2 = StringTools.splitCamelCase("abcAbcXyz");
+	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
+});
+QUnit.module(".camelCaseToDashed");
+QUnit.test("converts camel case to dashed", function(assert){
+	var result = StringTools.camelCaseToDashed("abcAbc");
+	assert.equal(result, "abc-abc");
+	
+	var result2 = StringTools.camelCaseToDashed("abcAbcXyz");
+	assert.equal(result2, "abc-abc-xyz");
+});
+QUnit.module(".dashedToCamelCase");
+QUnit.test("converts dashed to camel case", function(assert){
+	var result = StringTools.dashedToCamelCase("abc-abc");
+	assert.equal(result, "abcAbc");
+	
+	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
+	assert.equal(result2, "abcAbcXyz");
+});

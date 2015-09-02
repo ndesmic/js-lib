@@ -241,6 +241,27 @@ var StringTools = (function(){
 		}
 		return text;
 	}
+	
+	function splitCamelCase(text){
+	  return text.replace(/([A-Z])/g, ' $1').split(" ");
+	}
+
+	function camelCaseToDashed(text){
+	  return text.replace(/([A-Z])/g, '-$1').toLowerCase();
+	}
+	
+	function dashedToCamelCase(text){
+	  var parts = text.split("-");
+	  for(var i = 0; i < parts.length; i++){
+	    if(i === 0){
+	      continue;
+	    }
+	    if(parts[i].length > 0){
+	      parts[i] = parts[i].charAt(0).toUpperCase() + parts[i].slice(1);
+	    }
+	  }
+	  return parts.join("");
+	}
 
   return {
     replaceAll : replaceAll,
@@ -269,6 +290,9 @@ var StringTools = (function(){
     countChunk : countChunk,
     lengthChunkWords : lengthChunkWords,
     htmlStringToDom : htmlStringToDom,
-    transformToken : transformToken
+    transformToken : transformToken,
+    splitCamelCase : splitCamelCase,
+    camelCaseToDashed : camelCaseToDashed,
+    dashedToCamelCase : dashedToCamelCase
   };
 })();
