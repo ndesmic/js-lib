@@ -14,7 +14,20 @@ var FileTools = (function(){
 	function createEmptyFile(mime){
 		return "data:" + mime + ";utf-8,";
 	}
+	function readAsArrayBuffer(file){
+	  return new Promise(function(resolve, reject){
+	      var reader = new FileReader();
+		    reader.onload = function(e){
+		      resolve(e.target.result);
+		    };
+		    reader.onerror = function(e){
+		      reject(e);
+		    };
+		    reader.readAsArrayBuffer(file);
+	  });
+	}
   return {
-    download : download
+    download : download,
+    readAsArrayBuffer : readAsArrayBuffer
   };
 })();
