@@ -77,6 +77,18 @@ var BinaryTools = (function(){
 		}
 		return str;
 	}
+	
+	function byteArrayToVisualString(array){
+	  var str = "";
+		for(var i = 0; i < array.length; i++){
+		  if(array[i] > 32){
+			  str += String.fromCharCode(array[i]);
+		  }else{
+		    str += `[${array[i]}]`;
+		  }
+		}
+		return str;
+	}
 
 	function dataURItoBlob(dataURI) {
 		var uriSplit = dataURI.split(',');
@@ -175,6 +187,7 @@ var BinaryTools = (function(){
 		arrayBufferToString : arrayBufferToString,
 		byteArrayToArrayBuffer : byteArrayToArrayBuffer,
 		byteArrayToString : byteArrayToString,
+		byteArrayToVisualString : byteArrayToVisualString,
 		dataURItoBlob : dataURItoBlob,
 		dataURItoArrayBuffer : dataURItoArrayBuffer,
 		dataURItoUint8Array : dataURItoUint8Array,
