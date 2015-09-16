@@ -26,8 +26,21 @@ var FileTools = (function(){
 		    reader.readAsArrayBuffer(file);
 	  });
 	}
+	function readAsJson(file){
+	  return new Promise(function(resolve, reject){
+	      var reader = new FileReader();
+		    reader.onload = function(e){
+		      resolve(JSON.parse(e.target.result));
+		    };
+		    reader.onerror = function(e){
+		      reject(e);
+		    };
+		    reader.readAsText(file);
+	  });
+	}
   return {
     download : download,
-    readAsArrayBuffer : readAsArrayBuffer
+    readAsArrayBuffer : readAsArrayBuffer,
+    readAsJson : readAsJson
   };
 })();

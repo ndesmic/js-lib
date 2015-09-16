@@ -90,6 +90,14 @@ var BinaryTools = (function(){
 		return str;
 	}
 
+  function byteArrayToHexString(array){
+    var str = "";
+    for(var i = 0; i < array.length; i++){
+      str += "0x" + array[i].toString(16) + ", ";
+    }
+    return str;
+  }
+
 	function dataURItoBlob(dataURI) {
 		var uriSplit = dataURI.split(',');
 		var byteString = atob(uriSplit[1]);
@@ -188,6 +196,7 @@ var BinaryTools = (function(){
 		byteArrayToArrayBuffer : byteArrayToArrayBuffer,
 		byteArrayToString : byteArrayToString,
 		byteArrayToVisualString : byteArrayToVisualString,
+		byteArrayToHexString : byteArrayToHexString,
 		dataURItoBlob : dataURItoBlob,
 		dataURItoArrayBuffer : dataURItoArrayBuffer,
 		dataURItoUint8Array : dataURItoUint8Array,
