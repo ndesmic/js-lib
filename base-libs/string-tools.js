@@ -154,6 +154,16 @@ var StringTools = (function(){
   function isAlpha(character){
     return /^[a-zA-Z]+$/.test(character);
   }
+  
+  function isWhitespace(char){
+    var whitespace = [
+      String.fromCharCode(13), //carriage return
+      String.fromCharCode(10), //new line
+      String.fromCharCode(32), //space
+      String.fromCharCode(9)   //tab
+    ];
+    return whitespace.indexOf(char) != -1;
+  }
 
   function spliceString(str, index, count, add) {
       return str.slice(0, index) + add + str.slice(index + count);
@@ -236,6 +246,9 @@ var StringTools = (function(){
   
   function transformToken(text, regex, replaceFunc){
 		var matches = text.match(regex);
+		if(!matches){
+		  return text;
+		}
 		for(var i = 0; i < matches.length; i++){
 			text = text.replace(matches[i], replaceFunc(matches[i]));
 		}
@@ -262,6 +275,40 @@ var StringTools = (function(){
 	  }
 	  return parts.join("");
 	}
+	
+	function collapseWhitespace(text){
+	  return text.replace(/\s{2,}/g,' ');
+	}
+	
+	function splitWhitespace(text){
+	  var split = [];
+	  var buffer = "";
+	  var quoted = false;
+	  var readWhitespace = false;
+	  for(var i = 0; i < text.length; i++){
+	    if(isWhitespace(text[i]) && !quoted && !readWhitespace){
+	      split.push(buffer);
+	      buffer = "";
+	      readWhitespace = true;
+	    }else if(isWhitespace(text[i]) && !quoted && readWhitespace){
+	      continue;
+	    }else if(text[i] == "\"" && !quoted){
+	      quoted = true;
+	      readWhitespace = false;
+	    }else if(text[i] == "\"" && quoted){
+	      quoted = false;
+	      readWhitespace = false;
+	    }else{
+	      buffer += text[i];
+	      readWhitespace = false;
+	    }
+	  }
+	  if(buffer){
+	    split.push(buffer);
+	  }
+	  
+	  return split;
+	}
 
   return {
     replaceAll : replaceAll,
@@ -282,6 +329,7 @@ var StringTools = (function(){
     isAlphanumeric : isAlphanumeric,
     isNumber : isNumber,
     isAlpha : isAlpha,
+    isWhitespace : isWhitespace,
     spliceString : spliceString,
     printStringAsTable : printStringAsTable,
     printStringAsTableHorizontal : printStringAsTableHorizontal,
@@ -293,6 +341,8 @@ var StringTools = (function(){
     transformToken : transformToken,
     splitCamelCase : splitCamelCase,
     camelCaseToDashed : camelCaseToDashed,
-    dashedToCamelCase : dashedToCamelCase
+    dashedToCamelCase : dashedToCamelCase,
+    collapseWhitespace : collapseWhitespace,
+    splitWhitespace : splitWhitespace
   };
 })();

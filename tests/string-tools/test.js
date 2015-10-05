@@ -113,6 +113,7 @@ QUnit.test("changes html string into DOM elements", function(assert){
 	var element = dom.querySelector("span");
 	assert.ok(!!element, "go element");
 });
+
 QUnit.module(".transformToken");
 QUnit.test("changes token", function(assert){
 	var result = StringTools.transformToken("apple hello orange world", /(apple|orange)/g, function(item){
@@ -120,6 +121,13 @@ QUnit.test("changes token", function(assert){
 	});
 	assert.equal(result, "big apple hello big orange world");
 });
+QUnit.test("doesn't modify when no token match", function(assert){
+	var result = StringTools.transformToken("apple hello orange world", /(pineapple)/g, function(item){
+	  return "big " + item;
+	});
+	assert.equal(result, "apple hello orange world");
+});
+
 QUnit.module(".isNumber");
 QUnit.test("returns true if number", function(assert){
 	var result = StringTools.isNumber("1");
@@ -164,4 +172,37 @@ QUnit.test("converts dashed to camel case", function(assert){
 	
 	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
 	assert.equal(result2, "abcAbcXyz");
+});
+
+
+QUnit.module(".collapseWhitespace");
+QUnit.test("collapse whitespace", function(assert){
+	var result = StringTools.collapseWhitespace("abc   abc");
+	assert.equal(result, "abc abc");
+	
+	var result2 = StringTools.collapseWhitespace("abc    abc");
+	assert.equal(result2, "abc abc");
+});
+
+QUnit.module(".splitWhitespace");
+QUnit.test("splits whitespace (basic)", function(assert){
+	var result = StringTools.splitWhitespace("abc abc");
+	assert.deepEqual(result, ["abc", "abc"]);
+	
+	var result2 = StringTools.splitWhitespace("abc  Abc Xyz");
+	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
+});
+QUnit.test("splits whitespace (multi)", function(assert){
+	var result = StringTools.splitWhitespace("abc  abc");
+	assert.deepEqual(result, ["abc", "abc"]);
+	
+	var result2 = StringTools.splitWhitespace("abc   Abc  Xyz");
+	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
+});
+QUnit.test("splits whitespace (but not quoted)", function(assert){
+	var result = StringTools.splitWhitespace('"abc abc"');
+	assert.deepEqual(result, ["abc abc"]);
+	
+	var result2 = StringTools.splitWhitespace('"abc  Abc"  Xyz');
+	assert.deepEqual(result2, ["abc  Abc", "Xyz"]);
 });
