@@ -97,6 +97,19 @@ var BinaryTools = (function(){
     }
     return str;
   }
+  
+  function byteArrayToBinary(byteArray, splitLength){
+    var bin = "";
+		for(var i = 0; i < byteArray.length; i++){
+			var newBin = byteArray[i].toString(2);
+			bin += pad(newBin, 8) + " ";
+			if(splitLength && ((i + 1) % splitLength) === 0 && i != byteArray - 1){
+				bin += ", ";
+			}
+		}
+
+		return bin.trim();
+	}
 
 	function dataURItoBlob(dataURI) {
 		var uriSplit = dataURI.split(',');
@@ -197,6 +210,7 @@ var BinaryTools = (function(){
 		byteArrayToString : byteArrayToString,
 		byteArrayToVisualString : byteArrayToVisualString,
 		byteArrayToHexString : byteArrayToHexString,
+		byteArrayToBinary : byteArrayToBinary,
 		dataURItoBlob : dataURItoBlob,
 		dataURItoArrayBuffer : dataURItoArrayBuffer,
 		dataURItoUint8Array : dataURItoUint8Array,
