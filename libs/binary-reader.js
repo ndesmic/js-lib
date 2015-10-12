@@ -12,13 +12,11 @@ var BinaryReader = (function(){
 		binaryReader.readInt8 = readInt8.bind(binaryReader);
     binaryReader.peekInt8 = peekInt8.bind(binaryReader);
     //peekSnappedInt8
-    //getShiftedInt8
 		binaryReader.readInt8Array = readInt8Array.bind(binaryReader);
 		//peekInt8Array
     binaryReader.readUint8 = readUint8.bind(binaryReader);
     binaryReader.peekUint8 = peekUint8.bind(binaryReader);
     binaryReader.peekSnappedUint8 = peekSnappedUint8.bind(binaryReader);
-    binaryReader.getShiftedUint8 = getShiftedUint8.bind(binaryReader);
     binaryReader.readUint8Array = readUint8Array.bind(binaryReader);
 		binaryReader.peekUint8Array = peekUint8Array.bind(binaryReader);
     binaryReader.readInt16 = readInt16.bind(binaryReader);
@@ -50,6 +48,7 @@ var BinaryReader = (function(){
     binaryReader.readAsciiString = readAsciiString.bind(binaryReader);
     binaryReader.peekAsciiString = peekAsciiString.bind(binaryReader);
     binaryReader.readCString = readCString.bind(binaryReader);
+    //peekCString
 		//readPascalString
 		//peekPascalString
     binaryReader.skip = skip.bind(binaryReader);
@@ -65,7 +64,7 @@ var BinaryReader = (function(){
     //readBitArray
     //peekBitArray
     //readFlagArray
-    //peekFlagArrau
+    //peekFlagArray
     //readSignedBits
     //peekSignedBits
     binaryReader.advanceBit = advanceBit.bind(binaryReader);
@@ -92,19 +91,24 @@ var BinaryReader = (function(){
 	}
 
   function readUint8(){
-		var byte = this.dataView.getUint8(this.index);
-		if(this.bitOffset !== 0){
-      byte = this.getShiftedUint8(byte);
+		var byte;
+		if(this.bitOffset === 0){
+		  byte = this.dataView.getUint8(this.index);
+		  this.index++;
+		}else{
+      byte = this.readUnsignedBits(8);
 		}
-		this.index++;
+		
 		return byte;
 	}
 
   function peekUint8(offset){
     offset = offset || 0;
-    var byte = this.dataView.getUint8(this.index + offset);
-    if(this.bitOffset !== 0){
-      byte = this.getShiftedUint8(byte, offset);
+    var byte;
+    if(this.bitOffset === 0){
+      byte = this.dataView.getUint8(this.index + offset);
+    }else{
+      byte = this.peekUnsignedBits(8, offset * 8);
     }
     return byte;
   }
@@ -113,14 +117,6 @@ var BinaryReader = (function(){
     offset = offset || 0;
     var byte = this.dataView.getUint8(this.index + offset);
     return byte;
-  }
-  
-  function getShiftedUint8(byte, offset){
-    offset = offset || 0;
-    var nextByte = this.peekSnappedUint8(offset + 1);
-		byte = (byte << this.bitOffset) & 255;
-		nextByte = nextByte >> (8 - this.bitOffset);
-		return byte | nextByte;
   }
 
   function readUint8Array(count){
@@ -275,7 +271,7 @@ var BinaryReader = (function(){
     offset = offset || 0;
     var bitOffset = (this.bitOffset + offset) % 8;
     var byteOffset = Math.floor((this.bitOffset + offset) / 8);
-    var byte = this.peekUint8(byteOffset);
+    var byte = this.peekSnappedUint8(byteOffset);
     var bit = (byte >> (7 - bitOffset)) & (1);
     return bit;
   }
@@ -304,7 +300,7 @@ var BinaryReader = (function(){
   function peekUnsignedBits(length, offset){
     var value = 0;
     for(var i = 0; i < length; i++){
-      value = (value << 1) | this.peekBit(offset);
+      value = (value << 1) | this.peekBit(offset + i);
     }
     return value;
   }
