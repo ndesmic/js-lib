@@ -15,7 +15,7 @@ var Dispatcher = (function(){
 	}
 
 	function addListener(event, callback){
-		var id = getId();
+		var id = this.modal.id++;
 
 		if(this.model.listeners[event]){
 			this.model.listeners[event].push({
@@ -41,9 +41,7 @@ var Dispatcher = (function(){
 
 	function removeListener(id){
 		for(var key in this.model.listeners){
-			ArrayHelper.arrayRemoveWhere(this.model.listeners[key], function(item){
-				return item.id == id;
-			});
+			ArrayHelper.arrayRemoveWhere(this.model.listeners[key], x => x.id == id);
 		}
 	}
 
@@ -51,13 +49,10 @@ var Dispatcher = (function(){
 		
 	}
 
-	function *getId(){
-		yield i++;
-	}
-
 	function init(){
 		this.model = {
-			listeners : {}
+			listeners : {},
+			currentId : 0
 		};
 	}
 
