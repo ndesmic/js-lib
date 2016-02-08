@@ -161,6 +161,15 @@ var ObjectTools = (function(){
 		}
 		return true;
 	}
+	
+	function cleanObject(obj){
+	  for(var key in obj){
+	    if(!obj[key]){
+	      delete obj[key];
+	    }
+	  }
+	  return obj;
+	}
 
   return {
     isPlainObject : isPlainObject,
@@ -171,7 +180,8 @@ var ObjectTools = (function(){
     shallowClone : shallowClone,
     objectToArray : objectToArray,
     diff : diff,
-    objectIsSuperset : objectIsSuperset
+    objectIsSuperset : objectIsSuperset,
+    cleanObject : cleanObject
   };
 
 })();

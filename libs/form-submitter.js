@@ -52,11 +52,11 @@ var FormSubmitter = (function () {
         if (this.options.onSubmit) {
             shouldSubmit = this.options.onSubmit(formData);
         }
-        if(shouldSubmit){
+        if(shouldSubmit !== false){
             $.ajax({
                 type: this.options.method || this.dom.form.method,
                 url: this.options.url || this.dom.form.action,
-                typeType: this.options.dataType,
+                dataType: this.options.dataType,
                 data: formData,
                 success: this.options.onSuccess,
                 error: this.options.onError
@@ -66,12 +66,13 @@ var FormSubmitter = (function () {
     function getFormData(form) {
         var formElements = getFormElements(form);
         var formData = {};
-        for (var i = 0; i < formElements.length; i++) {
-            var name = formElements[i].name;
-            if (!name) {
-                continue;
+        formElements.forEach(function(formElement){
+            var name = formElement.name;
+            var type = formElement.type;
+            if (!name || (type === "radio" && !formElement.checked)) {
+                return;
             }
-            var value = getElementValue(formElements[i]);
+            var value = getElementValue(formElement);
             if (name && formData[name] !== undefined && Array.isArray(formData[name])) { //push if array
                 formData[name].push(value);
             }else if(name && formData[name] !== undefined){ //if same name make into array of values
@@ -79,7 +80,7 @@ var FormSubmitter = (function () {
             } else { //single value
                 formData[name] = value;
             }
-        }
+        });
         return formData;
     }
     function getElementValue(element) {
@@ -94,11 +95,12 @@ var FormSubmitter = (function () {
         this.attachEvents();
     }
     function getFormElements(form) {
-        return form.querySelectorAll("input, select, textarea");
+        return Array.prototype.slice.call(form.querySelectorAll("input, select, textarea"), 0);
     }
 
     return {
         create: create
     };
+
 
 })();

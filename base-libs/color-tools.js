@@ -1,13 +1,13 @@
 var ColorTools = (function(){
 
-  	function hexToRgba(hex){
+  	function hexToColor(hex){
   		hex = hex.substr(1); //remove #
-  		
+
   		var red = parseInt(hex.substring(0, 2), 16);
   		var green = parseInt(hex.substring(2, 4), 16);
   		var blue = parseInt(hex.substring(4, 6), 16);
   		var alpha = parseInt(hex.substring(6, 8), 16);
-  		
+
   		return {
   			red : red,
   			green : green,
@@ -15,17 +15,17 @@ var ColorTools = (function(){
   			alpha : alpha
   		};
 	  }
-	  
-	  function rgbaToHex(rgba){
+
+	  function colorToHex(rgba){
 		  var red = StringTools.pad(parseInt(rgba.red).toString(16), 2);
 		  var green = StringTools.pad(parseInt(rgba.green).toString(16), 2);
 		  var blue = StringTools.pad(parseInt(rgba.blue).toString(16), 2);
 		  var alpha = rgba.alpha ? StringTools.pad(parseInt(rgba.alpha).toString(16), 2) : "";
-		
+
 		  return  "#" + red + green + blue + alpha;
 	  }
-	  
-	  function rgbaToString(rgba){
+
+	  function colorToRgba(rgba){
   		var out = "rgba(";
   		out += rgba.red + ",";
   		out += rgba.green + ",";
@@ -36,15 +36,15 @@ var ColorTools = (function(){
   			out += ",1";
   		}
   		out += ")";
-  		
+
   		return out;
 	  }
-	  
+
 	  function colorFromOpacityResult(result, base, opacity){
 		  var red = (result.red - (opacity * base.red)) / (1 - opacity);
 		  var green = (result.green - (opacity * base.green)) / (1 - opacity);
 		  var blue = (result.blue - (opacity * base.blue)) / (1 - opacity);
-		
+
 		  return {
 			  red : red,
 			  green : green,
@@ -52,9 +52,20 @@ var ColorTools = (function(){
 			  alpha : opacity
 		  };
 	  }
-	  
+
+    function getDistance(color1, color2){
+      var redDist = color1.red - color2.red;
+      var greenDist = color1.green - color2.green;
+      var blueDist = color1.blue - color2.blue;
+      return Math.sqrt(Math.pow(redDist, 2), Math.pow(greenDist, 2), Math.pow(blueDist, 2));
+    }
+
 	  return {
-	    hexToRgba : hexToRgba
+	    hexToColor : hexToColor,
+      colorToHex : colorToHex,
+      colorToRgba : colorToRgba,
+      colorFromOpacityResult : colorFromOpacityResult,
+      getDistance : getDistance
 	  };
 
-});
+})();

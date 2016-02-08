@@ -192,6 +192,18 @@ QUnit.test("splits whitespace (basic)", function(assert){
 	var result2 = StringTools.splitWhitespace("abc  Abc Xyz");
 	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
 });
+QUnit.test("splits whitespace (tabs)", function(assert){
+	var result = StringTools.splitWhitespace("abc\tabc");
+	assert.deepEqual(result, ["abc", "abc"]);
+});
+QUnit.test("splits whitespace (new line)", function(assert){
+	var result = StringTools.splitWhitespace("abc\nabc");
+	assert.deepEqual(result, ["abc", "abc"]);
+});
+QUnit.test("splits whitespace (new line + feed)", function(assert){
+	var result = StringTools.splitWhitespace("abc\r\nabc");
+	assert.deepEqual(result, ["abc", "abc"]);
+});
 QUnit.test("splits whitespace (multi)", function(assert){
 	var result = StringTools.splitWhitespace("abc  abc");
 	assert.deepEqual(result, ["abc", "abc"]);
@@ -199,7 +211,7 @@ QUnit.test("splits whitespace (multi)", function(assert){
 	var result2 = StringTools.splitWhitespace("abc   Abc  Xyz");
 	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
 });
-QUnit.test("splits whitespace (but not quoted)", function(assert){
+QUnit.test("splits whitespace (but not quoted text)", function(assert){
 	var result = StringTools.splitWhitespace('"abc abc"');
 	assert.deepEqual(result, ["abc abc"]);
 	
