@@ -59,13 +59,22 @@ var ColorTools = (function(){
       var blueDist = color1.blue - color2.blue;
       return Math.sqrt(Math.pow(redDist, 2), Math.pow(greenDist, 2), Math.pow(blueDist, 2));
     }
+    
+    function getGradientPoint(start, end, position){
+      return {
+        red : (end.red - start.red) * position,
+        green : (end.green - start.green) * position,
+        blue : (end.blue - start.blue) * position
+      };
+    }
 
 	  return {
 	    hexToColor : hexToColor,
       colorToHex : colorToHex,
       colorToRgba : colorToRgba,
       colorFromOpacityResult : colorFromOpacityResult,
-      getDistance : getDistance
+      getDistance : getDistance,
+      getGradientPoint : getGradientPoint
 	  };
 
 })();
