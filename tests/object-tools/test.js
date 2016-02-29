@@ -27,6 +27,31 @@ QUnit.test("extends undefined object", function(assert){
 	var result = ObjectTools.extend(undefined, { b : "b" });
 	assert.deepEqual(result, { b : "b" }, "extended object");
 });
+QUnit.module(".extendIgnoreEmpties");
+QUnit.test("extends object", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { b : "b" });
+	assert.deepEqual(result, { a : "a", b : "b" }, "extended object");
+});
+QUnit.test("overwrites object props", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { a : "b" });
+	assert.deepEqual(result, { a : "b" }, "overwrote prop");
+});
+QUnit.test("doesn't overwrite props with undefined", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { a : undefined });
+	assert.deepEqual(result, { a : "a" }, "didn't overwrite prop");
+});
+QUnit.test("doesn't overwrite props with null", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { a : null });
+	assert.deepEqual(result, { a : "a" }, "didn't overwrite prop");
+});
+QUnit.test("doesn't overwrite props with empty string", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { a : "" });
+	assert.deepEqual(result, { a : "a" }, "didn't overwrite prop");
+});
+QUnit.test("extends undefined object", function(assert){
+	var result = ObjectTools.extendIgnoreEmpties(undefined, { b : "b" });
+	assert.deepEqual(result, { b : "b" }, "extended object");
+});
 QUnit.module(".isEmpty");
 QUnit.test("return true if empty", function(assert){
 	var result = ObjectTools.isEmpty({});

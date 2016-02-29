@@ -38,13 +38,47 @@ var DomTools = (function(){
     }
     return docFrag;
   }
-  
+
+  function getMatchingCss(element) {
+    var sheets = document.styleSheets;
+    var matches = [];
+    element.matches = element.matches || element.msMatchesSelector;
+    for (var i in sheets) {
+        var rules = sheets[i].rules || sheets[i].cssRules;
+        for (var rule in rules) {
+            if (element.matches(rules[rule].selectorText)) {
+                matches.push(rules[rule].cssText);
+            }
+        }
+    }
+    return matches;
+  }
+
+  function cloneParentNodeTree(el){
+  	var nodes = [];
+    while(el.parentNode){
+    	nodes.unshift(el.cloneNode(false));
+      el = el.parentNode;
+    }
+    var root = nodes[0];
+    for(var i = 1; i < nodes.length; i++){
+    	nodes[i - 1].appendChild(nodes[i]);
+    }
+    
+    return {
+    	root : root,
+      element : nodes[nodes.length - 1]
+    };
+  }
+
   return {
     removeChildren : removeChildren,
     removeElement : removeElement,
     insertAtCursor : insertAtCursor,
     fireEvent : fireEvent,
-    createOptionsList : createOptionsList
+    createOptionList : createOptionList,
+    getMatchingCss : getMatchingCss,
+    cloneParentNodeTree : cloneParentNodeTree
   };
   
 })();

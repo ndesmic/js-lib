@@ -23,9 +23,25 @@ var ObjectTools = (function(){
 			var source = sources[i];
 			for (var prop in source) {
 			  if (isPlainObject(source[prop])) {
-				target[prop] = extend(target[prop], source[prop]);
+				  target[prop] = extend(target[prop], source[prop]);
 			  } else {
-				target[prop] = source[prop];
+				  target[prop] = source[prop];
+			  }
+			}
+		}
+		return target;
+	}
+	
+	function extendIgnoreEmpties() {
+		var target = arguments[0] || {};
+		var sources = Array.prototype.slice.call(arguments, 1);
+		for(var i = 0; i < sources.length; i++){
+			var source = sources[i];
+			for (var prop in source) {
+			  if (isPlainObject(source[prop])) {
+				  target[prop] = extend(target[prop], source[prop]);
+			  } else if(source[prop] !== undefined && source[prop] !== null && source[prop] !== ""){
+				  target[prop] = source[prop];
 			  }
 			}
 		}
@@ -174,6 +190,7 @@ var ObjectTools = (function(){
   return {
     isPlainObject : isPlainObject,
     extend : extend,
+    extendIgnoreEmpties : extendIgnoreEmpties,
     promiseStub : promiseStub,
     searchMap : searchMap,
     isEmpty : isEmpty,
