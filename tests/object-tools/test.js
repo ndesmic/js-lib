@@ -14,6 +14,7 @@ QUnit.test("returns false for native objects", function(assert){
 	assert.ok(!ObjectTools.isPlainObject(document.createElement("div")), "DOM node");
 	assert.ok(!ObjectTools.isPlainObject(window), "window");
 });
+
 QUnit.module(".extend");
 QUnit.test("extends object", function(assert){
 	var result = ObjectTools.extend({ a : "a" }, { b : "b" });
@@ -27,6 +28,7 @@ QUnit.test("extends undefined object", function(assert){
 	var result = ObjectTools.extend(undefined, { b : "b" });
 	assert.deepEqual(result, { b : "b" }, "extended object");
 });
+
 QUnit.module(".extendIgnoreEmpties");
 QUnit.test("extends object", function(assert){
 	var result = ObjectTools.extendIgnoreEmpties({ a : "a" }, { b : "b" });
@@ -52,6 +54,37 @@ QUnit.test("extends undefined object", function(assert){
 	var result = ObjectTools.extendIgnoreEmpties(undefined, { b : "b" });
 	assert.deepEqual(result, { b : "b" }, "extended object");
 });
+
+QUnit.module(".access");
+QUnit.test("accesses property", function(assert){
+	var result = ObjectTools.access({ a : "a" }, "a");
+	assert.deepEqual(result, "a", "got property");
+});
+QUnit.test("accesses deep property", function(assert){
+	var result = ObjectTools.access({ a : { b : "b" } }, "a.b");
+	assert.deepEqual(result, "b", "got property");
+});
+QUnit.test("returns null if no property", function(assert){
+	var result = ObjectTools.access({ a : { b : "b" } }, "c");
+	assert.deepEqual(result, null, "got null");
+});
+QUnit.test("returns null if no nested property", function(assert){
+	var result = ObjectTools.access({ a : { b : "b" } }, "a.c");
+	assert.deepEqual(result, null, "got null");
+});
+QUnit.test("returns null if no object", function(assert){
+	var result = ObjectTools.access(null, "a");
+	assert.deepEqual(result, null, "got null");
+});
+QUnit.test("accesses property with preceeding .", function(assert){
+	var result = ObjectTools.access({ a : "a" }, ".a");
+	assert.deepEqual(result, "a", "got property");
+});
+QUnit.test("accesses deep property with preceeding .", function(assert){
+	var result = ObjectTools.access({ a : { b : "b" } }, ".a.b");
+	assert.deepEqual(result, "b", "got property");
+});
+
 QUnit.module(".isEmpty");
 QUnit.test("return true if empty", function(assert){
 	var result = ObjectTools.isEmpty({});
