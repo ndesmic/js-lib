@@ -28,3 +28,14 @@ QUnit.test("clones array", function(assert){
 	clone[1] = 0;
 	assert.deepEqual(arr[0], 1, "did not modify first (new reference)");
 });
+QUnit.module(".arrayToObject");
+QUnit.test("maps array to object", function(assert){
+  var result = ArrayTools.arrayToObject([{ a : 1 }, { a : 2 }, { a : 3}], function(item){
+    return item.a;
+  });
+  assert.deepEqual(result, { 
+    1 : { a : 1 },
+    2 : { a : 2 },
+    3 : { a : 3 }
+  }, "created mapped object");
+});

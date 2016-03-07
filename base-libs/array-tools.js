@@ -307,6 +307,14 @@ var ArrayTools = (function(){
 	  return array.slice(0);
 	}
 	
+	function arrayToObject(array, idFunc){
+	  var obj = {};
+	  for(var i = 0; i < array.length; i++){
+	    obj[idFunc(array[i])] = array[i];
+	  }
+	  return obj;
+	}
+	
 	
 	return {
 		arrayOrderIndex : arrayOrderIndex,
@@ -335,7 +343,8 @@ var ArrayTools = (function(){
 		arraySeriesText : arraySeriesText,
 		arrayPreviousClosest : arrayPreviousClosest,
 		arrayNextClosest : arrayNextClosest,
-		arrayClone : arrayClone
+		arrayClone : arrayClone,
+		arrayToObject : arrayToObject
 	};
 
 })();
