@@ -34,5 +34,8 @@ Libs
 
 Libs are more complex usually performing higher level things or creating special objects
 
-Dispatcher - A pub/sub implementation
-Object-storge - A wrapper for local storage to assist with common operations and encoding/decoding js objects.
+dispatcher - A pub/sub implementation<br>
+object-storge - A wrapper for local storage to assist with common operations and encoding/decoding js objects.<br>
+binary-reader - A library for reading binary data.<br>
+text-reader - A library for reading text data.<br>
+form-submitter - A library to extend form submit functionalty programatically.<br>
