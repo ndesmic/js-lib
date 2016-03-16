@@ -1,4 +1,4 @@
-QUnit.module(".toNearest");
+QUnit.module(".round");
 
 var tests = [
   { args : [1, 3], result : 0 },
