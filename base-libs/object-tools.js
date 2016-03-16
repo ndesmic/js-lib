@@ -205,6 +205,16 @@ var ObjectTools = (function(){
 	  }
 	  return obj;
 	}
+	
+	function trimObject(obj){
+	  var newObj = {};
+	  for(var key in obj){
+	    if(obj[key] !== undefined){
+	      newObj[key] = obj[key];
+	    }
+	  }
+	  return newObj;
+	}
 
   return {
     isPlainObject : isPlainObject,
@@ -218,7 +228,8 @@ var ObjectTools = (function(){
     access : access,
     diff : diff,
     objectIsSuperset : objectIsSuperset,
-    cleanObject : cleanObject
+    cleanObject : cleanObject,
+    trimObject : trimObject
   };
 
 })();

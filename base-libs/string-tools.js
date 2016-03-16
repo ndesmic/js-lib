@@ -84,7 +84,6 @@ var StringTools = (function(){
         return str.charAt(0).toLowerCase() + str.slice(1);
     }
 
-    //capitalizes first letter
     function capitalizeAll(str) {
         return str.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
     }
@@ -309,6 +308,14 @@ var StringTools = (function(){
 	  
 	  return split;
 	}
+	
+	function templateString(text, values){
+	  for(var key in values){
+	    var regex = new RegExp("\\${" + key + "}", "g");
+	    text = text.replace(regex, values[key]);
+	  }
+	  return text;
+	}
 
   return {
     replaceAll : replaceAll,
@@ -343,6 +350,7 @@ var StringTools = (function(){
     camelCaseToDashed : camelCaseToDashed,
     dashedToCamelCase : dashedToCamelCase,
     collapseWhitespace : collapseWhitespace,
-    splitWhitespace : splitWhitespace
+    splitWhitespace : splitWhitespace,
+    templateString : templateString
   };
 })();

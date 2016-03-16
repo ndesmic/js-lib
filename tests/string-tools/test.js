@@ -218,3 +218,17 @@ QUnit.test("splits whitespace (but not quoted text)", function(assert){
 	var result2 = StringTools.splitWhitespace('"abc  Abc"  Xyz');
 	assert.deepEqual(result2, ["abc  Abc", "Xyz"]);
 });
+
+QUnit.module(".templateString");
+QUnit.test("templates value", function(assert){
+	var result = StringTools.templateString("hello ${value} world!", { value : "lorem" });
+	assert.equal(result, "hello lorem world!");
+});
+QUnit.test("templates values", function(assert){
+	var result = StringTools.templateString("hello ${value} ${foo} world!", { value : "lorem", foo : "ipsum" });
+	assert.equal(result, "hello lorem ipsum world!");
+});
+QUnit.test("templates value multiple times", function(assert){
+	var result = StringTools.templateString("hello ${value} ${value} world!", { value : "lorem", foo : "ipsum" });
+	assert.equal(result, "hello lorem lorem world!");
+});
