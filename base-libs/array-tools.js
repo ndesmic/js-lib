@@ -7,6 +7,7 @@ var ArrayTools = (function(){
 	}
 	
 	//converts object array to converter function typed array
+	//ES6 map
 	function arraySelect(array, selectorFunction){
 		var selectionArray = [];
 		for(var i = 0; i < array.length; i++){
@@ -16,6 +17,7 @@ var ArrayTools = (function(){
 	}
 	
 	//returns matching elements
+	//ES6 filter
 	function arrayWhere(array, whereFunction){
 		var resultArray = [];
 		for(var i = 0; i < array.length; i++){
@@ -82,6 +84,7 @@ var ArrayTools = (function(){
 	}
 	
 	//creates an aggregator
+	//ES6 reduce
 	function arrayAggregate(array, aggregateFunction, seed){
 		var aggregate = seed;
 		for(var i = 0; i < array.length; i++){
@@ -91,6 +94,7 @@ var ArrayTools = (function(){
 	}
 	
 	//does a function for each element
+	//ES6 forEach
 	function arrayEach(array, eachFunction){
 		for(var i = 0; i < array.length; i++){
 			eachFunction(array[i]);
@@ -315,6 +319,14 @@ var ArrayTools = (function(){
 	  return obj;
 	}
 	
+	function arrayOrderBy(array, mapFunc){
+	  var newArray = array.slice(0);
+	  newArray.sort(function(a, b){
+	    return mapFunc(a) - mapFunc(b);
+	  });
+	  return newArray;
+	}
+	
 	
 	return {
 		arrayOrderIndex : arrayOrderIndex,
@@ -344,7 +356,8 @@ var ArrayTools = (function(){
 		arrayPreviousClosest : arrayPreviousClosest,
 		arrayNextClosest : arrayNextClosest,
 		arrayClone : arrayClone,
-		arrayToObject : arrayToObject
+		arrayToObject : arrayToObject,
+		arrayOrderBy : arrayOrderBy
 	};
 
 })();
