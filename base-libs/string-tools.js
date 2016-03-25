@@ -87,6 +87,11 @@ var StringTools = (function(){
     function capitalizeAll(str) {
         return str.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
     }
+    
+    function titleCase(str){
+      var lowcase = str.toLowerCase();
+      return lowcase.charAt(0).toUpperCase() + lowcase.slice(1);
+    }
 
     //generates a random string
     function generateRandomString(length){
@@ -327,6 +332,7 @@ var StringTools = (function(){
     pluralize : pluralize,
     capitalizeFirst : capitalizeFirst,
     lowerCaseFirst : lowerCaseFirst,
+    titleCase : titleCase,
     capitalizeAll : capitalizeAll,
     generateRandomString : generateRandomString,
     stringTrimEnd : stringTrimEnd,

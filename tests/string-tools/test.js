@@ -24,6 +24,7 @@ QUnit.test("capitalizes first word", function(assert){
 	var capitalText2 = StringTools.capitalizeFirst("lorem ipsum");
 	assert.equal(capitalText2, "Lorem ipsum", "capitalizes first word (multi)");
 });
+
 QUnit.module(".capitalizeAll");
 QUnit.test("capitalizes one word", function(assert){
   var capitalText = StringTools.capitalizeAll("lorem");
@@ -37,6 +38,20 @@ QUnit.test("capitalizes with leading space", function(assert){
 	var capitalText = StringTools.capitalizeAll(" lorem ipsum");
 	assert.equal(capitalText, " Lorem Ipsum", "capitalizes with leading space");
 });
+
+QUnit.module(".titleCase");
+let tests = [
+  { args : ["helloworld"], result : "Helloworld" },
+  { args : ["HELLOWORLD"], result : "Helloworld" },
+  { args : ["hElLowORld"], result : "Helloworld" }
+];
+tests.forEach(function(test){
+  QUnit.test("returns titlecase text", function(assert){
+    let text = StringTools.titleCase.apply(null, test.args);
+	  assert.equal(text, test.result, "titlecases");
+  });
+});
+
 QUnit.module(".lengthChunk");
 QUnit.test("chunks string (remainder)", function(assert){
 	var chunks = StringTools.lengthChunk("lorem ipsum", 5);
