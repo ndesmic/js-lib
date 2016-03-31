@@ -5,6 +5,10 @@ var FunctionTools = (function(){
   function getFunctionName(functionText){
 	  return functionText.match(/function ([^\(]+)/)[1];
 	}
+	function getFunctionParams(func){
+	  let argString = /^function\s*.*\((.*)\)/.exec(func.toString())[1];
+	  return argString.split(",").map(x => x.trim());
+	}
 	function getType(obj){
 		var constructor = obj.constructor.toString();
 		return getFunctionName(constructor);
@@ -35,6 +39,7 @@ var FunctionTools = (function(){
   return {
     noop : noop,
     getFunctionName : getFunctionName,
+    getFunctionParams : getFunctionParams,
     wait : wait,
     debounce : debounce
   };
