@@ -84,13 +84,15 @@ var StringTools = (function(){
         return str.charAt(0).toLowerCase() + str.slice(1);
     }
 
+    //capitalizes all worlds
     function capitalizeAll(str) {
         return str.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
     }
     
     function titleCase(str){
-      var lowcase = str.toLowerCase();
-      return lowcase.charAt(0).toUpperCase() + lowcase.slice(1);
+      str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
 
     //generates a random string

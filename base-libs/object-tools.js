@@ -121,7 +121,7 @@ var ObjectTools = (function(){
 	}
 	
 	function access(obj, accessor){
-	  if(!obj){
+	  if(!obj || !accessor){
 			return null;
 		}
 
@@ -129,7 +129,7 @@ var ObjectTools = (function(){
 		var prop = obj;
 		for(var i = 0; i < keys.length; i++){
 			if(keys[i] !== undefined && keys[i] !== ""){
-				if(prop[keys[i]] !== undefined){
+				if(prop !== null && prop[keys[i]] !== undefined){
 					prop = prop[keys[i]];
 				}else{
 					return null;

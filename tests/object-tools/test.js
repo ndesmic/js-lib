@@ -76,6 +76,10 @@ QUnit.test("returns null if no object", function(assert){
 	var result = ObjectTools.access(null, "a");
 	assert.deepEqual(result, null, "got null");
 });
+QUnit.test("returns null if no accessor", function(assert){
+	var result = ObjectTools.access({ a : "a" });
+	assert.deepEqual(result, null, "got null");
+});
 QUnit.test("accesses property with preceeding .", function(assert){
 	var result = ObjectTools.access({ a : "a" }, ".a");
 	assert.deepEqual(result, "a", "got property");
@@ -83,6 +87,10 @@ QUnit.test("accesses property with preceeding .", function(assert){
 QUnit.test("accesses deep property with preceeding .", function(assert){
 	var result = ObjectTools.access({ a : { b : "b" } }, ".a.b");
 	assert.deepEqual(result, "b", "got property");
+});
+QUnit.test("returns null if accessing property of null", function(assert){
+	var result = ObjectTools.access({ a : { b : null } }, "a.b.c");
+	assert.deepEqual(result, null, "got null");
 });
 
 QUnit.module(".isEmpty");

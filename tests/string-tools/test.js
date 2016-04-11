@@ -188,6 +188,15 @@ QUnit.test("converts dashed to camel case", function(assert){
 	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
 	assert.equal(result2, "abcAbcXyz");
 });
+QUnit.module(".dashedToCamelCase");
+QUnit.test("converts dashed to camel case", function(assert){
+	var result = StringTools.dashedToCamelCase("abc-abc");
+	assert.equal(result, "abcAbc");
+	
+	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
+	assert.equal(result2, "abcAbcXyz");
+});
+
 
 
 QUnit.module(".collapseWhitespace");
