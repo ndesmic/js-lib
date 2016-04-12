@@ -25,3 +25,20 @@ QUnit.test("creates cloned tree", function(assert){
 	
 	assert.equal(result.element.id, "test", "got element");
 });
+
+QUnit.module(".replaceElement");
+QUnit.test("replaces element", function(assert){
+  var fixture = document.querySelector("#qunit-fixture");
+  fixture.innerHTML = "<span id='test'></span>";
+  var testElement = document.querySelector("#test");
+  var newElement = document.createElement("div");
+  newElement.id = "new-test";
+  newElement.textContent = "Hello Replace!";
+  DomTools.replaceElement(testElement, newElement);
+
+  var query = document.querySelector("#new-test");
+  var oldQuery = document.querySelector("#test");
+
+	assert.notEqual(query, null, "replaced element");
+	assert.equal(oldQuery, null, "old element gone");
+});

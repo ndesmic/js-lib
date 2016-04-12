@@ -10,6 +10,10 @@ var DomTools = (function(){
     element.parentNode.removeChild(element);
   }
   
+  function replaceElement(oldElement, newElement){
+    oldElement.parentNode.replaceChild(newElement, oldElement);
+  }
+  
   function insertAtCursor(element, value){
 		if(element.tagName == "TEXTAREA"){
 			var startPosition = element.selectionStart;
@@ -74,6 +78,7 @@ var DomTools = (function(){
   return {
     removeChildren : removeChildren,
     removeElement : removeElement,
+    replaceElement : replaceElement,
     insertAtCursor : insertAtCursor,
     fireEvent : fireEvent,
     createOptionList : createOptionList,
