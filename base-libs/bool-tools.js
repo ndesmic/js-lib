@@ -12,6 +12,9 @@ var BoolTools = (function(){
 		    return table[lookups[j]];
 		  }
 		}
+		if(table.else !== undefined){
+		  return table.else;
+		}
 	}
 	
 	function chainAnd(){

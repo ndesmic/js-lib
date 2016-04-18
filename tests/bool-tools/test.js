@@ -12,6 +12,10 @@ var tables = [
       "FT?" : true,
       "FFF" : false,
       "FFT" : true
+  },
+  {
+      "TTTF" : true,
+      else : false
   }
 ];
 var tests = [
@@ -62,6 +66,18 @@ var tests = [
     table : tables[1], 
     values : [false, false, true], 
     result :  true
+  },
+  { 
+    name : "else map",
+    table : tables[2], 
+    values : [true, true, true, false], 
+    result :  true
+  },
+  { 
+    name : "else map 2",
+    table : tables[2], 
+    values : [true, true, false, false], 
+    result :  false
   }
 ];
 tests.forEach(function(test){
