@@ -1,11 +1,17 @@
-var BooleanTools = (function(){
+var BoolTools = (function(){
 
 	function mapTruth(table){
-		var truthstring = "";
+		var truthString = "";
 		for(var i = 1; i < arguments.length; i++){
-			truthstring += arguments[i] ? "T" : "F";
+			truthString += arguments[i] ? "T" : "F";
 		}
-		return table[truthstring];
+		var lookups = Object.keys(table);
+		for(var j = 0; j < lookups.length; j++){
+		  var regex = new RegExp(lookups[j].replace(/\?/g, "."), "g");
+		  if(regex.test(truthString)){
+		    return table[lookups[j]];
+		  }
+		}
 	}
 	
 	function chainAnd(){
