@@ -33,8 +33,13 @@ var BoolTools = (function(){
 		return result;
 	}
 	
+	function parseBool(bool) {
+    return (typeof(bool) === "string" && bool.toLowerCase() == "true") || (bool === true);
+  }
+	
 	return {
 		mapTruth : mapTruth,
+		parseBool : parseBool,
 		chainAnd : chainAnd,
 		chainOr : chainOr
 	};
