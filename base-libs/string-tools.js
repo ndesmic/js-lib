@@ -323,6 +323,28 @@ var StringTools = (function(){
 	  }
 	  return text;
 	}
+	
+	function parseLiteralList(list){
+		return list.split(/(?!\B"[^"]*),(?![^"]*"\B)/g).map(function(item){
+		  var value = item.trim();
+		  if(isNumber(value)){
+		    return parseFloat(value);
+		  }
+		  if(value === "false"){
+		    return false;
+		  }
+		  if(value === "true"){
+		    return true;
+		  }
+		  if(value === "null"){
+		    return null;
+		  }
+		  if(value === "undefined"){
+		    return undefined;
+		  }
+		  return value.replace(/\"/g, "");
+		});
+	}
 
   return {
     replaceAll : replaceAll,
@@ -359,6 +381,7 @@ var StringTools = (function(){
     dashedToCamelCase : dashedToCamelCase,
     collapseWhitespace : collapseWhitespace,
     splitWhitespace : splitWhitespace,
-    templateString : templateString
+    templateString : templateString,
+    parseLiteralList : parseLiteralList
   };
 })();
