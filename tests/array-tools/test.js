@@ -45,7 +45,7 @@ QUnit.test("maps array to object", function(assert){
 });
 
 QUnit.module(".arrayOrderBy");
-QUnit.test("sorts with mapper function", function(assert){
+QUnit.test("sorts with mapper function (number)", function(assert){
   var result = ArrayTools.arrayOrderBy([{ a : 3 }, { a : 1 }, { a : 2},{ a : 4},{ a : 5},{ a : 0}], item => item.a);
   assert.deepEqual(result, [
     { a : 0 },
@@ -54,6 +54,17 @@ QUnit.test("sorts with mapper function", function(assert){
     { a : 3 },
     { a : 4 },
     { a : 5 }
+  ], "sorted array");
+});
+QUnit.test("sorts with mapper function (string)", function(assert){
+  var result = ArrayTools.arrayOrderBy([{ a : "cat" }, { a : "apple" }, { a : "boat" },{ a : "dog"},{ a : "eat"},{ a : "abacus" }], item => item.a);
+  assert.deepEqual(result, [
+    { a : "abacus" },
+    { a : "apple" },
+    { a : "boat" },
+    { a : "cat" },
+    { a : "dog" },
+    { a : "eat" },
   ], "sorted array");
 });
 

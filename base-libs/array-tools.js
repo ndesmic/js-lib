@@ -322,7 +322,12 @@ var ArrayTools = (function(){
 	function arrayOrderBy(array, mapFunc){
 	  var newArray = array.slice(0);
 	  newArray.sort(function(a, b){
-	    return mapFunc(a) - mapFunc(b);
+		var valueA = mapFunc(a);
+		var valueB = mapFunc(b);
+		if(typeof(valueA) === "string"){
+			return valueA.localeCompare(valueB);
+		}
+	    return  valueA - valueB;
 	  });
 	  return newArray;
 	}
