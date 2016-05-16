@@ -5,7 +5,7 @@ var ArrayTools = (function(){
 			array.push(item);
 		}
 	}
-	
+
 	//converts object array to converter function typed array
 	//ES6 map
 	function arraySelect(array, selectorFunction){
@@ -15,7 +15,7 @@ var ArrayTools = (function(){
 		}
 		return selectionArray;
 	}
-	
+
 	//returns matching elements
 	//ES6 filter
 	function arrayWhere(array, whereFunction){
@@ -27,20 +27,20 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	//removes matching items from array
 	function arrayRemoveWhere(array, whereFunction){
 		var remaining = [];
-	
+
 		for (var i = 0; i < array.length; i++) {
 			if (!whereFunction(array[i])){
 				remaining.push(array[i]);
 			}
 		}
-	
+
 		return remaining;
 	}
-	
+
 	//replaces matching elements
 	function arrayReplaceWhere(array, whereFunction, newValue){
 		var resultArray = array.slice(0);
@@ -51,7 +51,7 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	// returns first match or null
 	function arrayFirst(array, whereFunction){
 		for(var i = 0; i < array.length; i++){
@@ -61,7 +61,7 @@ var ArrayTools = (function(){
 		}
 		return null;
 	}
-	
+
 	//gets index of first match
 	function arrayFirstIndex(array, whereFunction){
 		for(var i = 0; i < array.length; i++){
@@ -71,7 +71,7 @@ var ArrayTools = (function(){
 		}
 		return null;
 	}
-	
+
 	//gets all matching indexes
 	function arrayIndexes(array, whereFunction){
 	  var matches = [];
@@ -82,7 +82,7 @@ var ArrayTools = (function(){
 		}
 		return matches;
 	}
-	
+
 	//creates an aggregator
 	//ES6 reduce
 	function arrayAggregate(array, aggregateFunction, seed){
@@ -92,7 +92,7 @@ var ArrayTools = (function(){
 		}
 		return aggregate;
 	}
-	
+
 	//does a function for each element
 	//ES6 forEach
 	function arrayEach(array, eachFunction){
@@ -101,7 +101,7 @@ var ArrayTools = (function(){
 		}
 		return array;
 	}
-	
+
 	//does a function for each or something if array is empty
 	function arrayEachOrElse(array, eachFunction, elseFunction){
 		if(array.length > 0){
@@ -113,7 +113,7 @@ var ArrayTools = (function(){
 		}
 		return array;
 	}
-	
+
 	//returns true if any item matches
 	function arrayAny(array, anyFunction){
 		for(var i = 0; i < array.length; i++){
@@ -123,7 +123,7 @@ var ArrayTools = (function(){
 		}
 		return false;
 	}
-	
+
 	//counts matching items
 	function arrayCount(array, countFunction){
 		var count = 0;
@@ -134,7 +134,7 @@ var ArrayTools = (function(){
 		}
 		return count;
 	}
-	
+
 	//gets an abstract page from array
 	function arrayPage(array, page, pageSize) {
 		var index = page * pageSize;
@@ -143,7 +143,7 @@ var ArrayTools = (function(){
 		}
 		return array.slice(index, index + pageSize);
 	}
-	
+
 	//returns intersection of 2 arrays
 	function arrayIntersect(arrayA, arrayB) {
 		if (!arrayA || !arrayB) {
@@ -157,12 +157,12 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	//do 2 arrays intersect?
 	function arrayHasIntersect(arrayA, arrayB) {
 		return arrayIntersect(arrayA, arrayB).length > 0;
 	}
-	
+
 	//flattens nested arrays
 	function arrayFlatten(array) {
 		var resultArray = [];
@@ -175,7 +175,7 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	//gets only unique items
 	function arrayUnique(array) {
 		var resultArray = [];
@@ -186,7 +186,7 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	//do all item satisfy condition?
 	function arrayAll(array, allFunction) {
 		var resultArray = [];
@@ -197,7 +197,7 @@ var ArrayTools = (function(){
 		}
 		return array.length == resultArray.length;
 	}
-	
+
 	//totals value counts as an object { value : count }
 	function arrayTotal(array) {
 		var totals = {};
@@ -210,7 +210,7 @@ var ArrayTools = (function(){
 		}
 		return totals;
 	}
-	
+
 	//adds index to all objects in array
 	function arrayOrderIndex(array) {
 		var resultArray = [];
@@ -221,7 +221,7 @@ var ArrayTools = (function(){
 		}
 		return resultArray;
 	}
-	
+
 	//Gets an item that would be before the item passed if it was inserted
 	//expects presorted array for speed
 	function arrayImmediatelyPrevious(array, item, compareFunc){
@@ -235,7 +235,7 @@ var ArrayTools = (function(){
 		}
 		return lastItem;
 	}
-	
+
 	//Gets the index of the item that would be before the item passed if it was inserted
 	//expects presorted array for speed
 	function arrayIndexImmediatelyPrevious(array, item, compareFunc){
@@ -247,7 +247,7 @@ var ArrayTools = (function(){
 		}
 		return i-1;
 	}
-	
+
 	//prints items in array as a grammatical series
 	function arraySeriesText(items, mapperFunction){
 		var text = "";
@@ -262,8 +262,8 @@ var ArrayTools = (function(){
 		}
 		return text;
 	}
-	
-	//Gets next value that is closest (look ahead), defaults to biggest if out of range 
+
+	//Gets next value that is closest (look ahead), defaults to biggest if out of range
 	function arrayNextClosest(value, array){
 		var valuesAhead = [];
 		for(var i = 0; i < array.length; i++){
@@ -280,7 +280,7 @@ var ArrayTools = (function(){
 		}
 	}
 
-	//Gets previous value that is closest (look behind), defaults to smallest if out of range 
+	//Gets previous value that is closest (look behind), defaults to smallest if out of range
 	function arrayPreviousClosest(value, array){
 		var valuesBehind = [];
 		for(var i = 0; i < array.length; i++){
@@ -296,21 +296,21 @@ var ArrayTools = (function(){
 			return Math.min.apply(null, array);
 		}
 	}
-	
+
 	//Gets the value from an array or if it doesn't exist get first
 	function arrayValueOrFirst(value, array){
 		var index = array.indexOf(value);
 		if(index != -1){
-			return array[index]; 
+			return array[index];
 		}else{
 			return array[0];
 		}
 	}
-	
+
 	function arrayClone(array){
 	  return array.slice(0);
 	}
-	
+
 	function arrayToObject(array, idFunc){
 	  var obj = {};
 	  for(var i = 0; i < array.length; i++){
@@ -318,7 +318,7 @@ var ArrayTools = (function(){
 	  }
 	  return obj;
 	}
-	
+
 	function arrayOrderBy(array, mapFunc){
 	  var newArray = array.slice(0);
 	  newArray.sort(function(a, b){
@@ -326,8 +326,21 @@ var ArrayTools = (function(){
 	  });
 	  return newArray;
 	}
-	
-	
+
+	function arrayChangeIndices(array, mapFunc){
+		var currentValue = mapFunc(array[0]);
+		var indices = [];
+		for(var i = 1; i < array.length; i++){
+			var value = mapFunc(array[i])
+			if(value !== currentValue){
+				indices.push(i - 1);
+				currentValue = value;
+			}
+		}
+		return indices;
+	}
+
+
 	return {
 		arrayOrderIndex : arrayOrderIndex,
 		arrayTotal : arrayTotal,
@@ -357,7 +370,8 @@ var ArrayTools = (function(){
 		arrayNextClosest : arrayNextClosest,
 		arrayClone : arrayClone,
 		arrayToObject : arrayToObject,
-		arrayOrderBy : arrayOrderBy
+		arrayOrderBy : arrayOrderBy,
+		arrayChangeIndices : arrayChangeIndices
 	};
 
 })();

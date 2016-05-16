@@ -31,7 +31,7 @@ var ObjectTools = (function(){
 		}
 		return target;
 	}
-	
+
 	function extendIgnoreEmpties() {
 		var target = arguments[0] || {};
 		var sources = Array.prototype.slice.call(arguments, 1);
@@ -53,15 +53,15 @@ var ObjectTools = (function(){
 			resolve();
 		});
 	}
-	
+
 	//Takes object of form { a : [], b : [], c : [] } and converts to [{a, b, c},...]
 	function unpivot(pivotObject){
 		var maxLength = 0;
-				
+
 		for(let key in pivotObject){
 			maxLength = Math.max(pivotObject[key].length, maxLength);
 		}
-		
+
 		var unpivotObjs = [];
 		for(let i = 0; i < maxLength; i++){
 			var unpivotObj = {};
@@ -74,7 +74,7 @@ var ObjectTools = (function(){
 		}
 		return unpivotObjs;
 	}
-	
+
 	function searchMap(map, key){
 		for(var currentKey in map){
 			if(currentKey == key){
@@ -83,7 +83,7 @@ var ObjectTools = (function(){
 		}
 		return null;
 	}
-	
+
 	function isEmpty(obj){
 	  if(Array.isArray(obj)) {
 			return obj.length === 0;
@@ -92,12 +92,12 @@ var ObjectTools = (function(){
 			for(var key in obj){
 				if(obj.hasOwnProperty(key)){
 				  size++;
-				} 
+				}
 			}
 			return size === 0;
 		}
 	}
-	
+
 	function shallowClone(obj){
 		var newObject = {};
 		for(var key in obj){
@@ -105,10 +105,10 @@ var ObjectTools = (function(){
 		}
 		return newObject;
 	}
-	
+
 	function objectToArray(object, keyProp){
 		var array = [];
-		
+
 		for(var key in object){
 			var newObject = shallowClone(object[key]);
 			if(keyProp){
@@ -116,10 +116,14 @@ var ObjectTools = (function(){
 			}
 			array.push(newObject);
 		}
-		
+
 		return array;
 	}
-	
+
+	function objectToOrderedArray(object, keyOrder){
+		return array.map(x => object[x]);
+	}
+
 	function access(obj, accessor){
 	  if(!obj || !accessor){
 			return null;
@@ -138,7 +142,7 @@ var ObjectTools = (function(){
 		}
 		return prop;
 	}
-	
+
 	function diff(oldObject, newObject){
 		var diffObject;
 		if(typeof(oldObject) === "object"){
@@ -175,7 +179,7 @@ var ObjectTools = (function(){
 			}
 		}
 	}
-	
+
 	function objectIsSuperset(objectTest, objectControl){
 		if(objectTest instanceof Array && objectControl instanceof Array){
 			for(var i = 0; i < objectControl.length; i++){
@@ -196,7 +200,7 @@ var ObjectTools = (function(){
 		}
 		return true;
 	}
-	
+
 	function cleanObject(obj){
 	  for(var key in obj){
 	    if(!obj[key]){
@@ -205,7 +209,7 @@ var ObjectTools = (function(){
 	  }
 	  return obj;
 	}
-	
+
 	function trimObject(obj){
 	  var newObj = {};
 	  for(var key in obj){

@@ -12,7 +12,7 @@ QUnit.module(".arrayFirstIndex");
 QUnit.test("gets first index", function(assert){
   var index = ArrayTools.arrayFirstIndex([1,2,3], function(item){ return item == 3; });
 	assert.equal(index, 2, "got first index");
-	
+
   var index2 = ArrayTools.arrayFirstIndex([{ a : 1, b : 2},{ a : 3, b : 4},{a :5, b:6}], function(item){ return item.a==3; });
 	assert.equal(index2, 1, "got first index");
 });
@@ -37,7 +37,7 @@ QUnit.test("maps array to object", function(assert){
   var result = ArrayTools.arrayToObject([{ a : 1 }, { a : 2 }, { a : 3}], function(item){
     return item.a;
   });
-  assert.deepEqual(result, { 
+  assert.deepEqual(result, {
     1 : { a : 1 },
     2 : { a : 2 },
     3 : { a : 3 }
@@ -47,7 +47,7 @@ QUnit.test("maps array to object", function(assert){
 QUnit.module(".arrayOrderBy");
 QUnit.test("sorts with mapper function", function(assert){
   var result = ArrayTools.arrayOrderBy([{ a : 3 }, { a : 1 }, { a : 2},{ a : 4},{ a : 5},{ a : 0}], item => item.a);
-  assert.deepEqual(result, [ 
+  assert.deepEqual(result, [
     { a : 0 },
     { a : 1 },
     { a : 2 },
@@ -55,4 +55,17 @@ QUnit.test("sorts with mapper function", function(assert){
     { a : 4 },
     { a : 5 }
   ], "sorted array");
+});
+
+QUnit.module(".arrayChangeIndices");
+QUnit.test("gets array of indices", function(assert){
+  var result = ArrayTools.arrayChangeIndices([
+      { a : 3, b :"red" },
+      { a : 1, b : "red" },
+      { a : 2, b : "blue" },
+      { a : 4, b : "yellow" },
+      { a : 5, b : "yellow" },
+      { a : 0, b : "orange"}
+  ], item => item.b);
+  assert.deepEqual(result, [1,2,4], "change indicies");
 });
