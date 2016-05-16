@@ -45,6 +45,14 @@ var GeometryTools = (function(){
 		var gx = Math.floor(x / scale);
 		return { x : gx, y : gy };
 	}
+	
+	function degreesToRadians(deg){
+		return deg * (Math.PI/180);
+	}
+
+	function radiansToDegrees(rad){
+		return rad * (180/Math.PI);
+	}
 
 	return {
 		TWO_PI,
@@ -53,7 +61,9 @@ var GeometryTools = (function(){
 		getRayDirection,
 		pointToGrid,
 		normalizeAngle,
-		getDistance
+		getDistance,
+		degreesToRadians,
+		radiansToDegrees
 	};
 
 })();
