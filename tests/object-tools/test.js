@@ -110,3 +110,47 @@ QUnit.test("return false if not empty array", function(assert){
 	var result = ObjectTools.isEmpty([1]);
 	assert.notOk(result);
 });
+
+QUnit.module(".clone");
+QUnit.test("returns clone of value", function(assert){
+	assert.equal(ObjectTools.clone(null), null);
+	assert.equal(ObjectTools.clone("hello"), "hello");
+	assert.equal(ObjectTools.clone(0), 0);
+	assert.equal(ObjectTools.clone(true), true);
+});
+QUnit.test("returns clone of array", function(assert){
+	let original = [1,2,3];
+	let clone = ObjectTools.clone(original);
+	assert.deepEqual(clone, [1,2,3]);
+	assert.notOk(clone === original);
+});
+QUnit.test("returns clone of array with nesting", function(assert){
+	var a = { a : 1 };
+	var b = { b : 2 };
+	var c = { c : 3 };
+	let original = [a,b,c];
+	let clone = ObjectTools.clone(original);
+	assert.deepEqual(clone, [{a:1},{b:2},{c:3}]);
+	assert.notOk(clone === original);
+	assert.notOk(clone[0] === a);
+	assert.notOk(clone[1] === b);
+	assert.notOk(clone[3] === c);
+});
+QUnit.test("returns clone of object", function(assert){
+	let original = { a: 1, b : 2, c : 3 };
+	let clone = ObjectTools.clone(original);
+	assert.deepEqual(clone, { a: 1, b : 2, c : 3 });
+	assert.notOk(clone === original);
+});
+QUnit.test("returns clone of object with nesting", function(assert){
+	var a = { a : 1 };
+	var b = { b : 2 };
+	var c = { c : 3 };
+	let original = { a: a, b: b, c: c};
+	let clone = ObjectTools.clone(original);
+	assert.deepEqual(clone, {a:{a:1},b:{b:2},c:{c:3}});
+	assert.notOk(clone === original);
+	assert.notOk(clone.a === a);
+	assert.notOk(clone.b === b);
+	assert.notOk(clone.c === c);
+});

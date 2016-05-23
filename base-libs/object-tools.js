@@ -106,6 +106,27 @@ var ObjectTools = (function(){
 		return newObject;
 	}
 
+	function clone(obj) {
+		if(Array.isArray(obj)){
+			var temp = [];
+			for (var i = 0; i < obj.length; i++) {
+				temp.push(clone(obj[i]));
+			}
+			return temp;
+		}
+		if(typeof(obj) === "object" && obj !== null){
+			var temp = {};
+			for (var key in obj) {
+			  if (obj.hasOwnProperty(key)) {
+				temp[key] = clone(obj[key]);
+			  }
+			}
+			return temp;
+		}
+
+    	return obj;
+    }
+
 	function objectToArray(object, keyProp){
 		var array = [];
 
@@ -228,6 +249,7 @@ var ObjectTools = (function(){
     searchMap : searchMap,
     isEmpty : isEmpty,
     shallowClone : shallowClone,
+	clone : clone,
     objectToArray : objectToArray,
     access : access,
     diff : diff,
