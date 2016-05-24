@@ -20,7 +20,7 @@ QUnit.module(".capitalizeFirst");
 QUnit.test("capitalizes first word", function(assert){
   var capitalText = StringTools.capitalizeFirst("lorem");
 	assert.equal(capitalText, "Lorem", "capitalizes first word (one)");
-	
+
 	var capitalText2 = StringTools.capitalizeFirst("lorem ipsum");
 	assert.equal(capitalText2, "Lorem ipsum", "capitalizes first word (multi)");
 });
@@ -39,16 +39,16 @@ QUnit.test("capitalizes with leading space", function(assert){
 	assert.equal(capitalText, " Lorem Ipsum", "capitalizes with leading space");
 });
 
-QUnit.module(".titleCase");
-let tests = [
-  { args : ["helloworld"], result : "Helloworld" },
-  { args : ["HELLOWORLD"], result : "Helloworld" },
-  { args : ["hElLowORld"], result : "Helloworld" }
+QUnit.module(".kebabCase");
+var tests = [
+  { args : ["hello world"], result : "hello-world" },
+  { args : ["HELLO WORLD"], result : "hello-world" },
+  { args : ["hElLo wORld 2"], result : "hello-world-2" }
 ];
 tests.forEach(function(test){
-  QUnit.test("returns titlecase text", function(assert){
-    let text = StringTools.titleCase.apply(null, test.args);
-	  assert.equal(text, test.result, "titlecases");
+  QUnit.test("returns kebab case text", function(assert){
+    let text = StringTools.kebabCase.apply(null, test.args);
+	  assert.equal(text, test.result, "kebabcases");
   });
 });
 
@@ -168,7 +168,7 @@ QUnit.module(".splitCamelCase");
 QUnit.test("splits camel case string", function(assert){
 	var result = StringTools.splitCamelCase("abcAbc");
 	assert.deepEqual(result, ["abc", "Abc"]);
-	
+
 	var result2 = StringTools.splitCamelCase("abcAbcXyz");
 	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
 });
@@ -176,7 +176,7 @@ QUnit.module(".camelCaseToDashed");
 QUnit.test("converts camel case to dashed", function(assert){
 	var result = StringTools.camelCaseToDashed("abcAbc");
 	assert.equal(result, "abc-abc");
-	
+
 	var result2 = StringTools.camelCaseToDashed("abcAbcXyz");
 	assert.equal(result2, "abc-abc-xyz");
 });
@@ -184,7 +184,7 @@ QUnit.module(".dashedToCamelCase");
 QUnit.test("converts dashed to camel case", function(assert){
 	var result = StringTools.dashedToCamelCase("abc-abc");
 	assert.equal(result, "abcAbc");
-	
+
 	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
 	assert.equal(result2, "abcAbcXyz");
 });
@@ -192,7 +192,7 @@ QUnit.module(".dashedToCamelCase");
 QUnit.test("converts dashed to camel case", function(assert){
 	var result = StringTools.dashedToCamelCase("abc-abc");
 	assert.equal(result, "abcAbc");
-	
+
 	var result2 = StringTools.dashedToCamelCase("abc-Abc-Xyz");
 	assert.equal(result2, "abcAbcXyz");
 });
@@ -203,7 +203,7 @@ QUnit.module(".collapseWhitespace");
 QUnit.test("collapse whitespace", function(assert){
 	var result = StringTools.collapseWhitespace("abc   abc");
 	assert.equal(result, "abc abc");
-	
+
 	var result2 = StringTools.collapseWhitespace("abc    abc");
 	assert.equal(result2, "abc abc");
 });
@@ -212,7 +212,7 @@ QUnit.module(".splitWhitespace");
 QUnit.test("splits whitespace (basic)", function(assert){
 	var result = StringTools.splitWhitespace("abc abc");
 	assert.deepEqual(result, ["abc", "abc"]);
-	
+
 	var result2 = StringTools.splitWhitespace("abc  Abc Xyz");
 	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
 });
@@ -231,14 +231,14 @@ QUnit.test("splits whitespace (new line + feed)", function(assert){
 QUnit.test("splits whitespace (multi)", function(assert){
 	var result = StringTools.splitWhitespace("abc  abc");
 	assert.deepEqual(result, ["abc", "abc"]);
-	
+
 	var result2 = StringTools.splitWhitespace("abc   Abc  Xyz");
 	assert.deepEqual(result2, ["abc", "Abc", "Xyz"]);
 });
 QUnit.test("splits whitespace (but not quoted text)", function(assert){
 	var result = StringTools.splitWhitespace('"abc abc"');
 	assert.deepEqual(result, ["abc abc"]);
-	
+
 	var result2 = StringTools.splitWhitespace('"abc  Abc"  Xyz');
 	assert.deepEqual(result2, ["abc  Abc", "Xyz"]);
 });

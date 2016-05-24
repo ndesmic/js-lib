@@ -3,7 +3,7 @@ var StringTools = (function(){
   function replaceAll(currentString, stringToReplace, replacement){
     return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
   }
-  
+
   //this is ghetto hacked for now, handles only single characters and only a subset
   function stringRemove(text, thingsToRemove){
     var regExSymbols = [".", "$", "^"];
@@ -17,7 +17,7 @@ var StringTools = (function(){
     }
     return text;
   }
-  
+
   //pads string to length with character
   function pad(text, length, padChar){
     text = text.toString();
@@ -79,20 +79,18 @@ var StringTools = (function(){
     function capitalizeFirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
-    
+
     function lowerCaseFirst(str) {
         return str.charAt(0).toLowerCase() + str.slice(1);
     }
 
-    //capitalizes all worlds
+    //capitalizes all words
     function capitalizeAll(str) {
         return str.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
     }
-    
-    function titleCase(str){
-      str.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+
+    function kebabCase(str){
+        return str.replace(/\s+/g, "-").toLowerCase();
     }
 
     //generates a random string
@@ -160,7 +158,7 @@ var StringTools = (function(){
   function isAlpha(character){
     return /^[a-zA-Z]+$/.test(character);
   }
-  
+
   function isWhitespace(char){
     var whitespace = [
       String.fromCharCode(13), //carriage return
@@ -190,66 +188,66 @@ var StringTools = (function(){
       }
       console.table(table);
   }
-  
+
   function stringToFileUrl(text){
     var file = new Blob([text], {type:'text/plain'});
 		return Url.createObjectURL(file);
   }
-  
+
   function lengthChunk(text, chunkLength){
     var chunks = [];
     var remaining = text;
-    
+
     while(remaining.length > chunkLength){
       chunks.push(remaining.substring(0, chunkLength));
       remaining = remaining.substr(chunkLength);
     }
-    
+
     chunks.push(remaining);
     return chunks;
   }
-  
+
   function countChunk(text, count){
     var chunks = [];
     var chunkLength = Math.ceil(text.length / count);
-    
+
     for(var i = 0; i < count; i++){
       chunks.push(text.substring(i*chunkLength, (i+1)*chunkLength));
     }
-    
+
     return chunks;
   }
-  
+
   function lengthChunkWords(text, chunkLength){
     var chunks = [];
     var words = text.split(" ");
     var currentChunk = "";
     var i = 0;
-    
+
     while(i < words.length){
       currentChunk = "";
-      
+
       while(i < words.length && (currentChunk.length - 1) + words[i].length <= chunkLength){
         currentChunk += words[i] + " ";
         i++;
       }
-      
+
       if(i < words.length && words[i].length > chunkLength){
         throw "a word was bigger than chunk length: " + chunkLength;
       }
       currentChunk = stringTrimEnd(currentChunk, 1);
-            
+
       chunks.push(currentChunk);
     }
-    
+
     return chunks;
   }
-  
+
   function htmlStringToDom(htmlString){
     	parser = new DOMParser();
 	    return parser.parseFromString(htmlString, "text/html");
   }
-  
+
   function transformToken(text, regex, replaceFunc){
 		var matches = text.match(regex);
 		if(!matches){
@@ -260,7 +258,7 @@ var StringTools = (function(){
 		}
 		return text;
 	}
-	
+
 	function splitCamelCase(text){
 	  return text.replace(/([A-Z])/g, ' $1').split(" ");
 	}
@@ -268,7 +266,7 @@ var StringTools = (function(){
 	function camelCaseToDashed(text){
 	  return text.replace(/([A-Z])/g, '-$1').toLowerCase();
 	}
-	
+
 	function dashedToCamelCase(text){
 	  var parts = text.split("-");
 	  for(var i = 0; i < parts.length; i++){
@@ -281,11 +279,11 @@ var StringTools = (function(){
 	  }
 	  return parts.join("");
 	}
-	
+
 	function collapseWhitespace(text){
 	  return text.replace(/\s{2,}/g,' ');
 	}
-	
+
 	function splitWhitespace(text){
 	  var split = [];
 	  var buffer = "";
@@ -312,10 +310,10 @@ var StringTools = (function(){
 	  if(buffer){
 	    split.push(buffer);
 	  }
-	  
+
 	  return split;
 	}
-	
+
 	function templateString(text, values){
 	  for(var key in values){
 	    var regex = new RegExp("\\${" + key + "}", "g");
@@ -323,7 +321,7 @@ var StringTools = (function(){
 	  }
 	  return text;
 	}
-	
+
 	function parseLiteralList(list){
 		return list.split(/(?!\B"[^"]*),(?![^"]*"\B)/g).map(function(item){
 		  var value = item.trim();
@@ -356,7 +354,7 @@ var StringTools = (function(){
     pluralize : pluralize,
     capitalizeFirst : capitalizeFirst,
     lowerCaseFirst : lowerCaseFirst,
-    titleCase : titleCase,
+    kebabCase : kebabCase,
     capitalizeAll : capitalizeAll,
     generateRandomString : generateRandomString,
     stringTrimEnd : stringTrimEnd,
