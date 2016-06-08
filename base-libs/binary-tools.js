@@ -77,7 +77,7 @@ var BinaryTools = (function(){
 		}
 		return str;
 	}
-	
+
 	function byteArrayToVisualString(array){
 	  var str = "";
 		for(var i = 0; i < array.length; i++){
@@ -90,14 +90,14 @@ var BinaryTools = (function(){
 		return str;
 	}
 
-  function byteArrayToHexString(array){
-    var str = "";
-    for(var i = 0; i < array.length; i++){
-      str += "0x" + array[i].toString(16) + ", ";
-    }
-    return str;
-  }
-  
+	function byteArrayToHexString(array){
+    	var str = "";
+    	for(var i = 0; i < array.length; i++){
+      		str += "0x" + array[i].toString(16) + ", ";
+    	}
+    	return str;
+  	}
+
   function byteArrayToBinary(byteArray, splitLength){
     var bin = "";
 		for(var i = 0; i < byteArray.length; i++){

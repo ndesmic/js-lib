@@ -344,42 +344,56 @@ var StringTools = (function(){
 		});
 	}
 
-  return {
-    replaceAll : replaceAll,
-    stringRemove : stringRemove,
-    pad : pad,
-    padEnd : padEnd,
-    truncate : truncate,
-    getUnitSuffixedBytes : getUnitSuffixedBytes,
-    pluralize : pluralize,
-    capitalizeFirst : capitalizeFirst,
-    lowerCaseFirst : lowerCaseFirst,
-    kebabCase : kebabCase,
-    capitalizeAll : capitalizeAll,
-    generateRandomString : generateRandomString,
-    stringTrimEnd : stringTrimEnd,
-    stringEndsWith : stringEndsWith,
-    getCodes : getCodes,
-    getEscapes : getEscapes,
-    isAlphanumeric : isAlphanumeric,
-    isNumber : isNumber,
-    isAlpha : isAlpha,
-    isWhitespace : isWhitespace,
-    spliceString : spliceString,
-    printStringAsTable : printStringAsTable,
-    printStringAsTableHorizontal : printStringAsTableHorizontal,
-    stringToFileUrl : stringToFileUrl,
-    lengthChunk : lengthChunk,
-    countChunk : countChunk,
-    lengthChunkWords : lengthChunkWords,
-    htmlStringToDom : htmlStringToDom,
-    transformToken : transformToken,
-    splitCamelCase : splitCamelCase,
-    camelCaseToDashed : camelCaseToDashed,
-    dashedToCamelCase : dashedToCamelCase,
-    collapseWhitespace : collapseWhitespace,
-    splitWhitespace : splitWhitespace,
-    templateString : templateString,
-    parseLiteralList : parseLiteralList
-  };
+    function mixedByteArrayToString(array){
+        var result = "";
+        for(var i = 0; i < array.length; i++){
+            var value = array[i];
+            if(typeof(value) === "string"){
+                result += value;
+            }else if(typeof(value) === "number"){
+                result += String.fromCharCode(value);
+            }
+        }
+        return result;
+    }
+
+    return {
+        replaceAll : replaceAll,
+        stringRemove : stringRemove,
+        pad : pad,
+        padEnd : padEnd,
+        truncate : truncate,
+        getUnitSuffixedBytes : getUnitSuffixedBytes,
+        pluralize : pluralize,
+        capitalizeFirst : capitalizeFirst,
+        lowerCaseFirst : lowerCaseFirst,
+        kebabCase : kebabCase,
+        capitalizeAll : capitalizeAll,
+        generateRandomString : generateRandomString,
+        stringTrimEnd : stringTrimEnd,
+        stringEndsWith : stringEndsWith,
+        getCodes : getCodes,
+        getEscapes : getEscapes,
+        isAlphanumeric : isAlphanumeric,
+        isNumber : isNumber,
+        isAlpha : isAlpha,
+        isWhitespace : isWhitespace,
+        spliceString : spliceString,
+        printStringAsTable : printStringAsTable,
+        printStringAsTableHorizontal : printStringAsTableHorizontal,
+        stringToFileUrl : stringToFileUrl,
+        lengthChunk : lengthChunk,
+        countChunk : countChunk,
+        lengthChunkWords : lengthChunkWords,
+        htmlStringToDom : htmlStringToDom,
+        transformToken : transformToken,
+        splitCamelCase : splitCamelCase,
+        camelCaseToDashed : camelCaseToDashed,
+        dashedToCamelCase : dashedToCamelCase,
+        collapseWhitespace : collapseWhitespace,
+        splitWhitespace : splitWhitespace,
+        templateString : templateString,
+        parseLiteralList : parseLiteralList,
+        mixedByteArrayToString : mixedByteArrayToString
+    };
 })();

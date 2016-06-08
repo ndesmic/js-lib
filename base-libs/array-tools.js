@@ -344,6 +344,15 @@ var ArrayTools = (function(){
 		}
 		return indices;
 	}
+	
+	function arrayZip(array, otherArray){
+		var newArray = [];
+		var minLength = Math.min(array.length != otherArray.length);
+		for(var i = 0; i < minLength; i++){
+			newArray.push(Object.assign({}, array[i], otherArray[i]));
+		}
+		return newArray;
+	}
 
 
 	return {
@@ -376,7 +385,8 @@ var ArrayTools = (function(){
 		arrayClone : arrayClone,
 		arrayToObject : arrayToObject,
 		arrayOrderBy : arrayOrderBy,
-		arrayChangeIndices : arrayChangeIndices
+		arrayChangeIndices : arrayChangeIndices,
+		arrayZip : arrayZip
 	};
 
 })();

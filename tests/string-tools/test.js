@@ -290,3 +290,17 @@ QUnit.test("gets mixed values", function(assert){
 	var result = StringTools.parseLiteralList('1,"two","three,four", 5, true, null, undefined');
 	assert.deepEqual(result, [1,"two","three,four", 5, true, null, undefined], "got mixed list");
 });
+
+QUnit.module(".mixedByteArrayToString");
+var tests = [
+    { value : ["h", "e", "l", "l", "o"], result : "hello" },
+    { value : [104, 101, 108, 108, 111], result : "hello" },
+    { value : [104, "e", 108, "l", 111], result : "hello" },
+    { value : ["he", "ll", "o"], result : "hello" }
+];
+tests.forEach(test => {
+    QUnit.test("makes string", function(assert){
+    	var result = StringTools.mixedByteArrayToString(test.value);
+    	assert.equal(result, test.result);
+    });
+});
