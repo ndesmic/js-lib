@@ -85,12 +85,10 @@ const TextReader = (function() {
         return true;
     }
 
-    function readUntil(text) {
-        let outText = "";
-        while (!this.peekValidate(text)) {
-            outText += this.readChar();
-        }
-        return outText;
+    function readUntil(...args) {
+        let result = this.peekUntil(...args);
+        this.index += result.result.length;
+        return result;
     }
 
     function peekUntil(...args) {

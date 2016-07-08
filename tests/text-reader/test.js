@@ -43,11 +43,45 @@ QUnit.test("returns false if not validated and does not advance index", function
 });
 
 QUnit.module(".readUntil");
-QUnit.test("returns string until character and advances index", function(assert){
+QUnit.test("returns until match and advances index (char)", function(assert){
 	const reader = TextReader.create("hello world");
-	let result = reader.readUntil("w");
+	let { result, match } = reader.readUntil("w");
 	assert.equal(result, "hello ", "value");
 	assert.equal(reader.index, 6, "index");
+});
+QUnit.test("returns until match and advances index (string)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.readUntil("rl");
+	assert.equal(result, "hello wo", "value");
+	assert.equal(reader.index, 8, "index");
+});
+QUnit.test("returns until first match and advances index (char)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.readUntil("l", "r");
+	assert.equal(match, "l", "match");
+	assert.equal(result, "he", "value");
+	assert.equal(reader.index, 2, "index");
+});
+QUnit.test("returns until first match and advances index (param order)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.readUntil("d", "r");
+	assert.equal(match, "r", "match");
+	assert.equal(result, "hello wo", "value");
+	assert.equal(reader.index, 8, "index");
+});
+QUnit.test("returns until first match and advances index (string)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.readUntil("lo", "rl");
+	assert.equal(match, "lo", "match");
+	assert.equal(result, "hel", "value");
+	assert.equal(reader.index, 3, "index");
+});
+QUnit.test("returns null and rest of text if not found", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.readUntil("z", ".");
+	assert.equal(match, null, "match");
+	assert.equal(result, "hello world", "value");
+	assert.equal(reader.index, 11, "index");
 });
 
 QUnit.module(".peekUntil");
