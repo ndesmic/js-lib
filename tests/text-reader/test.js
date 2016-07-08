@@ -51,12 +51,47 @@ QUnit.test("returns string until character and advances index", function(assert)
 });
 
 QUnit.module(".peekUntil");
-QUnit.test("returns string until character and does not advance index", function(assert){
+QUnit.test("returns until match and does not advance index (char)", function(assert){
 	const reader = TextReader.create("hello world");
-	let result = reader.peekUntil("w");
+	let { result, match } = reader.peekUntil("w");
 	assert.equal(result, "hello ", "value");
 	assert.equal(reader.index, 0, "index");
 });
+QUnit.test("returns until match and does not advance index (string)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.peekUntil("rl");
+	assert.equal(result, "hello wo", "value");
+	assert.equal(reader.index, 0, "index");
+});
+QUnit.test("returns until first match and does not advance index (char)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.peekUntil("l", "r");
+	assert.equal(match, "l", "match");
+	assert.equal(result, "he", "value");
+	assert.equal(reader.index, 0, "index");
+});
+QUnit.test("returns until first match and does not advance index (param order)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.peekUntil("d", "r");
+	assert.equal(match, "r", "match");
+	assert.equal(result, "hello wo", "value");
+	assert.equal(reader.index, 0, "index");
+});
+QUnit.test("returns until first match and does not advance index (string)", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.peekUntil("lo", "rl");
+	assert.equal(match, "lo", "match");
+	assert.equal(result, "hel", "value");
+	assert.equal(reader.index, 0, "index");
+});
+QUnit.test("returns null and rest of text if not found", function(assert){
+	const reader = TextReader.create("hello world");
+	let { result, match } = reader.peekUntil("z", ".");
+	assert.equal(match, null, "match");
+	assert.equal(result, "hello world", "value");
+	assert.equal(reader.index, 0, "index");
+});
+
 
 QUnit.module(".readToEnd");
 QUnit.test("returns string until character and advances index", function(assert){

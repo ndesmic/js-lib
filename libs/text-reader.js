@@ -9,11 +9,11 @@ const TextReader = (function() {
 
     function bind(textReader) {
         textReader.setText = setText.bind(textReader);
-		textReader.appendText = appendText.bind(textReader);
+        textReader.appendText = appendText.bind(textReader);
         textReader.readLine = readLine.bind(textReader);
         textReader.readChar = readChar.bind(textReader);
         textReader.peekChar = peekChar.bind(textReader);
-		textReader.peekLine = peekLine.bind(textReader);
+        textReader.peekLine = peekLine.bind(textReader);
         textReader.validate = validate.bind(textReader);
         textReader.peekValidate = peekValidate.bind(textReader);
         textReader.readUntil = readUntil.bind(textReader);
@@ -25,15 +25,15 @@ const TextReader = (function() {
     }
 
     function setText(text) {
-		this.text = text;
-		this.index = 0;
-		return this;
+        this.text = text;
+        this.index = 0;
+        return this;
     }
 
-	function appendText(text) {
-		this.text += text;
-		return this;
-	}
+    function appendText(text) {
+        this.text += text;
+        return this;
+    }
 
     function readLine() {
         let char = "";
@@ -93,21 +93,46 @@ const TextReader = (function() {
         return outText;
     }
 
-    function peekUntil(text) {
-        let index = this.text.indexOf(text)
-        if(index === -1){
-            return this.peekToEnd();
+    function peekUntil(...args) {
+        let buffer = "";
+        let i = this.index;
+        while(i < this.text.length){
+            var match = findMatch(this.text, i, args);
+            if(match.result){
+                return { result : buffer, match : match.valueMatched };
+            }else{
+                buffer += this.text.charAt(i);
+            }
+            i++;
         }
-        return this.text.slice(this.index, index);
+        return { result : buffer };
     }
 
-    function readToEnd(){
+    function findMatch(text, index, stringsToMatch){
+        let foundMatch = false;
+        for(let i = 0; i < stringsToMatch.length; i++){
+            let potentialMatch = true;
+            let str = stringsToMatch[i];
+            for(let j = 0; j < str.length; j++){
+                if(text.charAt(index + j) != str.charAt(j)){
+                    potentialMatch = false;
+                    break;
+                }
+            }
+            if(potentialMatch){
+                return { result : true, valueMatched : str };
+            }
+        }
+        return { result : false };
+    }
+
+    function readToEnd() {
         let rest = this.text.slice(this.index, this.text.lenght);
         this.index = this.text.length;
         return rest;
     }
 
-    function peekToEnd(){
+    function peekToEnd() {
         return this.text.slice(this.index, this.text.lenght);
     }
 
