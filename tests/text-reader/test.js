@@ -73,3 +73,25 @@ QUnit.test("returns string until character and advances index", function(assert)
 	assert.equal(result, "hello world", "value");
 	assert.equal(reader.index, 0, "index");
 });
+
+QUnit.module(".readWhiteSpace");
+QUnit.test("returns string until non-whitespace and advances index", function(assert){
+	const reader = TextReader.create("   h");
+	let result = reader.readWhiteSpace();
+	assert.equal(result, "   ", "value");
+	assert.equal(reader.index, 3, "index");
+});
+var tests = [
+	String.fromCharCode(9),
+	String.fromCharCode(10),
+	String.fromCharCode(13),
+	String.fromCharCode(32)
+]
+tests.forEach(test => {
+	QUnit.test("returns should read as whiteSpace", function(assert){
+		const reader = TextReader.create(test);
+		let result = reader.readWhiteSpace();
+		assert.equal(result, test, "value");
+		assert.equal(reader.index, 1, "index");
+	});
+});

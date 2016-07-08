@@ -112,16 +112,16 @@ const TextReader = (function() {
     }
 
     function readWhiteSpace() {
-        let char = this.peekChar();
+        let nextChar = this.peekChar();
         let outText = "";
-        while (!isWhitespace(nextChar)) {
+        while (isWhiteSpace(nextChar)) {
             outText += this.readChar();
             nextChar = this.peekChar();
         }
         return outText;
     }
 
-    function isWhitespace(char) {
+    function isWhiteSpace(char) {
         const whitespace = [
             String.fromCharCode(13), //carriage return
             String.fromCharCode(10), //new line

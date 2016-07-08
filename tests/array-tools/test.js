@@ -80,3 +80,21 @@ QUnit.test("gets array of indices", function(assert){
   ], item => item.b);
   assert.deepEqual(result, [1,2,4], "change indicies");
 });
+
+QUnit.module(".arrayUniqueBy");
+QUnit.test("get unique elements", function(assert){
+  var result = ArrayTools.arrayUniqueBy([
+      { a : 3, b :"red" },
+      { a : 1, b : "red" },
+      { a : 2, b : "blue" },
+      { a : 4, b : "yellow" },
+      { a : 5, b : "yellow" },
+      { a : 0, b : "orange"}
+  ], item => item.b);
+  assert.deepEqual(result, [
+      { a : 3, b : "red" },
+      { a : 2, b : "blue" },
+      { a : 4, b : "yellow" },
+      { a : 0, b : "orange" }
+  ], "got unique elements");
+});
