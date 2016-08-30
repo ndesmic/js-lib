@@ -19,3 +19,17 @@ tests.forEach((test) => {
   	assert.equal(result, test.result, "rounded number");
   });
 });
+
+QUnit.module(".parseIntOrDefault");
+QUnit.test("should parse", function(assert){
+  var result = NumberTools.parseIntOrDefault("123");
+  assert.equal(result, 123, "parsed");
+});
+QUnit.test("should default", function(assert){
+  var result = NumberTools.parseIntOrDefault("dog", "rainbow");
+  assert.equal(result, "rainbow", "defaulted");
+});
+QUnit.test("should default with default", function(assert){
+  var result = NumberTools.parseIntOrDefault("cat");
+  assert.equal(result, null, "defaulted");
+});

@@ -24,7 +24,7 @@ var tests = [
 ];
 tests.forEach(x => {
     QUnit.test("inserts text", function(assert){
-        var text = StringTools.insertString(...x);
+        var text = StringTools.insertString(...x.args);
         assert.equal(text, x.result);
     });
 });
@@ -140,6 +140,32 @@ QUnit.test("changes html string into DOM elements", function(assert){
 	var dom = StringTools.htmlStringToDom("<div><span></span></div>");
 	var element = dom.querySelector("span");
 	assert.ok(!!element, "go element");
+});
+
+QUnit.module(".truncateWords");
+QUnit.test("passes through string that fits", function(assert){
+	var text = StringTools.truncateWords("word word word", 50);
+	assert.equal(text, "word word word");
+});
+QUnit.test("passes through exact length", function(assert){
+	var text = StringTools.truncateWords("word word", 9);
+	assert.equal(text, "word word");
+});
+QUnit.test("truncates where it does not fit (exact)", function(assert){
+	var text = StringTools.truncateWords("word word word", 12);
+	assert.equal(text, "word word...");
+});
+QUnit.test("truncates where it does not fit (walkback)", function(assert){
+	var text = StringTools.truncateWords("word word word", 9);
+	assert.equal(text, "word...");
+});
+QUnit.test("should truncate even if elipsis space remains", function(assert){
+    var text = StringTools.truncateWords("Wyoming football wrapped up fall camp on Saturday. Hear from Coach Bohl on where the Cowboys stand headed into the season opener on Sept. 3 in Laramie.", 90);
+    assert.equal(text, "Wyoming football wrapped up fall camp on Saturday. Hear from Coach Bohl on where the...");
+});
+QUnit.test("should not truncate if second param is falsy ", function(assert){
+    var text = StringTools.truncateWords("Wyoming football wrapped up fall camp on Saturday. Hear from Coach Bohl on where the Cowboys stand headed into the season opener on Sept. 3 in Laramie.");
+    assert.equal(text, "Wyoming football wrapped up fall camp on Saturday. Hear from Coach Bohl on where the Cowboys stand headed into the season opener on Sept. 3 in Laramie.");
 });
 
 QUnit.module(".transformToken");

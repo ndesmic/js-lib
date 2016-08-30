@@ -253,6 +253,26 @@ var StringTools = (function() {
         return chunks;
     }
 
+    function truncateWords(text, length){
+        var words = text.split(" ");
+        var truncated = "";
+        var i = 0;
+        if(!length || text.length <= length){
+            return text;
+        }
+        while(truncated.length < length && i < words.length){
+            truncated += (i === 0 ? "" : " ") + words[i];
+            i++;
+        }
+        if(truncated.length <= length && i < words.length){
+            truncated += "...";
+        }
+        while(truncated.length > length){//overshot with ellipsis, walk back until it fits
+            truncated = truncated.substring(0, truncated.lastIndexOf(" ")) + "...";
+        }
+        return truncated;
+    }
+
     function htmlStringToDom(htmlString) {
         parser = new DOMParser();
         return parser.parseFromString(htmlString, "text/html");
@@ -396,6 +416,7 @@ var StringTools = (function() {
         lengthChunk: lengthChunk,
         countChunk: countChunk,
         lengthChunkWords: lengthChunkWords,
+        truncateWords : truncateWords,
         htmlStringToDom: htmlStringToDom,
         transformToken: transformToken,
         splitCamelCase: splitCamelCase,
