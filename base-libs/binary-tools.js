@@ -202,6 +202,10 @@ var BinaryTools = (function(){
 		return uri;
 	}
 
+	function stringToBlob(text, mimeType){
+		return new Blob([text], { type : mimeType })
+	}
+
 	return {
 		arrayBufferToHex : arrayBufferToHex,
 		arrayBufferToBinary : arrayBufferToBinary,
@@ -217,7 +221,8 @@ var BinaryTools = (function(){
 		dataViewToString : dataViewToString,
 		dataViewToByteArray : dataViewToByteArray,
 		stringToArrayBuffer : stringToArrayBuffer,
-		stringToByteArray : stringToByteArray
+		stringToByteArray : stringToByteArray,
+		stringToBlob : stringToBlob
 	};
 
 })();

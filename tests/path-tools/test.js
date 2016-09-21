@@ -61,3 +61,14 @@ QUnit.test("keeps https url https", function(assert){
 	var test1 = PathTools.urlToHttps("https://domain.com");
 	assert.equal(test1, "https://domain.com");
 });
+
+QUnit.module(".resolveRelativeUrl");
+[
+	{ url : "a", base : "foo://bar/", result : "foo://bar/a" },
+	{ url : "../a", base : "foo://bar/", result : "foo://a" }
+].forEach(test => {
+	QUnit.test("should resolve url", function(assert){
+		var result = PathTools.resolveRelativeUrl(test.url, test.base);
+		assert.equal(result, test.result);
+	});
+});
