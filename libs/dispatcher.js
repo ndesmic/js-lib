@@ -1,7 +1,7 @@
-var Dispatcher = (function(){
-	
+const Dispatcher = (function(){
+
 	function create(){
-		var dispatcher = {};
+		const dispatcher = {};
 		bind(dispatcher);
 		dispatcher.init();
 		return dispatcher;
@@ -9,13 +9,13 @@ var Dispatcher = (function(){
 
 	function bind(dispatcher){
 		dispatcher.init = init.bind(dispatcher);
-		dispatcher.addListener = addListener.bind(dispatcher);
+		dispatcher.addEventListener = addEventListener.bind(dispatcher);
 		dispatcher.trigger = trigger.bind(dispatcher);
-		dispatcher.removeListener = removeListener.bind(dispatcher);
+		dispatcher.removeEventListener = removeEventListener.bind(dispatcher);
 	}
 
-	function addListener(event, callback){
-		var id = this.modal.id++;
+	function addEventListener(event, callback){
+		const id = this.model.id++;
 
 		if(this.model.listeners[event]){
 			this.model.listeners[event].push({
@@ -33,20 +33,15 @@ var Dispatcher = (function(){
 
 	function trigger(event, details){
 		if(this.model.listeners[event]){
-			for(var i = 0; i < this.model.listeners[event].length; i++){
-				this.model.listeners[event][i].callback(details);
-			}
+			this.model.listeners[event].forEach(x => x.callback(details));
 		}
 	}
 
-	function removeListener(id){
-		for(var key in this.model.listeners){
-			ArrayHelper.arrayRemoveWhere(this.model.listeners[key], x => x.id == id);
+	function removeEventListener(id){
+		for(let listenerList of this.model.listeners){
+			const index = listenerList.findIndex(x => x.id === id);
+			listenerList.splice(index, 1);
 		}
-	}
-
-	function pipe(dispatcher){
-		
 	}
 
 	function init(){
@@ -57,7 +52,8 @@ var Dispatcher = (function(){
 	}
 
 	return {
-		create : create,
+		create,
+		globalDispatcher : create()
 	};
 
 })();

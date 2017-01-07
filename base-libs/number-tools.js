@@ -17,11 +17,24 @@ var NumberTools = (function(){
 		return isNaN(int) ? (defaultValue || null) : value;
 	}
 
+	function clamp(value, low, high){
+		low = low !== undefined ? low : Number.MIN_SAFE_INTEGER;
+		high = high !== undefined ? high : Number.MAX_SAFE_INTEGER;
+		if(value < low){
+			value = low;
+		}
+		if(value > high){
+			value = high;
+		}
+		return value;
+	}
+
 	return {
 		precision : precision,
 		round : round,
 		isNumber : isNumber,
-		parseIntOrDefault : parseIntOrDefault
+		parseIntOrDefault : parseIntOrDefault,
+		clamp : clamp
 	};
 
 })();

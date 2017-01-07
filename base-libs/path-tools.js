@@ -75,22 +75,14 @@ var PathTools = (function() {
 
 	//unfinished
     function resolveRelativeUrl(url, base) {
-        if (url.startsWith("/")) {
-            return base + url.substr(1);
+		base = base.replace(/\/$/, "");
+        if (/^\//.test(url)) {
+            return base + "/" + url.substr(1).replace(/\/$/, "");
         }
-        let backIndex = 0;
-        while (url.startsWith("../")) {
-            backIndex++;
-            url.substr(3);
-        }
-        if (backIndex > 0) {
-            let baseParts = base.split("/");
-            if (baseParts.length - 1 < backIndex) {
-                backIndex = baseParts.length - 1;
-            }
-            base = baseParts.slice(0, baseParts.length - backIndex).join("/");
-        }
-        base + url;
+        if(/^\.\./.test(url)){
+			return resolveRelativeUrl(url.replace(/^\.\.\/?/,""), getParentDirectory(base))
+		}
+		return (base + "/" + url).replace(/\/$/,"");
     }
 
     return {

@@ -1,5 +1,4 @@
 QUnit.module(".round");
-
 var tests = [
   { args : [1, 3], result : 0 },
   { args : [2,3], result : 3 },
@@ -32,4 +31,18 @@ QUnit.test("should default", function(assert){
 QUnit.test("should default with default", function(assert){
   var result = NumberTools.parseIntOrDefault("cat");
   assert.equal(result, null, "defaulted");
+});
+
+QUnit.module(".clamp");
+QUnit.test("should clamp value low", function(assert){
+  var result = NumberTools.clamp(8, 10, 20);
+  assert.equal(result, 10, "clamped low");
+});
+QUnit.test("should clamp value high", function(assert){
+  var result = NumberTools.clamp(25, 10, 20);
+  assert.equal(result, 20, "clamped high");
+});
+QUnit.test("should not clamp value", function(assert){
+  var result = NumberTools.clamp(17, 10, 20);
+  assert.equal(result, 17, "not clamped");
 });
