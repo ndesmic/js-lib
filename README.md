@@ -19,14 +19,20 @@ encoding-tools - A library for dealing with text encodings<br>
 file-tools - A library for dealing with files<br>
 form-tools - A library for dealing with forms<br>
 function-tools - A library of useful things pertaining to functions<br>
+geometry-tools - A library with geometry related utilities<br>
 mailto-tools - A library for dealing with mailto links<br>
+map-tools - A library of useful things with js maps (dictionaries)<br>
 number-tools - A library for dealing with numbers<br>
 oauth-tools - A library for dealing with Oauth stuff<br>
 object-tools - A library for dealing with basic objects<br>
 observer-tools - A library for dealing with observers<br>
 path-tools - A library for dealing with file paths (local and web)<br>
-randomTools - A library for getting random values<br>
+promise-tools - A library for dealing with native promises<br>
+random-tools - A library for getting random values<br>
+regex-tools - A library for dealing with regular expressions<br>
 string-tools - A library of functions that manipulate strings<br>
+time-tools - A library of functions for dealing with time and dates<br>
+value-tools - A library of functions for dealing with js values<br>
 
 
 Libs

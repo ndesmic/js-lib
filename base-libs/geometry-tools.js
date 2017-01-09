@@ -36,8 +36,44 @@ var GeometryTools = (function(){
 		return angle % TWO_PI;
 	}
 
-	function getDistance(...dimensions){
+	function getDistanceFromOrigin(...dimensions){
 		return Math.sqrt(dimensions.map(x => x*x).reduce((previous, current) => current + previous, 0));
+	}
+	
+	//gets magnitude of a vector (distance without sqrt)
+	function getMagnitude(vector){
+		let magnitude = (vector.x ** 2) + (vector.y ** 2);
+		if(vector.z !== undefined){
+			magnitude += (vector.z ** 2);
+		}
+		return magnitude;
+	}
+
+	//gets the distance between two points
+	function pointDistance(pointA, pointB){
+		return Math.sqrt(pointMagnitudeDifference(pointA, pointB));
+	}
+
+	//a comparator for sorting by magnitude
+	function magnitudeCompare(pointA, pointB){
+		return getMagnitude(pointA) - getMagnitude(pointB);
+	}
+	
+	//vector subtract
+	function pointDifference(pointA, pointB){
+		let difference = {
+			x : pointA.x - pointB.x,
+			y : pointA.y - pointB.y
+		};
+		if(pointA.z !== undefined && pointB.z !== undefined){
+			difference.z = pointA.z - pointB.z;
+		}
+		return difference;
+	}
+
+	//gets the magnitude of difference between points
+	function pointMagnitudeDifference(pointA, pointB){
+		return getMagnitude(pointDifference(pointA, pointB));
 	}
 
 	function pointToGrid(x, y, scale){
@@ -61,7 +97,7 @@ var GeometryTools = (function(){
 		getRayDirection,
 		pointToGrid,
 		normalizeAngle,
-		getDistance,
+		getDistanceFromOrigin,
 		degreesToRadians,
 		radiansToDegrees
 	};

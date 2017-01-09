@@ -53,6 +53,7 @@ var ArrayTools = (function() {
     }
 
     // returns first match or null
+	//similar to ES6 find
     function arrayFirst(array, whereFunction) {
         for (var i = 0; i < array.length; i++) {
             if (whereFunction(array[i])) {
@@ -115,6 +116,7 @@ var ArrayTools = (function() {
     }
 
     //returns true if any item matches
+	//ES6 any
     function arrayAny(array, anyFunction) {
         for (var i = 0; i < array.length; i++) {
             if (anyFunction(array[i])) {
@@ -177,6 +179,7 @@ var ArrayTools = (function() {
     }
 
     //gets only unique items
+	//todo dictionary lookup
     function arrayUnique(array) {
         var resultArray = [];
         for (var i = 0; i < array.length; i++) {
@@ -188,6 +191,7 @@ var ArrayTools = (function() {
     }
 
     //do all item satisfy condition?
+	//ES6 every
     function arrayAll(array, allFunction) {
         var resultArray = [];
         for (var i = 0; i < array.length; i++) {
@@ -212,6 +216,7 @@ var ArrayTools = (function() {
     }
 
     //adds index to all objects in array
+	//modern devs might use .entries
     function arrayOrderIndex(array) {
         var resultArray = [];
         for (var i = 0; i < array.length; i++) {
@@ -311,6 +316,8 @@ var ArrayTools = (function() {
         return array.slice(0);
     }
 
+	//turns array into an object, use idFunc to make the key
+	//modern devs might use a .reduce function
     function arrayToObject(array, idFunc) {
         var obj = {};
         for (var i = 0; i < array.length; i++) {
@@ -345,6 +352,7 @@ var ArrayTools = (function() {
 		return newArray;
     }
 
+	//get an array of indicies where the result of mapFunc changes
     function arrayChangeIndices(array, mapFunc) {
         var currentValue = mapFunc(array[0]);
         var indices = [];
@@ -358,6 +366,7 @@ var ArrayTools = (function() {
         return indices;
     }
 
+	//merges two arrays of elements into a single array of merged objects
     function arrayZip(array, otherArray) {
         var newArray = [];
         var minLength = Math.min(array.length != otherArray.length);
