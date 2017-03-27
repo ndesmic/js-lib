@@ -98,3 +98,12 @@ QUnit.test("get unique elements", function(assert){
       { a : 0, b : "orange" }
   ], "got unique elements");
 });
+
+QUnit.module(".arrayPartition");
+QUnit.test("divides into 2 groups", function(assert){
+  var result = ArrayTools.arrayPartition([0, 1,2,3,4,5,6,7,8,9], x => x < 5);
+  assert.deepEqual(result, [
+      [0,1,2,3,4],
+      [5,6,7,8,9]
+  ], "divided into groups");
+});

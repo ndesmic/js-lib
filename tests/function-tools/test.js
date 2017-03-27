@@ -14,15 +14,15 @@ QUnit.module(".wait");
 QUnit.test("waits for time ms", function(assert){
   var clock = sinon.useFakeTimers();
   var result = false;
-  
+
 	FunctionTools.wait(1000).then(function(){
     result = true;
 	});
-	
+
 	clock.tick(2000);
-	
+
 	assert.ok(result, "timer fired");
-	
+
   //clock.restore();
 });
 */

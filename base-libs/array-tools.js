@@ -376,6 +376,16 @@ var ArrayTools = (function() {
         return newArray;
     }
 
+    function arrayPartition(array, filterFunc){
+        return array.reduce((p, x) => {
+            if(filterFunc(x)){
+                p[0].push(x);
+            }else{
+                p[1].push(x);
+            }
+            return p;
+        }, [[],[]]);
+    }
 
     return {
         arrayOrderIndex: arrayOrderIndex,
@@ -409,7 +419,8 @@ var ArrayTools = (function() {
         arrayOrderBy: arrayOrderBy,
         arrayUniqueBy : arrayUniqueBy,
         arrayChangeIndices: arrayChangeIndices,
-        arrayZip: arrayZip
+        arrayZip: arrayZip,
+        arrayPartition: arrayPartition
     };
 
 })();
