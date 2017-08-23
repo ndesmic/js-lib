@@ -74,6 +74,20 @@ var DomTools = (function(){
       element : nodes[nodes.length - 1]
     };
   }
+  
+  	function copy(element){
+		var hasSelection = document.queryCommandEnabled('copy');
+		if(!hasSelection){
+			console.log('copy not enabled');
+		}
+		element.select();
+
+		try {
+			var successful = document.execCommand('copy');
+		} catch(err) {
+			console.log('execCommand Error', err);
+		}
+	}
 
   return {
     removeChildren : removeChildren,
@@ -83,7 +97,8 @@ var DomTools = (function(){
     fireEvent : fireEvent,
     createOptionList : createOptionList,
     getMatchingCss : getMatchingCss,
-    cloneParentNodeTree : cloneParentNodeTree
+    cloneParentNodeTree : cloneParentNodeTree,
+	copy: copy
   };
   
 })();

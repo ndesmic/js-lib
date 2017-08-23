@@ -50,6 +50,7 @@ var BinaryTools = (function(){
 		return newString;
 	}
 
+	//can use padLeft
 	function pad(n, width, z) {
 		z = z || '0';
 		n = n + '';
@@ -206,6 +207,14 @@ var BinaryTools = (function(){
 		return new Blob([text], { type : mimeType })
 	}
 
+	function stringToObjectUrl(text, mimeType){
+		return URL.createObjectURL(new Blob([text], { type : mimeType }));
+	}
+
+	function unit8ArrayToBase64Url(){
+
+	}
+
 	return {
 		arrayBufferToHex : arrayBufferToHex,
 		arrayBufferToBinary : arrayBufferToBinary,
@@ -222,7 +231,8 @@ var BinaryTools = (function(){
 		dataViewToByteArray : dataViewToByteArray,
 		stringToArrayBuffer : stringToArrayBuffer,
 		stringToByteArray : stringToByteArray,
-		stringToBlob : stringToBlob
+		stringToBlob : stringToBlob,
+		stringToObjectUrl : stringToObjectUrl
 	};
 
 })();

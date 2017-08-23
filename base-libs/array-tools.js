@@ -74,6 +74,7 @@ var ArrayTools = (function() {
     }
 
     //gets all matching indexes
+    //ES6 map with index
     function arrayIndexes(array, whereFunction) {
         var matches = [];
         for (var i = 0; i < array.length; i++) {
@@ -95,7 +96,7 @@ var ArrayTools = (function() {
     }
 
     //does a function for each element
-    //ES6 forEach
+    //ES6 forEach but returns for chaining
     function arrayEach(array, eachFunction) {
         for (var i = 0; i < array.length; i++) {
             eachFunction(array[i]);
@@ -216,7 +217,7 @@ var ArrayTools = (function() {
     }
 
     //adds index to all objects in array
-	//modern devs might use .entries
+	//like ES7 entries
     function arrayOrderIndex(array) {
         var resultArray = [];
         for (var i = 0; i < array.length; i++) {
@@ -253,7 +254,7 @@ var ArrayTools = (function() {
         return i - 1;
     }
 
-    //prints items in array as a grammatical series
+    //prints items in array as a grammatical series with oxford comma
     function arraySeriesText(items, mapperFunction) {
         var text = "";
         for (var i = 0; i < items.length; i++) {
