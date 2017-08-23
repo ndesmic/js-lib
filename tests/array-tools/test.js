@@ -107,3 +107,9 @@ QUnit.test("divides into 2 groups", function(assert){
       [5,6,7,8,9]
   ], "divided into groups");
 });
+
+QUnit.module(".arrayFlatMap");
+QUnit.test("flatMaps array", assert => {
+  const result = ArrayTools.arrayFlatMap([1,2,3], x => [x, x*2, x*3]);
+  assert.deepEqual(result, [1,2,3,2,4,6,3,6,9], "flat maps array");
+});

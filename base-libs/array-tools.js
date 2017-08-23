@@ -388,6 +388,11 @@ var ArrayTools = (function() {
         }, [[],[]]);
     }
 
+    const arrayFlatMap = (array, mapFunc) => array.reduce((agg,x) => {
+        agg.push(...mapFunc(x));
+        return agg;
+    }, []);
+
     return {
         arrayOrderIndex: arrayOrderIndex,
         arrayTotal: arrayTotal,
@@ -421,7 +426,8 @@ var ArrayTools = (function() {
         arrayUniqueBy : arrayUniqueBy,
         arrayChangeIndices: arrayChangeIndices,
         arrayZip: arrayZip,
-        arrayPartition: arrayPartition
+        arrayPartition: arrayPartition,
+        arrayFlatMap: arrayFlatMap
     };
 
 })();
