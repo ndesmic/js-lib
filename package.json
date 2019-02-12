@@ -1,0 +1,33 @@
+{
+  "name": "js-lib",
+  "version": "1.0.0",
+  "description": "js-lib ======",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "karma": "^4.0.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "^3.3.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^2.0.0",
+    "karma-jasmine": "^2.0.1"
+  },
+  "scripts": {
+    "test": "karma start ./karma.conf.js",
+    "test:debug": "karma start ./karma.conf.js --no-single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somnid/js-lib.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/somnid/js-lib/issues"
+  },
+  "homepage": "https://github.com/somnid/js-lib#readme"
+}

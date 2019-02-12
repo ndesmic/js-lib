@@ -50,6 +50,10 @@ var BinaryTools = (function(){
 		return newString;
 	}
 
+	function arrayBufferToBase64(arrayBuffer, start, length){
+		return btoa(arrayBufferToString());
+	}
+
 	//can use padLeft
 	function pad(n, width, z) {
 		z = z || '0';
@@ -212,7 +216,7 @@ var BinaryTools = (function(){
 	}
 
 	function unit8ArrayToBase64Url(){
-
+		
 	}
 
 	return {
