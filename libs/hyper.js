@@ -1,28 +1,19 @@
-const Hyper = (function(){
-
-	function h(nodeName, attributes, ...children){
-		const element = document.createElement(nodeName);
-		element.attributes = attributes;
-		if(attributes){
-			for(let key in attributes){
-				element.setAttribute(key, attributes[key]);
-			}
-		}
-		if(children && children.length > 0){
-			for(let i = 0; i < children.length; i++){
-				if(typeof(children[i]) == "string"){
-					const text = document.createTextNode(children[i]);
-					element.appendChild(text);
-				}else{
-					element.appendChild(children[i]);
-				}
-			}
-		}
-		return element;
+export function hyper(nodeName, attributes, ...children){
+	const element = document.createElement(nodeName);
+	if(attributes){
+		Object.entries(attributes).reduce((element, [key,value]) => {
+			element.setAttribute(key, value);
+			return element;
+		}, element);
 	}
-
-	return {
-		h
-	};
-
-})();
+	if(children && children.length > 0){
+		children.reduce((element, child) => {
+			element.append(typeof(child) == "string"
+				? element.appendChild(document.createTextNode(child))
+				: element.appendChild(child)
+			);
+			return element;
+		}, element);
+	}
+	return element;
+}
