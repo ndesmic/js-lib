@@ -7,11 +7,10 @@
     "test": "tests"
   },
   "dependencies": {
-    "http-server": "^0.10.0",
-    "karma": "^4.0.0"
+    "karma": "^4.1.0"
   },
   "devDependencies": {
-    "jasmine-core": "^3.3.0",
+    "jasmine-core": "^3.4.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^2.0.0",
     "karma-jasmine": "^2.0.1"
