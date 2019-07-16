@@ -1,12 +1,6 @@
-var FormTools = (function(){
-    function findValidation(form){
-        var inputs = form.querySelectorAll("input");
-        for(var i = 0; i < inputs.length; i++){
-            console.log(inputs[i].id, inputs[i].validity);
-        }
+export function findValidation(form){
+    const inputs = form.querySelectorAll("input");
+    for(let i = 0; i < inputs.length; i++){
+        console.log(inputs[i].id, inputs[i].validity);
     }
-    
-    return {
-        findValidation : findValidation  
-    };
-})();
+}

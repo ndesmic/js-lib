@@ -77,3 +77,25 @@ export function memo(func) {
         }
     }
 }
+export function throttle(func, ms) {
+    let pending = false;
+
+    return function(...args){
+        if(!pending){
+            func(...args);
+            setTimeout(() => {
+                pending = false;
+            }, ms);
+            pending = true;
+        }
+    }
+}
+
+export function debounce(func, ms) {
+    let timeout = null;
+
+    return function(...args){
+        clearTimeout(timeout);
+        timeout = setInterval(() => func(...args), ms);
+    }
+}

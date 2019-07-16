@@ -1,11 +1,3 @@
-var ChromeTools = (function(){
-  
-    function isApp(){
-      return !!chrome.runtime.id;
-    }
-  
-    return {
-      isApp : isApp
-    };
-  
-})();
+export function isApp(){
+  return !!chrome.runtime.id;
+}

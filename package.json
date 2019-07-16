@@ -1,13 +1,13 @@
 {
   "name": "js-lib",
   "version": "1.0.0",
-  "description": "js-lib ======",
+  "description": "js-lib",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "karma": "^4.1.0"
+    "karma": "^4.2.0"
   },
   "devDependencies": {
     "jasmine-core": "^3.4.0",

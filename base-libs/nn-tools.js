@@ -1,7 +1,7 @@
-export sigmoid = value => 1 / (1 + Math.exp(-value));
+export const sigmoid = value => 1 / (1 + Math.exp(-value));
 
-export relu = value => Math.max(0, value);
+export const relu = value => Math.max(0, value);
 
-export identity = value => value;
+export const identity = value => value;
 
-export binaryThreshold = threshold => value => value >= threshold ? 1 : 0;
+export const binaryThreshold = threshold => value => value >= threshold ? 1 : 0;

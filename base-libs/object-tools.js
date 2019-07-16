@@ -48,12 +48,6 @@ var ObjectTools = (function(){
 		return target;
 	}
 
-	function promiseStub(){
-		return new Promise(function(resolve, reject){
-			resolve();
-		});
-	}
-
 	//Takes object of form { a : [], b : [], c : [] } and converts to [{a, b, c},...]
 	function unpivot(pivotObject){
 		var maxLength = 0;

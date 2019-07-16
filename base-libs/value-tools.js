@@ -1,16 +1,7 @@
-var ValueTools = (function(){
-  
-  function coalesce(){
-    var value;
-    for(var i = 0; i < arguments.length; i++){
-      if(arguments[i] !== null && arguments[i] !== undefined){
-        return arguments[i];
-      }
+export function coalesce(...args) {
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] !== null && args[i] !== undefined) {
+      return args[i];
     }
   }
-  
-  return {
-    coalesce
-  };
-  
-})();
+}

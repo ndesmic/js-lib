@@ -1,18 +1,19 @@
-const Option = (function(){
-	const none = Object.freeze({});
+const none = Symbol();
 
-	function create(){
-		if(value){
-			return Object.freeze({
-				hasValue : true,
-				value : value
-			});
+export class Option {
+	hasValue;
+	value;
+
+	constructor(value){
+		this.value = value;
+		if(value !== none){
+			this.hasValue = true;
 		}
-		return none;
-	};
-	
-	return {
-		create,
-		None : none
-	};
-});
+	}
+	static of(value){
+		return new Option(value);
+	}
+	static none(){
+		return new Option(none);
+	}
+};

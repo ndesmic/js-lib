@@ -1,15 +1,7 @@
-var PromiseTools = (function(){
-
-  function chainPromise(promiseArray, initialValue){
-		var promise = Promise.resolve(initialValue);
-		for(var i = 0; i < array.length; i++){
-			promise = promise.then((...x) => array[i](...x));
-		}
-		return promise;
+export function chainPromise(promiseArray, initialValue){
+	let promise = Promise.resolve(initialValue);
+	for(let i = 0; i < promiseArray.length; i++){
+		promise = promise.then((...x) => array[i](...x));
 	}
-
-	return{
-	  chainPromise : chainPromise
-	};
-
-})();
+	return promise;
+}

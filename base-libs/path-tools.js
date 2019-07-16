@@ -37,37 +37,6 @@ var PathTools = (function() {
         return path.split("#")[0];
     }
 
-    function getHashValue(key, url) {
-        if (url) {
-            url = url.split("#")[1];
-        } else {
-            url = window.location.hash;
-        }
-        var map = getQueryMap(url);
-        return map[key];
-    }
-
-    function getQueryValue(key, url) {
-        if (url) {
-            url = url.split("?")[1];
-        } else {
-            url = window.location.search;
-        }
-        url = url.split("#")[0]; //remove hash
-        var map = getQueryMap(url);
-        return map[key];
-    }
-
-    function getQueryMap(queryString) {
-        var map = {};
-        var andSplit = queryString.split("&");
-        for (var i = 0; i < andSplit.length; i++) {
-            var equalSplit = andSplit[i].split("=");
-            map[equalSplit[0]] = equalSplit[1];
-        }
-        return map;
-    }
-
     function urlToHttps(url) {
         url = url.split(":")[1];
         return "https:" + url;
@@ -94,8 +63,6 @@ var PathTools = (function() {
         removePreceedingSlash: removePreceedingSlash,
         removeQueryString: removeQueryString,
         removeHash: removeHash,
-        getHashValue: getHashValue,
-        getQueryValue: getQueryValue,
         urlToHttps: urlToHttps,
 		resolveRelativeUrl : resolveRelativeUrl
     };

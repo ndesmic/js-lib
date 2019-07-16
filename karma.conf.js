@@ -16,8 +16,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       { pattern: 'base-libs/algorithms.js', type: "module" },
+      { pattern: 'base-libs/array-tools.js', type: "module" },
       { pattern: 'base-libs/string-tools.js', type: "module" },
       { pattern: 'base-libs/function-tools.js', type: "module" },
+      { pattern: 'tests/array-tools/array-tools-test.js', type: "module" },
       { pattern: 'tests/string-tools/string-tools-test.js', type: "module" },
       { pattern: 'tests/function-tools/function-tools-test.js', type: "module" }
     ],
