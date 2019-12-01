@@ -1,5 +1,5 @@
-import { memo } from "../../base-libs/function-tools.js";
-import { recursiveFibanocci as fibanocci } from "../../base-libs/algorithms.js";
+import { memo } from "../../libs/function-tools.js";
+import { recursiveFibanocci as fibanocci } from "../../libs/algorithms.js";
 
 describe("function-tools", () => {
     describe("memo", () => {

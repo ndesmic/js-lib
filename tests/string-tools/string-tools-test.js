@@ -1,7 +1,7 @@
 import {
     getStringInit,
     getLevenshteinDistance
- } from "../../base-libs/string-tools.js";
+ } from "../../libs/string-tools.js";
 
 
 describe("getStringInit", () => {

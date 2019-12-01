@@ -15,13 +15,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'base-libs/algorithms.js', type: "module" },
-      { pattern: 'base-libs/array-tools.js', type: "module" },
-      { pattern: 'base-libs/string-tools.js', type: "module" },
-      { pattern: 'base-libs/function-tools.js', type: "module" },
+      //files to test
+      { pattern: 'libs/algorithms.js', type: "module" },
+      { pattern: 'libs/array-tools.js', type: "module" },
+      { pattern: 'libs/string-tools.js', type: "module" },
+      { pattern: 'libs/function-tools.js', type: "module" },
+      { pattern: 'libs/dom-tools.js', type: "module" },
+
+      //test files
       { pattern: 'tests/array-tools/array-tools-test.js', type: "module" },
       { pattern: 'tests/string-tools/string-tools-test.js', type: "module" },
-      { pattern: 'tests/function-tools/function-tools-test.js', type: "module" }
+      { pattern: 'tests/function-tools/function-tools-test.js', type: "module" },
+      { pattern: 'tests/dom-tools/dom-tools-test.js', type: "module" },
     ],
 
 
