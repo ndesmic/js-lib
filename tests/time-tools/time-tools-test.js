@@ -1,4 +1,4 @@
-import { getTimezone, isLeapYear, getDaysInMonth } from "../../libs/time-tools.js"
+import { getTimezone, isLeapYear, getDaysInMonth, getMonthMatrix } from "../../libs/time-tools.js"
 
 describe(".getTimezone", () => {
 	it("should get time Zone", () => { //This test is based on computer location and will fail if moved to new timezone
@@ -38,6 +38,38 @@ describe(".getDaysInMonth", () => {
 	});
 	it("should get leap year February", () => {
 		expect(getDaysInMonth(2, 2000)).toBe(29);
+	});
+});
+
+describe(".getMonthMatrix", () => {
+	it("should get month matrix for 2/2020 (leap year)", () => {
+		const result = getMonthMatrix(2, 2020);
+		expect(result).toEqual([
+			[null, null, null, null, null, null, 1],
+			[2, 3, 4, 5, 6, 7, 8],
+			[9, 10, 11, 12, 13, 14, 15],
+			[16, 17, 18, 19, 20, 21, 22],
+			[23, 24, 25, 26, 27, 28, 29]
+		]);
+	});
+	it("should get month matrix for 3/2020", () => {
+		const result = getMonthMatrix(3, 2020);
+		expect(result).toEqual([
+			[1, 2, 3, 4, 5, 6, 7],
+			[8, 9, 10, 11, 12, 13, 14],
+			[15, 16, 17, 18, 19, 20, 21],
+			[22, 23, 24, 25, 26, 27, 28],
+			[29, 30, 31, null, null, null, null]
+		]);
+	});
+	it("should get month matrix for 2/2015 (perfect February)", () => {
+		const result = getMonthMatrix(2, 2015);
+		expect(result).toEqual([
+			[1, 2, 3, 4, 5, 6, 7],
+			[8, 9, 10, 11, 12, 13, 14],
+			[15, 16, 17, 18, 19, 20, 21],
+			[22, 23, 24, 25, 26, 27, 28]
+		]);
 	});
 });
 
