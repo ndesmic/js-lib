@@ -23,6 +23,7 @@ module.exports = function(config) {
       { pattern: 'libs/function-tools.js', type: "module" },
       { pattern: 'libs/time-tools.js', type: "module" },
       { pattern: 'libs/dom-tools.js', type: "module" },
+      { pattern: 'simple-implementations/hyper.js', type: "module" },
 
       //test files
       { pattern: 'tests/array-tools/array-tools-test.js', type: "module" },
@@ -31,6 +32,7 @@ module.exports = function(config) {
       { pattern: 'tests/function-tools/function-tools-test.js', type: "module" },
       { pattern: 'tests/time-tools/time-tools-test.js', type: "module" },
       { pattern: 'tests/dom-tools/dom-tools-test.js', type: "module" },
+      { pattern: 'tests/hyper/hyper-test.js', type: "module" }
     ],
 
 

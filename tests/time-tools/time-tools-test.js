@@ -1,10 +1,12 @@
 import { getTimezone, isLeapYear, getDaysInMonth, getMonthMatrix } from "../../libs/time-tools.js"
 
+/*
 describe(".getTimezone", () => {
 	it("should get time Zone", () => { //This test is based on computer location and will fail if moved to new timezone
 		expect(getTimezone()).toBe("Pacific Standard Time");
 	});
 });
+*/
 
 describe(".isLeapYear", () => {
 	it("should get a normal year", () => {
