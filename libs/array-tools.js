@@ -40,7 +40,7 @@ export function arrayFindIndices(array, whereFunction) {
 }
 //does a function for each element
 //ES6 forEach but returns for chaining
-function arrayDo(array, eachFunction) {
+export function arrayDo(array, eachFunction) {
     for (var i = 0; i < array.length; i++) {
         eachFunction(array[i]);
     }
@@ -48,7 +48,7 @@ function arrayDo(array, eachFunction) {
 }
 
 //counts matching items
-function arrayCount(array, countFunction) {
+export function arrayCount(array, countFunction) {
     var count = 0;
     for (var i = 0; i < array.length; i++) {
         if (countFunction(array[i])) {
@@ -81,23 +81,12 @@ export function arrayIntersect(arrayA, arrayB) {
 //do 2 arrays intersect?
 export const arrayHasIntersect = (arrayA, arrayB) =>
     arrayIntersect(arrayA, arrayB).length > 0;
-//flattens nested arrays
-function arrayFlatten(array) {
-    const resultArray = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] instanceof Array) {
-            resultArray = resultArray.concat(arrayFlatten(array[i]));
-        } else {
-            resultArray.push(array[i]);
-        }
-    }
-    return resultArray;
-}
+
 //gets only unique items
 //todo dictionary lookup
-function arrayUnique(array) {
-    var resultArray = [];
-    for (var i = 0; i < array.length; i++) {
+export function arrayUnique(array) {
+    const resultArray = [];
+    for (let i = 0; i < array.length; i++) {
         if (resultArray.indexOf(array[i]) == -1) {
             resultArray.push(array[i]);
         }
@@ -105,7 +94,7 @@ function arrayUnique(array) {
     return resultArray;
 }
 //totals value counts as an object { value : count }
-function arrayBucketCount(array) {
+export function arrayBucketCount(array) {
     const totals = {};
     for (let i = 0; i < array.length; i++) {
         if (!totals[array[i]]) {
@@ -219,7 +208,16 @@ export const arrayPartition = (array, filterFunc) =>
         return p;
     }, [[],[]]);
 
-export const arrayFlatMap = (array, mapFunc) => array.reduce((agg,x) => {
-    agg.push(...mapFunc(x));
-    return agg;
-}, []);
+export function arrayChunk(array, lengthPerChunk){
+    const result = [];
+    let chunk = [array[0]];
+    for(let i = 1; i < array.length; i++){
+        if(i % lengthPerChunk === 0){
+            result.push(chunk);
+            chunk = [];
+        }
+        chunk.push(array[i]);
+    }
+    if(chunk.length > 0) result.push(chunk);
+    return result;
+}

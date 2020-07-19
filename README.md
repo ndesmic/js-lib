@@ -10,6 +10,7 @@ Base libs are foundational collections of functions, they are mostly atomic and 
 
 algorithms - A library of implementations of common functions<br>
 array-tools - A library of function that manipulate and transform arrays<br>
+array-tools-old - Things that have been replaced by modern functionality (but sometimes browsers don't support them)<br>
 binary-tools - A library for all sorts of operation related to binary data and transformations<br>
 bool-tools - A library of useful functions dealing with booleans<br>
 chrome-tools - A library of useful functions for Chrome extension apis<br>

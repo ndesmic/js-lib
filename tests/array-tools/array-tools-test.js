@@ -1,7 +1,8 @@
 import {
     arrayFindIndices,
     arrayClone,
-    arrayOrderBy
+    arrayOrderBy,
+    arrayChunk
 } from "../../libs/array-tools.js";
 
 describe("arrayFindIndicies", () => {
@@ -47,6 +48,17 @@ describe("arrayOrderBy", () => {
     });
 });
 
+describe("arrayChunk", () => {
+    it("chunks array", () => {
+        const array = [1,2,3,4,5,6,7,8,9,10];
+        expect(arrayChunk(array, 3)).toEqual([
+            [1,2,3],
+            [4,5,6],
+            [7,8,9],
+            [10]
+        ]);
+    });
+});
 /*
 
 QUnit.module(".arrayChangeIndices");

@@ -22,3 +22,12 @@ export function clamp(value, low, high){
 	}
 	return value;
 }
+export function toBinary(n) {
+	function bin(n) {
+		if (n > 1) {
+			return [n % 2, ...bin(Math.floor(n / 2))];
+		}
+		return [1];
+	}
+	return bin(n).reverse();
+}

@@ -86,3 +86,8 @@ export function copy(element) {
     console.log('execCommand Error', err);
   }
 }
+
+export function tableToArray(table){
+  return [...table.querySelectorAll("tr")].map(row =>
+    [...row.querySelectorAll("td")].map(td => td.textContent));
+}
