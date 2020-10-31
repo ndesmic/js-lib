@@ -1,4 +1,4 @@
-import { hslToRgb, rgbToHsl, getGradientPoint } from "../../libs/color-tools.js";
+import { hslToRgb, rgbToHsl, getGradientPoint } from "../libs/color-tools.js";
 
 describe("rgbToHsl", () => {
 	it("gets hsl for rgb", () => {

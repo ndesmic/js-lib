@@ -1,4 +1,4 @@
-import { h } from "../../simple-implementations/hyper.js";
+import { h } from "../simple-implementations/hyper.js";
 
 describe("h", () => {
   it("creates simple element with attr and text node", () => {

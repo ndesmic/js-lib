@@ -1,4 +1,4 @@
-import { toBinary } from "../../libs/number-tools.js"; 
+import { toBinary } from "../libs/number-tools.js"; 
 
 describe("toBinary", () => {
 	[

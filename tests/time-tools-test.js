@@ -1,4 +1,4 @@
-import { getTimezone, isLeapYear, getDaysInMonth, getMonthMatrix } from "../../libs/time-tools.js"
+import { getTimezone, isLeapYear, getDaysInMonth, getMonthMatrix } from "../libs/time-tools.js"
 
 /*
 describe(".getTimezone", () => {

@@ -208,6 +208,7 @@ export const arrayPartition = (array, filterFunc) =>
         return p;
     }, [[],[]]);
 
+//Chunks up the elements by count
 export function arrayChunk(array, lengthPerChunk){
     const result = [];
     let chunk = [array[0]];

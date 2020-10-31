@@ -3,7 +3,7 @@ import {
     arrayClone,
     arrayOrderBy,
     arrayChunk
-} from "../../libs/array-tools.js";
+} from "../libs/array-tools.js";
 
 describe("arrayFindIndicies", () => {
     it("gets indexes", () => {

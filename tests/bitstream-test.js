@@ -1,4 +1,4 @@
-import { BitStream } from "../../simple-implementations/bitstream.js";
+import { BitStream } from "../simple-implementations/bitstream.js";
 
 describe("BitSteam", () => {
 	it("can push some bits", () => {

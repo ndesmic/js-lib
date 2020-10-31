@@ -1,4 +1,4 @@
-import { removeElement, replaceElement, cloneParentNodeTree } from "../../libs/dom-tools.js";
+import { removeElement, replaceElement, cloneParentNodeTree } from "../libs/dom-tools.js";
 
 describe("dom-tools", () => {
   beforeEach(() => {

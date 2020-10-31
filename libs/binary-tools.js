@@ -177,3 +177,10 @@ export function concatUint8Arrays(a, b) {
 	c.set(b, a.length);
 	return c;
 }
+export function byteToDec(bin) {
+	let result = 0;
+	for (let i = 0; i < bin.length; i++) {
+		result = result | bin[i] << (7 - i);
+	}
+	return result;
+}

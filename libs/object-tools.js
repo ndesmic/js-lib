@@ -1,255 +1,164 @@
-"use strict";
-
-var ObjectTools = (function(){
-
-	function isPlainObject(value){
-		if(typeof(value) !== "object" || value === null){
-			return false;
-		}
-		if(value.nodeType){
-			return false;
-		}
-		if(value.constructor && !Object.prototype.hasOwnProperty.call(value.constructor.prototype, "isPrototypeOf" )){
-			return false;
-		}
-
-		return true;
+export function isPlainObject(value){
+	if(typeof(value) !== "object" || value === null){
+		return false;
+	}
+	if(value.nodeType){
+		return false;
+	}
+	if(value.constructor && !Object.prototype.hasOwnProperty.call(value.constructor.prototype, "isPrototypeOf" )){
+		return false;
 	}
 
-	function extend() {
-		var target = arguments[0] || {};
-		var sources = Array.prototype.slice.call(arguments, 1);
-		for(var i = 0; i < sources.length; i++){
-			var source = sources[i];
-			for (var prop in source) {
-			  if (isPlainObject(source[prop])) {
-				  target[prop] = extend(target[prop], source[prop]);
-			  } else {
-				  target[prop] = source[prop];
-			  }
-			}
-		}
-		return target;
-	}
-
-	function extendIgnoreEmpties() {
-		var target = arguments[0] || {};
-		var sources = Array.prototype.slice.call(arguments, 1);
-		for(var i = 0; i < sources.length; i++){
-			var source = sources[i];
-			for (var prop in source) {
-			  if (isPlainObject(source[prop])) {
-				  target[prop] = extend(target[prop], source[prop]);
-			  } else if(source[prop] !== undefined && source[prop] !== null && source[prop] !== ""){
-				  target[prop] = source[prop];
-			  }
-			}
-		}
-		return target;
-	}
+	return true;
+}
 
 	//Takes object of form { a : [], b : [], c : [] } and converts to [{a, b, c},...]
-	function unpivot(pivotObject){
-		var maxLength = 0;
-
+export function unpivot(pivotObject){
+	var maxLength = 0;
+	for(let key in pivotObject){
+		maxLength = Math.max(pivotObject[key].length, maxLength);
+	}
+	var unpivotObjs = [];
+	for(let i = 0; i < maxLength; i++){
+		var unpivotObj = {};
 		for(let key in pivotObject){
-			maxLength = Math.max(pivotObject[key].length, maxLength);
-		}
-
-		var unpivotObjs = [];
-		for(let i = 0; i < maxLength; i++){
-			var unpivotObj = {};
-			for(let key in pivotObject){
-				if(pivotObject[key][i]){
-					unpivotObj[key] = pivotObject[key][i];
-				}
+			if(pivotObject[key][i]){
+				unpivotObj[key] = pivotObject[key][i];
 			}
-			unpivotObjs.push(unpivotObj);
 		}
-		return unpivotObjs;
+		unpivotObjs.push(unpivotObj);
 	}
+	return unpivotObjs;
+}
 
-	function searchMap(map, key){
-		for(var currentKey in map){
-			if(currentKey == key){
-				return map[key];
-			}
-		}
-		return null;
-	}
-
-	function isEmpty(obj){
-	  if(Array.isArray(obj)) {
-			return obj.length === 0;
-		}else if(typeof(obj) === "object"){
-			var size = 0;
-			for(var key in obj){
-				if(obj.hasOwnProperty(key)){
-				  size++;
-				}
-			}
-			return size === 0;
+export function searchMap(map, key){
+	for(var currentKey in map){
+		if(currentKey == key){
+			return map[key];
 		}
 	}
+	return null;
+}
 
-	function shallowClone(obj){
-		var newObject = {};
-		for(var key in obj){
-			newObject[key] = obj[key];
-		}
-		return newObject;
+export function isEmpty(obj){
+  if(Array.isArray(obj)) {
+		return obj.length === 0;
+	}else if(typeof(obj) === "object"){
+		return Object.keys(obj).length === 0;
 	}
+	return false;
+}
 
-	function clone(obj) {
-		if(Array.isArray(obj)){
-			var temp = [];
-			for (var i = 0; i < obj.length; i++) {
-				temp.push(clone(obj[i]));
-			}
-			return temp;
+export function deepClone(obj) {
+	if(Array.isArray(obj)){
+		const temp = [];
+		for (let i = 0; i < obj.length; i++) {
+			temp.push(deepClone(obj[i]));
 		}
-		if(typeof(obj) === "object" && obj !== null){
-			var temp = {};
-			for (var key in obj) {
-			  if (obj.hasOwnProperty(key)) {
-				temp[key] = clone(obj[key]);
-			  }
-			}
-			return temp;
+		return temp;
+	}
+	if(typeof(obj) === "object" && obj !== null){
+		const temp = {};
+		for (let key in obj) {
+		  if (obj.hasOwnProperty(key)) {
+			temp[key] = deepClone(obj[key]);
+		  }
 		}
+		return temp;
+	}
+	return obj;
+}
 
-    	return obj;
+export function objectToArray(object, keyProp){
+	var array = [];
+	for(var key in object){
+		var newObject = shallowClone(object[key]);
+		if(keyProp){
+			newObject[keyProp] = key;
+		}
+		array.push(newObject);
+	}
+	return array;
+}
+
+export function accessProperty(obj, accessor, defaultValue = null){
+    if(!obj || !accessor){
+          return defaultValue;
+    }
+    const accessorParts = typeof(accessor) === "string" ? accessor.split(".") : accessor;
+
+    if(accessorParts.length === 1){
+        return obj[accessorParts[0]] || defaultValue;
     }
 
-	function objectToArray(object, keyProp){
-		var array = [];
+    return accessProperty(obj[accessorParts[0]], accessorParts.slice(1), defaultValue);
+}
 
-		for(var key in object){
-			var newObject = shallowClone(object[key]);
-			if(keyProp){
-				newObject[keyProp] = key;
+export function diff(oldObject, newObject){
+	var diffObject;
+	if(typeof(oldObject) === "object"){
+		diffObject = {};
+		for(var key in oldObject){
+			diffObject[key] = diff(oldObject[key], newObject[key]);
+			if(!diffObject[key]){
+				delete diffObject[key];
 			}
-			array.push(newObject);
 		}
-
-		return array;
-	}
-
-	function objectToOrderedArray(object, keyOrder){
-		return array.map(x => object[x]);
-	}
-
-	function access(obj, accessor){
-	  if(!obj || !accessor){
+		if(isEmpty(diffObject)){
 			return null;
 		}
-
-		var keys = accessor.split(".");
-		var prop = obj;
-		for(var i = 0; i < keys.length; i++){
-			if(keys[i] !== undefined && keys[i] !== ""){
-				if(prop !== null && prop[keys[i]] !== undefined){
-					prop = prop[keys[i]];
-				}else{
-					return null;
-				}
-			}
+		return diffObject;
+	}else if(Array.isArray(oldObject)){
+		diffObject = [];
+		var largest = oldObject.length > newObject.length ? oldObject.length : newObject.length;
+		for(var i = 0; i < oldObject.length; i++){
+			diffObject[i] = diff(oldObject[i], newObject[i]);
 		}
-		return prop;
-	}
-
-	function diff(oldObject, newObject){
-		var diffObject;
-		if(typeof(oldObject) === "object"){
-			diffObject = {};
-			for(var key in oldObject){
-				diffObject[key] = diff(oldObject[key], newObject[key]);
-				if(!diffObject[key]){
-					delete diffObject[key];
-				}
-			}
-			if(isEmpty(diffObject)){
-				return null;
-			}
-			return diffObject;
-		}else if(Array.isArray(oldObject)){
-			diffObject = [];
-			var largest = oldObject.length > newObject.length ? oldObject.length : newObject.length;
-			for(var i = 0; i < oldObject.length; i++){
-				diffObject[i] = diff(oldObject[i], newObject[i]);
-			}
-			if(isEmpty(diffObject)) return null;
-			return diffObject;
+		if(isEmpty(diffObject)) return null;
+		return diffObject;
+	}else{
+		if(oldObject == newObject){
+			return null;
 		}else{
-			if(oldObject == newObject){
-				return null;
+			if(!oldObject && newObject){
+				return newObject;
+			}else if(!newObject && oldObject){
+				return oldObject;
 			}else{
-				if(!oldObject && newObject){
-					return newObject;
-				}else if(!newObject && oldObject){
-					return oldObject;
-				}else{
-					return null;
-				}
+				return [oldObject, newObject];
 			}
 		}
 	}
+}
 
-	function objectIsSuperset(objectTest, objectControl){
-		if(objectTest instanceof Array && objectControl instanceof Array){
-			for(var i = 0; i < objectControl.length; i++){
-				if(!objectIsSuperset(objectTest[key], objectControl[key])){
-					return false;
-				}
-			}
-		}else if(objectTest instanceof Object && objectControl instanceof Object){
-			for(var key in objectControl){
-				if(!objectIsSuperset(objectTest[key], objectControl[key])){
-					return false;
-				}
-			}
-		}else{
-			if(objectTest != objectControl){
+export function objectIsSuperset(objectTest, objectControl){
+	if(objectTest instanceof Array && objectControl instanceof Array){
+		for(var i = 0; i < objectControl.length; i++){
+			if(!objectIsSuperset(objectTest[key], objectControl[key])){
 				return false;
 			}
 		}
-		return true;
+	}else if(objectTest instanceof Object && objectControl instanceof Object){
+		for(var key in objectControl){
+			if(!objectIsSuperset(objectTest[key], objectControl[key])){
+				return false;
+			}
+		}
+	}else{
+		if(objectTest != objectControl){
+			return false;
+		}
 	}
+	return true;
+}
 
-	function cleanObject(obj){
-	  for(var key in obj){
-	    if(!obj[key]){
-	      delete obj[key];
-	    }
-	  }
-	  return obj;
-	}
 
-	function trimObject(obj){
-	  var newObj = {};
-	  for(var key in obj){
-	    if(obj[key] !== undefined){
-	      newObj[key] = obj[key];
-	    }
-	  }
-	  return newObj;
-	}
-
-  return {
-    isPlainObject : isPlainObject,
-    extend : extend,
-    extendIgnoreEmpties : extendIgnoreEmpties,
-    promiseStub : promiseStub,
-    searchMap : searchMap,
-    isEmpty : isEmpty,
-    shallowClone : shallowClone,
-	clone : clone,
-    objectToArray : objectToArray,
-    access : access,
-    diff : diff,
-    objectIsSuperset : objectIsSuperset,
-    cleanObject : cleanObject,
-    trimObject : trimObject
-  };
-
-})();
+export function pruneObject(obj){
+  const newObj = {};
+  for(let key in obj){
+    if(obj[key] !== undefined){
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
