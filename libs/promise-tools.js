@@ -1,7 +1,29 @@
-export function chainPromise(promiseArray, initialValue){
-	let promise = Promise.resolve(initialValue);
-	for(let i = 0; i < promiseArray.length; i++){
-		promise = promise.then((...x) => array[i](...x));
+export async function asyncTreeAll(tree) {
+	const promisesToResolve = [];
+	const promiseToIndex = new WeakMap();
+	const entries = Object.entries(tree);
+
+	for (const [key, value] of entries) {
+		if (value instanceof Promise) {
+			promiseToIndex.set(value, promisesToResolve.length);
+			promisesToResolve.push(value);
+		} else if (typeof (value) === "object") {
+			promiseToIndex.set(value, promisesToResolve.length);
+			promisesToResolve.push(asyncTreeAll(value));
+		}
 	}
-	return promise;
+
+	const results = await Promise.all(promisesToResolve);
+
+	const resolvedEntries = [];
+	for (const [key, value] of entries) {
+		if (value instanceof Promise || typeof (value) === "object") {
+			const index = promiseToIndex.get(value);
+			resolvedEntries.push([key, results[index]]);
+		} else {
+			resolvedEntries.push([key, value]);
+		}
+	}
+
+	return Object.fromEntries(resolvedEntries);
 }
