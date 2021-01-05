@@ -1,4 +1,4 @@
-import { hslToRgb, rgbToHsl, getGradientPoint } from "../libs/color-tools.js";
+import { hslToRgb, rgbToHsl, getGradientPoint, lerpColor } from "../libs/color-tools.js";
 
 describe("rgbToHsl", () => {
 	it("gets hsl for rgb", () => {
@@ -64,3 +64,16 @@ describe("getGradientPoint", () => {
 	});
 });
 
+describe("lerpColor", () => {
+	it("should find color at point (2 color)", () => {
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+		],0.5)).toEqual([0.5, 0.5, 0.0]);
+
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+		], 0.75)).toEqual([0.25, 0.75, 0.0]);
+	});
+});

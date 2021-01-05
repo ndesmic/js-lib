@@ -87,6 +87,19 @@ export function lmsWithProtanopia(colorLms) {
 	];
 }
 
+export function lerpColor(colors, value){
+	const stops = colors.length;
+	const stopLength = 1 / (stops - 1);
+	const valueRatio = value / stopLength;
+	const stopIndex = Math.floor(valueRatio);
+	const stopFraction = valueRatio % (stops - 1);
+	return [
+		colors[stopIndex][0] + (colors[stopIndex + 1][0] - colors[stopIndex][0]) * stopFraction,
+		colors[stopIndex][1] + (colors[stopIndex + 1][1] - colors[stopIndex][1]) * stopFraction,
+		colors[stopIndex][2] + (colors[stopIndex + 1][2] - colors[stopIndex][2]) * stopFraction
+	];
+}
+
 export function rgbToHsl(rgb){
 	const r = rgb[0] / 255;
 	const g = rgb[1] / 255;
