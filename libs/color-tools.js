@@ -92,6 +92,9 @@ export function lerpColor(colors, value){
 	const stopLength = 1 / (stops - 1);
 	const valueRatio = value / stopLength;
 	const stopIndex = Math.floor(valueRatio);
+	if(stopIndex === stopLength){
+		return colors[stopIndex];
+	}
 	const stopFraction = valueRatio % (stops - 1);
 	return [
 		colors[stopIndex][0] + (colors[stopIndex + 1][0] - colors[stopIndex][0]) * stopFraction,
