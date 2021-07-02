@@ -36,3 +36,11 @@ export function getClosest(value, possibleValues){
 	}
 	return possibleValues[midIndex]
 }
+
+export function lerp(start, end, normalValue) {
+	return start + (end - start) * normalValue;
+}
+
+export function inverseLerp(start, end, value){
+	return (value - start) / (end - start);
+}

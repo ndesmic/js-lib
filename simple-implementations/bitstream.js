@@ -13,8 +13,8 @@ export class BitStream {
 		this.buffer = new Uint8Array(this.buffer.length + 1);
 		this.buffer.set(oldBuffer, 0);
 	}
-	push(number) {
-		const binary = toBinary(number);
+	push(number){
+		const binary = toBinary(number)
 		for (let bit of binary) {
 			if (this.bitIndex > 7) this.resize();
 			this.buffer[this.byteIndex] = this.buffer[this.byteIndex] | (bit << (7 - this.bitIndex));

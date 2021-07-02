@@ -2,6 +2,7 @@ import { toBinary } from "../libs/number-tools.js";
 
 describe("toBinary", () => {
 	[
+		[0, [0]],
 		[1, [1]],
 		[2, [1, 0]],
 		[3, [1, 1]],

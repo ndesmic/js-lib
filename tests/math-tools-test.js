@@ -1,4 +1,4 @@
-import { getSteps, getClosest } from "../libs/math-tools.js";
+import { getSteps, getClosest, lerp, inverseLerp } from "../libs/math-tools.js";
 
 describe("math-tools", () => {
 	describe("getSteps", () => {
@@ -22,5 +22,25 @@ describe("math-tools", () => {
 		].forEach(test => it(`should get closet to ${test[0][0]} from set ${test[0][1]}`, () => {
 			expect(getClosest(...test[0])).toEqual(test[1]);
 		}));
+	});
+	describe("lerp", () => {
+		[
+			[[0, 1, 0.5], 0.5],
+			[[0, 2, 0.5], 1],
+			[[-1, 1, 0.5], 0],
+			[[0, 10, 0.75], 7.5]
+		].forEach(test => it(`should get value ${test[1]} for start ${test[0][0]} and end ${test[0][1]} at value ${test[0][2]}`, () => {
+			expect(lerp(test[0][0], test[0][1], test[0][2])).toEqual(test[1]);
+		}))
+	});
+	describe("inverseLerp", () => {
+		[
+			[[0, 1, 0.5], 0.5],
+			[[0, 2, 1], 0.5],
+			[[-1, 1, 0], 0.5],
+			[[0, 10, 7.5], 0.75]
+		].forEach(test => it(`should get value ${test[1]} for start ${test[0][0]} and end ${test[0][1]} at value ${test[0][2]}`, () => {
+			expect(inverseLerp(test[0][0], test[0][1], test[0][2])).toEqual(test[1]);
+		}))
 	});
 });

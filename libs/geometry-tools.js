@@ -84,3 +84,30 @@ export function degreesToRadians(deg){
 export function radiansToDegrees(rad){
 	return rad * (180/Math.PI);
 }
+
+export function polarToCartesian(r, theta, cx = 0, cy = 0){
+	return [r * Math.cos(theta) + cx, r * Math.sin(theta) + cy];
+}
+
+export function cartesianToPolar(x, y, cx = 0, cy = 0) {
+	return [Math.sqrt((x - cx) ** 2 + (y - cy) ** 2), Math.atan2((y - cy), (x - cx))];
+}
+
+function center(vlength, vmin, vmax) {
+	const center = (vmax - vmin) / 2;
+	return center - (vlength / 2);
+}
+
+function lerp(pointA, pointB, normalValue) {
+	return [
+		pointA[0] + (pointB[0] - pointA[0]) * normalValue,
+		pointA[1] + (pointB[1] - pointA[1]) * normalValue,
+		pointA[2] + (pointB[2] - pointA[2]) * normalValue,
+		pointA[3] + (pointB[3] - pointA[3]) * normalValue,
+	];
+}
+
+function inverseLerp(v, vmin, vmax, flipped = false) {
+	v = flipped ? -v : v;
+	return (v - vmin) / (vmax - vmin);
+}

@@ -23,6 +23,7 @@ export function clamp(value, low, high){
 	return value;
 }
 export function toBinary(n) {
+	if(n === 0) return [0];
 	function bin(n) {
 		if (n > 1) {
 			return [n % 2, ...bin(Math.floor(n / 2))];

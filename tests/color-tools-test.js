@@ -86,4 +86,29 @@ describe("lerpColor", () => {
 			[0, 1, 0],
 		], 1)).toEqual([0, 1, 0.0]);
 	});
+	it("should find color at point (3 color)", () => {
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+			[0, 0, 1]
+		], 0.5)).toEqual([0, 1, 0]);
+
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+			[0, 0, 1]
+		], 0.25)).toEqual([0.5, 0.5, 0]);
+
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+			[0, 0, 1]
+		], 0)).toEqual([1, 0, 0]);
+
+		expect(lerpColor([
+			[1, 0, 0],
+			[0, 1, 0],
+			[0, 0, 1]
+		], 1)).toEqual([0, 0, 1]);
+	});
 });
