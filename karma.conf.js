@@ -31,6 +31,7 @@ module.exports = function(config) {
       { pattern: 'libs/number-tools.js', type: "module", included: false },
       { pattern: 'libs/promise-tools.js', type: "module", included: false },
       { pattern: 'libs/tree-tools.js', type: "module", included: false },
+      { pattern: 'libs/vector-tools.js', type: "module" },
       { pattern: 'simple-implementations/hyper.js', type: "module", included: false },
       { pattern: 'simple-implementations/bitstream.js', type: "module", included: false },
       { pattern: 'simple-implementations/galois-field.js', type: "module", included: false },
