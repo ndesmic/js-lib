@@ -1,6 +1,7 @@
 import {
     getStringInit,
-    getLevenshteinDistance
+    getLevenshteinDistance,
+    xsvToArray
  } from "../libs/string-tools.js";
 
 
@@ -34,4 +35,41 @@ describe("getLevenshteinDistance", () => {
         expect(getLevenshteinDistance("abc", "axc")).toBe(1); 
         expect(getLevenshteinDistance("abc", "abx")).toBe(1); 
      });
+});
+
+describe("xsvToArray", () => {
+   it("parses tsv to array", () => {
+      const xsv = `
+      Name\tColor\tId
+      Apple\tRed\t1
+      Pear\tGreen\t2
+      Grape\tPurple\t3
+      Banana\tYellow\t4
+      `
+      const result = xsvToArray(xsv);
+      expect(result).toEqual([
+         ["Name", "Color", "Id"],
+         ["Apple", "Red", "1"],
+         ["Pear", "Green", "2"],
+         ["Grape", "Purple", "3"],
+         ["Banana", "Yellow", "4"]
+      ]);
+   });
+   it("parses csv to array", () => {
+      const xsv = `
+      Name, Color, Id
+      Apple, Red, 1
+      Pear, Green, 2
+      Grape, Purple, 3
+      Banana, Yellow, 4
+      `
+      const result = xsvToArray(xsv, ",");
+      expect(result).toEqual([
+         ["Name", "Color", "Id"],
+         ["Apple", "Red", "1"],
+         ["Pear", "Green", "2"],
+         ["Grape", "Purple", "3"],
+         ["Banana", "Yellow", "4"]
+      ]);
+   });
 });

@@ -22,3 +22,25 @@ export function htmlEncode(text) {
   }
   return encodedText;
 }
+
+export function htmlDecode(text){
+  return text.replace(/&(.*?);/g, match => {
+    match = match.substr(1).slice(0, -1);
+    switch(match){
+      case "lt" : return "<";
+      case "gt" : return ">";
+      case "mdash": return "—";
+      case "ndash": return "–";
+      case "amp": return "&";
+      default: {
+        if(match.startsWith("#x")){
+          return String.fromCharCode(parseInt(match.substr(2), 16));
+        } else if (match.startsWith("#")){  
+          return String.fromCharCode(parseInt(match.substr(1),10));
+        } else {
+          throw new Error("Unknown HTML entity");
+        }
+      }
+    }
+  });
+}

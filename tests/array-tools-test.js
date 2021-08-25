@@ -2,7 +2,8 @@ import {
     arrayFindIndices,
     arrayClone,
     arrayOrderBy,
-    arrayChunk
+    arrayChunk,
+    arrayToTable
 } from "../libs/array-tools.js";
 
 describe("arrayFindIndicies", () => {
@@ -59,6 +60,84 @@ describe("arrayChunk", () => {
         ]);
     });
 });
+
+describe("arrayToTable", () => {
+    it("produces a DOM table with headings", () => {
+        const table = [
+            ["Name", "Color", "Id"],
+            ["Apple", "Red", 1],
+            ["Banana", "Yellow", 2],
+            ["Pear", "Green", 3]
+        ];
+
+        const result = arrayToTable(table, { headings: true });
+        expect(result.tagName).toBe("TABLE");
+        expect(result.children[0].tagName).toBe("THEAD");
+        expect(result.children[0].children[0].tagName).toBe("TH");
+        expect(result.children[0].children[0].textContent).toBe("Name");
+        expect(result.children[0].children[1].tagName).toBe("TH");
+        expect(result.children[0].children[1].textContent).toBe("Color");
+        expect(result.children[0].children[2].tagName).toBe("TH");
+        expect(result.children[0].children[2].textContent).toBe("Id");
+        expect(result.children[1].tagName).toBe("TBODY");
+        expect(result.children[1].children[0].tagName).toBe("TR");
+
+        expect(result.children[1].children[0].children[0].tagName).toBe("TD");
+        expect(result.children[1].children[0].children[0].textContent).toBe("Apple");
+        expect(result.children[1].children[0].children[1].tagName).toBe("TD");
+        expect(result.children[1].children[0].children[1].textContent).toBe("Red");
+        expect(result.children[1].children[0].children[2].tagName).toBe("TD");
+        expect(result.children[1].children[0].children[2].textContent).toBe("1");
+
+        expect(result.children[1].children[1].children[0].tagName).toBe("TD");
+        expect(result.children[1].children[1].children[0].textContent).toBe("Banana");
+        expect(result.children[1].children[1].children[1].tagName).toBe("TD");
+        expect(result.children[1].children[1].children[1].textContent).toBe("Yellow");
+        expect(result.children[1].children[1].children[2].tagName).toBe("TD");
+        expect(result.children[1].children[1].children[2].textContent).toBe("2");
+
+        expect(result.children[1].children[2].children[0].tagName).toBe("TD");
+        expect(result.children[1].children[2].children[0].textContent).toBe("Pear");
+        expect(result.children[1].children[2].children[1].tagName).toBe("TD");
+        expect(result.children[1].children[2].children[1].textContent).toBe("Green");
+        expect(result.children[1].children[2].children[2].tagName).toBe("TD");
+        expect(result.children[1].children[2].children[2].textContent).toBe("3");
+    });
+    it("produces a DOM table without headings", () => {
+        const table = [
+            ["Apple", "Red", 1],
+            ["Banana", "Yellow", 2],
+            ["Pear", "Green", 3]
+        ];
+
+        const result = arrayToTable(table);
+        expect(result.tagName).toBe("TABLE");
+        expect(result.children[0].tagName).toBe("TBODY");
+        expect(result.children[0].children[0].tagName).toBe("TR");
+
+        expect(result.children[0].children[0].children[0].tagName).toBe("TD");
+        expect(result.children[0].children[0].children[0].textContent).toBe("Apple");
+        expect(result.children[0].children[0].children[1].tagName).toBe("TD");
+        expect(result.children[0].children[0].children[1].textContent).toBe("Red");
+        expect(result.children[0].children[0].children[2].tagName).toBe("TD");
+        expect(result.children[0].children[0].children[2].textContent).toBe("1");
+
+        expect(result.children[0].children[1].children[0].tagName).toBe("TD");
+        expect(result.children[0].children[1].children[0].textContent).toBe("Banana");
+        expect(result.children[0].children[1].children[1].tagName).toBe("TD");
+        expect(result.children[0].children[1].children[1].textContent).toBe("Yellow");
+        expect(result.children[0].children[1].children[2].tagName).toBe("TD");
+        expect(result.children[0].children[1].children[2].textContent).toBe("2");
+
+        expect(result.children[0].children[2].children[0].tagName).toBe("TD");
+        expect(result.children[0].children[2].children[0].textContent).toBe("Pear");
+        expect(result.children[0].children[2].children[1].tagName).toBe("TD");
+        expect(result.children[0].children[2].children[1].textContent).toBe("Green");
+        expect(result.children[0].children[2].children[2].tagName).toBe("TD");
+        expect(result.children[0].children[2].children[2].textContent).toBe("3");
+    })
+});
+
 /*
 
 QUnit.module(".arrayChangeIndices");

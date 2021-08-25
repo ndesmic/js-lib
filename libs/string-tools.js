@@ -353,3 +353,11 @@ export function getLevenshteinDistance(stringA, stringB, memo = new Map()){
         getLevenshteinDistance(getStringInit(stringA), getStringInit(stringB)) + cost
     );
 }
+
+export function xsvToArray(xsv, delimiter = "\t"){
+    return xsv.split("\n")
+       .filter(x => x.trim() !== "")
+       .map(line => line.split(delimiter)
+                         .filter(v => v.trim())
+                         .map(v => v.trim()));
+}
