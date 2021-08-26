@@ -354,10 +354,19 @@ export function getLevenshteinDistance(stringA, stringB, memo = new Map()){
     );
 }
 
-export function xsvToArray(xsv, delimiter = "\t"){
-    return xsv.split("\n")
+export function parseXsv(xsv, { valueDelimiter = "\t", lineDelimiter = "\n"} = {}){
+    return xsv.split(lineDelimiter)
        .filter(x => x.trim() !== "")
-       .map(line => line.split(delimiter)
+       .map(line => line.split(valueDelimiter)
                          .filter(v => v.trim())
                          .map(v => v.trim()));
+}
+
+export function parseKeyVals(txt, { valueDelimiter = ":", lineDelimiter = "\n"} = {}){
+    const keyvals = txt.split(lineDelimiter)
+        .filter(x => x.trim() !== "")
+        .map(kv => kv.split(valueDelimiter))
+        .filter(x => x.length > 1)
+        .map(x => x.map(y => y.trim()));
+    return Object.fromEntries(keyvals);
 }

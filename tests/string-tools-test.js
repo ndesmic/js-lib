@@ -1,7 +1,8 @@
 import {
     getStringInit,
     getLevenshteinDistance,
-    xsvToArray
+    parseXsv,
+    parseKeyVals
  } from "../libs/string-tools.js";
 
 
@@ -37,7 +38,7 @@ describe("getLevenshteinDistance", () => {
      });
 });
 
-describe("xsvToArray", () => {
+describe("parseXsv", () => {
    it("parses tsv to array", () => {
       const xsv = `
       Name\tColor\tId
@@ -46,7 +47,7 @@ describe("xsvToArray", () => {
       Grape\tPurple\t3
       Banana\tYellow\t4
       `
-      const result = xsvToArray(xsv);
+      const result = parseXsv(xsv);
       expect(result).toEqual([
          ["Name", "Color", "Id"],
          ["Apple", "Red", "1"],
@@ -63,7 +64,7 @@ describe("xsvToArray", () => {
       Grape, Purple, 3
       Banana, Yellow, 4
       `
-      const result = xsvToArray(xsv, ",");
+      const result = parseXsv(xsv, { valueDelimiter: "," });
       expect(result).toEqual([
          ["Name", "Color", "Id"],
          ["Apple", "Red", "1"],
@@ -71,5 +72,24 @@ describe("xsvToArray", () => {
          ["Grape", "Purple", "3"],
          ["Banana", "Yellow", "4"]
       ]);
+   });
+});
+
+describe("parseKeyVals", () => {
+   it("parses keyvals", () => {
+      const keyvals =  `
+         name: Apple
+         ===========
+         color: Red 
+
+         id: 1
+      `;
+      const result = parseKeyVals(keyvals);
+
+      expect(result).toEqual({
+         name: "Apple",
+         color: "Red",
+         id: "1"
+      })
    });
 });
