@@ -1,4 +1,4 @@
-import { degreesToRadians, getPolygonArea, getPolygonCentroid2d, getPolygonCentroid3d, radiansToDegrees, triangleCentroid, triangleNormal } from "../libs/geometry-tools.js";
+import { degreesToRadians, getIntersectionArea, getPolygonArea, getPolygonCentroid2d, getPolygonCentroid3d, radiansToDegrees, triangleCentroid, triangleNormal } from "../libs/geometry-tools.js";
 import { precision } from "../libs/number-tools.js";
 
 describe("geometry-tools", () => {
@@ -147,6 +147,51 @@ describe("geometry-tools", () => {
 		].forEach(test => {
 			it(`gets polygon centroid for ${JSON.stringify(test.args)}`, () => {
 				const result = getPolygonCentroid3d(...test.args).map(x => precision(x, 2));
+				expect(result).toEqual(test.result);
+			});
+		});
+	});
+
+	describe(".getIntersectionArea", () => {
+		[
+			{
+				args: [
+					{ top: 0, left: 0, width: 100, height: 100 },
+					{ top: 50, left: 50, width: 100, height: 100 }
+				], 
+				result: 2500
+			},
+			{
+				args: [
+					{ top: 50, left: 50, width: 100, height: 100 },
+					{ top: 0, left: 0, width: 100, height: 100 }
+				],
+				result: 2500
+			},
+			{
+				args: [
+					{ top: 50, left: 50, width: 50, height: 50 },
+					{ top: 0, left: 0, width: 50, height: 50 }
+				],
+				result: 0
+			},
+			{
+				args: [
+					{ top: 50, left: 50, width: 50, height: 50 },
+					{ top: 50, left: 75, width: 50, height: 50 }
+				],
+				result: 1250
+			},
+			{
+				args: [
+					{ top: 25, left: 50, width: 50, height: 50 },
+					{ top: 50, left: 50, width: 50, height: 50 }
+				],
+				result: 1250
+			}
+		].forEach(test => {
+			it(`gets intersection area for ${JSON.stringify(test.args)}`, () => {
+				const result = getIntersectionArea(...test.args);
 				expect(result).toEqual(test.result);
 			});
 		});

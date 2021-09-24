@@ -176,3 +176,9 @@ export function getPolygonCentroid3d(points) {
 		dotVector([p0[2], u[2], v[2]], [1, cu, cv])
 	];
 }
+
+export function getIntersectionArea(rectA, rectB) {
+	const overlapX = Math.max(0, Math.min(rectA.left + rectA.width, rectB.left + rectB.width) - Math.max(rectA.left, rectB.left));
+	const overlapY = Math.max(0, Math.min(rectA.top + rectA.height, rectB.top + rectB.height) - Math.max(rectA.top, rectB.top));
+	return overlapX * overlapY;
+}
