@@ -56,6 +56,7 @@ module.exports = function(config) {
       { pattern: 'tests/hyper-test.js', type: "module" },
       { pattern: 'tests/bitstream-test.js', type: "module" },
       { pattern: 'tests/galois-field-test.js', type: "module" },
+      { pattern: 'tests/vector-tools-test.js', type: "module" },
     ],
 
 

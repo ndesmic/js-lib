@@ -1,4 +1,4 @@
-import { subtractVector, normalizeVector, crossVector, dotVector } from "./vector-tools.js";
+import { subtractVector, normalizeVector, crossVector, dotVector, getVectorMagnitude } from "./vector-tools.js";
 
 export const TWO_PI = Math.PI * 2;
 export const HALF_PI = Math.PI / 2;
@@ -181,4 +181,46 @@ export function getIntersectionArea(rectA, rectB) {
 	const overlapX = Math.max(0, Math.min(rectA.left + rectA.width, rectB.left + rectB.width) - Math.max(rectA.left, rectB.left));
 	const overlapY = Math.max(0, Math.min(rectA.top + rectA.height, rectB.top + rectB.height) - Math.max(rectA.top, rectB.top));
 	return overlapX * overlapY;
+}
+
+export function getVectorIntersectPlane(planePoint, planeNormal, lineStart, lineEnd) {
+	planeNormal = normalizeVector(planeNormal);
+	const planeDot = dotVector(planePoint, planeNormal);
+	const startDot = dotVector(lineStart, planeNormal);
+	const endDot = dotVector(lineEnd, planeNormal);
+	const t = (planeDot - startDot) / (endDot - startDot);
+	if (t === Infinity || t === -Infinity) {
+		return null;
+	}
+	const line = subtractVector(lineEnd, lineStart);
+	const deltaToIntersect = multiplyVector(line, t);
+	return addVector(lineStart, deltaToIntersect);
+}
+
+export function isPointInInsideSpace(point, planeNormal, planePoint) {
+	planeNormal = normalizeVector(planeNormal);
+	return dotVector(planeNormal, subtractVector(planePoint, point)) > 0;
+}
+
+//order matters! CCW from bottom to top
+export function getTriangleCrossProduct(pointA, pointB, pointC) {
+	const vector1 = subtractVector(pointC, pointA);
+	const vector2 = subtractVector(pointB, pointA);
+	return crossVector(vector1, vector2);
+}
+
+//point needs to be coplanar
+export function getBarycentricCoordinates(triangle, point) {
+	const cross = getTriangleCrossProduct(...triangle);
+	const n = normalizeVector(cross);
+	const a0 = dotVector(n, getTriangleCrossProduct(triangle[1], triangle[2], point)) / 2;
+	const a1 = dotVector(n, getTriangleCrossProduct(triangle[0], point, triangle[2])) / 2;
+	const a2 = dotVector(n, getTriangleCrossProduct(triangle[0], triangle[1], point)) / 2;
+	const a = getVectorMagnitude(cross) / 2;
+
+	return [
+		a0 / a,
+		a1 / a,
+		a2 / a
+	];
 }

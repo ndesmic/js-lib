@@ -1,5 +1,5 @@
-import { degreesToRadians, getIntersectionArea, getPolygonArea, getPolygonCentroid2d, getPolygonCentroid3d, radiansToDegrees, triangleCentroid, triangleNormal } from "../libs/geometry-tools.js";
-import { precision } from "../libs/number-tools.js";
+import { degreesToRadians, getIntersectionArea, getPolygonArea, getPolygonCentroid2d, getPolygonCentroid3d, radiansToDegrees, triangleCentroid, triangleNormal, getBarycentricCoordinates } from "../libs/geometry-tools.js";
+import { normalizeNumber, precision } from "../libs/number-tools.js";
 
 describe("geometry-tools", () => {
 	describe(".degreesToRadians", () => {
@@ -196,4 +196,85 @@ describe("geometry-tools", () => {
 			});
 		});
 	});
+	describe(".getBarycentricCoordinates", () => {
+		[
+			{
+				args : [[
+							[0, 0, 0],
+							[0, 10, 0],
+							[10, 0, 0]
+						],
+						[5, 5, 0]],
+				result: [0.0, 0.5, 0.5]
+			},
+			{
+				args: [[
+						[0, 0, 0],
+						[0, 10, 0],
+						[10, 0, 0]
+					   ],
+					   [5, 0, 0]],
+				result: [0.5, 0, 0.5]
+			},
+			{
+				args: [[
+					[0, 0, 0],
+					[0, 10, 0],
+					[10, 0, 0]
+				],
+				[0, 5, 0]],
+				result: [0.5, 0.5, 0.0]
+			},
+			{
+				args: [[
+					[0, 0, 0],
+					[0, 10, 0],
+					[10, 0, 0]
+				],
+				[3, 3, 0]],
+				result: [0.4, 0.3, 0.3]
+			},
+			{
+				args: [[
+					[0, 0, 0],
+					[0, 10, 0],
+					[10, 0, 0]
+				],
+				[10, 0, 0]],
+				result: [0, 0, 1]
+			},
+			{
+				args: [[
+					[0, 0, 0],
+					[0, 10, 0],
+					[10, 0, 0]
+				],
+				[0, 10, 0]],
+				result: [0, 1, 0]
+			},
+			{
+				args: [[
+					[0, 0, 0],
+					[0, 10, 0],
+					[10, 0, 0]
+				],
+				[0, 0, 0]],
+				result: [1, 0, 0]
+			},
+			{
+				args: [[
+						[0, 0, 0],
+						[0, 10, 0],
+						[10, 0, 0]	
+					],
+				[-10, 0, 0]],
+				result: [2,0,-1]
+			}
+		].forEach(({ args: [triangle, point], result }) => {
+			it(`should get coords`, () => {
+				expect(getBarycentricCoordinates(triangle, point).map(x => normalizeNumber(x, 2))).toEqual(result.map(x => normalizeNumber(x, 2)));
+			});
+		});
+	});
+
 });

@@ -32,3 +32,9 @@ export function toBinary(n) {
 	}
 	return bin(n).reverse();
 }
+
+export function normalizeNumber(num, len) {
+	num = parseFloat(num.toFixed(len));
+	num = num === -0 ? 0 : num;
+	return num;
+}

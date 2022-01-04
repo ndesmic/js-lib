@@ -32,13 +32,14 @@ export function htmlDecode(text){
       case "mdash": return "—";
       case "ndash": return "–";
       case "amp": return "&";
+      case "quot": return "'";
       default: {
         if(match.startsWith("#x")){
           return String.fromCharCode(parseInt(match.substr(2), 16));
         } else if (match.startsWith("#")){  
           return String.fromCharCode(parseInt(match.substr(1),10));
         } else {
-          throw new Error("Unknown HTML entity");
+          throw new Error(`Unknown HTML entity: ${match}`);
         }
       }
     }
