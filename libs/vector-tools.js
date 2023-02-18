@@ -196,3 +196,19 @@ export function asMatrix(array, height, width) {
 	}
 	return result;
 }
+
+export function multiplyMatrixVector(vector, matrix){
+	if(vector.length != matrix.length || vector.length != matrix[0].length) throw new Error('Invalid matrix dimensions');
+
+	const resultVector = new Array(vector.length);
+
+	for(let row = 0; row < matrix.length; row++){
+		let result = 0;
+		for(let col = 0; col < matrix[row].length; col++){
+			result += vector[col] * matrix[row][col];
+		}
+		resultVector[row] = result;
+	}
+
+	return resultVector;
+}

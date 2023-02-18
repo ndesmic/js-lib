@@ -11,17 +11,28 @@ export const isNumber = value =>
 export const parseIntOrDefault = (value, defaultValue) =>
 	isNaN(parseInt(value)) ? (defaultValue || null) : value;
 
-export function clamp(value, low, high){
-	low = low !== undefined ? low : Number.MIN_SAFE_INTEGER;
-	high = high !== undefined ? high : Number.MAX_SAFE_INTEGER;
-	if(value < low){
-		value = low;
-	}
-	if(value > high){
-		value = high;
-	}
+export function clamp(value, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER){
+	return Math.max(Math.min(value, max), min);
+}
+
+export function wrap(value, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER){
+	const range = max - min;
+	return value < min
+		? max - Math.abs(min - value) % range
+		: min + (value + range) % range;
+}
+
+export function mirrorWrap(value, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER){
+	const range = max - min;
+	const minDistance = Math.abs(min - value);
+	const intervalValue = minDistance % range;
+	if (value % (max + max) > max) return max - intervalValue //too high (mirrored)
+	if (value >= max) return min + intervalValue; //to high (unmirrored)
+	if (value < min && minDistance % (range + range) > range) return max - intervalValue; //too low (mirrored)
+	if (value <= min) return min + intervalValue; //to low (mirrored)
 	return value;
 }
+
 export function toBinary(n) {
 	if(n === 0) return [0];
 	function bin(n) {

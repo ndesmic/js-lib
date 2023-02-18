@@ -1,5 +1,5 @@
 import { normalizeNumber } from "../libs/number-tools.js";
-import { dotVector, getAdjugate, getCofactor, getCofactorMatrix, getDeterminant, getDeterminantSubmatrix, getInverse, mapMatrix, multiplyMatrix, scaleMatrix, transpose, trimMatrix, asMatrix, addVector, subtractVector, scaleVector, divideVector, addMatrix, divideMatrix  } from "../libs/vector-tools.js";
+import { dotVector, getAdjugate, getCofactor, getCofactorMatrix, getDeterminant, getDeterminantSubmatrix, getInverse, mapMatrix, multiplyMatrix, scaleMatrix, transpose, trimMatrix, asMatrix, addVector, subtractVector, scaleVector, divideVector, addMatrix, divideMatrix, multiplyMatrixVector  } from "../libs/vector-tools.js";
 
 describe("vector-tools", () => {
 	describe(".addVector", () => {
@@ -408,6 +408,16 @@ describe("vector-tools", () => {
 		].forEach(test => {
 			it(`shapes array into matrix ${JSON.stringify(test.args)}`, () => {
 				const result = asMatrix(...test.args);
+				expect(result).toEqual(test.result);
+			});
+		});
+	});
+	describe(".multiplyMatrixVector", () => {
+		[
+			{ args: [[2,1,3], [[1,2,3],[4,5,6],[7,8,9]]], result: [13,31,49] },
+		].forEach(test => {
+			it(`multiplies vector by matrix ${JSON.stringify(test.args)}`, () => {
+				const result = multiplyMatrixVector(...test.args);
 				expect(result).toEqual(test.result);
 			});
 		});

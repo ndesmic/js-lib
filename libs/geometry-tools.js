@@ -114,6 +114,19 @@ export function inverseLerp(v, vmin, vmax) {
 	return (v - vmin) / (vmax - vmin);
 }
 
+export function inverseLerp4(vmin, vmax, v){
+	return [
+		(v - vmin[0]) / (vmax[0] - vmin[0]),
+		(v - vmin[1]) / (vmax[1] - vmin[1]),
+		(v - vmin[2]) / (vmax[2] - vmin[2]),
+		(v - vmin[3]) / (vmax[3] - vmin[3])
+	];
+}
+
+export function smoothStep(pointA, pointB, normalValue) {
+	return normalValue ** 2 * (3 - (2 * normalValue));
+}
+
 //order matters! CCW from bottom to top
 export function triangleNormal(pointA, pointB, pointC) {
 	const vector1 = subtractVector(pointC, pointA);

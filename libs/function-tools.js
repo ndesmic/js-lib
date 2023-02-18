@@ -24,7 +24,7 @@ export function trampoline(func){
     return result;
 }
 
-export function executeAsProcess(func, ...args){
+export function executeAsWorker(func, ...args){
 	const funcText = func.toString();
 	const bodyText = funcText.match(/\{[\s\S]*\}/)[0];
 	const argsText = funcText.match(/\(.*\)|[\s\S]*?(?=\=\>)/)[0];
@@ -80,4 +80,35 @@ export function debounce(func, ms) {
         clearTimeout(timeout);
         timeout = setInterval(() => func(...args), ms);
     };
+}
+
+export function exponentialBackoff(func, options = {}){
+    const baseTimeoutMs = options.baseTimeoutMs ?? 1000;
+    const maxTries = options.maxTries ?? 5;
+    const isPass = options.condition ?? (x => !!x);
+
+    return async function(...args){
+        let result;
+        let tries = 0;
+        let isError = false;
+        const errors = [];
+
+        do {
+            isError = false;
+            await wait(baseTimeoutMs ** tries);
+            try {
+                result = await func(...args);
+            } catch(e){
+                errors.push(e);
+                isError = true;
+            }
+            tries++;
+        } while((isError || !isPass(result)) && tries < maxTries);
+
+        if(!isPass(result)){
+            if(Object.hasOwn(options, "defaultValue")) return options.defaultValue;
+            throw new Error(errors.map(x => x.message).join(", "));
+        }
+        return result;
+    }
 }
