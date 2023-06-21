@@ -1,8 +1,26 @@
-import { sum, average, standardDeviation } from "../libs/stat-tools.js";
+import { sum, min, max, average, standardDeviation } from "../libs/stat-tools.js";
 
 describe("sum", () => {
 	it("gets the sum", () => {
 		expect(sum([1,2,3,4,5,6,7,8,9,10])).toBe(55);
+	});
+});
+
+describe("min", () => {
+	it("gets the min", () => {
+		expect(min([4, 2, 1, 7, 10, 6, 3, 8, 9, 5])).toBe(1);
+	});
+});
+
+describe("max", () => {
+	it("gets the max", () => {
+		expect(max([4, 2, 1, 7, 10, 6, 3, 8, 9, 5])).toBe(10);
+	});
+});
+
+describe("sum", () => {
+	it("gets the sum", () => {
+		expect(sum([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(55);
 	});
 });
 

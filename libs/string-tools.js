@@ -370,3 +370,7 @@ export function parseKeyVals(txt, { valueDelimiter = ":", lineDelimiter = "\n"} 
         .map(x => x.map(y => y.trim()));
     return Object.fromEntries(keyvals);
 }
+
+export function hashString(txt){
+    return SubtleCrypto.digest("sha-256", new TextEncoder().encode(txt));
+}

@@ -41,7 +41,7 @@ export async function binaryJsonStreamToObject(stream){
 
 export async function binaryStreamToArrayBuffer(stream){
 	const reader = stream.getReader();
-	let chunks = [];
+	const chunks = [];
 	let done = false;
 
 	while (!done) {

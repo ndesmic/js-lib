@@ -1,5 +1,8 @@
 import { memo, getFunctionName, getFunctionParams, debounce, exponentialBackoff } from "../libs/function-tools.js";
 import { recursiveFibanocci as fibanocci } from "../libs/algorithms.js";
+import { trampoline } from "../libs/function-tools.js";
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe("function-tools", () => {
     describe("memo", () => {
@@ -75,6 +78,40 @@ describe("function-tools", () => {
             const returnsFalse = () => false;
             expect(await exponentialBackoff(returnsFalse, { baseTimeoutMs: 2, defaultValue: "foo" })())
                 .toEqual("foo")
+        });
+    });
+
+    describe(".trampoline", () => {
+        function num(n) {
+            function impl(b, n) {
+                if (b === n) {
+                    return b;
+                }
+                return impl(b + 1, n);
+            }
+            return impl(0, n);
+        }
+
+        function tnum(n) {
+            function impl(b, n) {
+                if (b === n) {
+                    return b;
+                }
+                return () => impl(b + 1, n);
+            }
+            return trampoline(() => impl(0, n));
+        }
+
+        it("recursive function works", () => {
+            expect(num(5)).toEqual(5);
+        });
+
+        it("recursive function exceeds stack if too deep", () => {
+            expect(() => num(100000)).toThrow();
+        });
+
+        it("trampolined function does not exceed stack", () => {
+            expect(tnum(100000)).toEqual(100000);
         });
     });
 });
