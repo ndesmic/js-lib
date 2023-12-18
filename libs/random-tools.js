@@ -2,6 +2,7 @@ export function getUniform(max = 1, min = 0){
 	return min + Math.random() * (max - min);
 }
 
+//Box Muller
 export function getNormal(mean = 0, standardDeviation = 1) {
 	const u1 = Math.random();
 	const u2 = Math.random();
@@ -25,7 +26,6 @@ const sliceHex = (arr, start, end) =>
 	Array.from(arr).slice(start, end).map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
 
 
-//Box Muller
 export function getGuid(){
 	const arr = new Uint8Array(16);
 	crypto.getRandomValues(arr);

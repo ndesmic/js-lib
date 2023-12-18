@@ -1,4 +1,4 @@
-import { dot } from "../../base-libs/linear-algebra-tools.js";
+import { dot } from "../libs/linear-algebra-tools.js";
 
 describe(".linear algebra tools", () => {
 	it("properly dots matricies (2x3, 3x2)", () => {
