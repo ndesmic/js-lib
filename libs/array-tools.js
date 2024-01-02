@@ -174,7 +174,7 @@ export function arrayUniqueBy(array, idFunc) {
 	}
 	return newArray;
 }
-//get an array of indicies where the result of mapFunc changes
+//get an array of indices where the result of mapFunc changes
 export function arrayChangeIndices(array, mapFunc) {
     const currentValue = mapFunc(array[0]);
     const indices = [];
@@ -248,4 +248,14 @@ export function arrayToTable(array, { headings } = {}){
     }
     table.appendChild(tbody);
     return table;
+}
+
+export function getRange({ start, end, step }){
+    let i = start ?? 0;
+    step = step ?? 1;
+    const result = [];    
+    for (; i <= end; i += step){
+        result.push(i);
+    }
+    return result;
 }

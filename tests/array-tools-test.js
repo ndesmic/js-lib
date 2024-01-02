@@ -3,7 +3,8 @@ import {
     arrayClone,
     arrayOrderBy,
     arrayChunk,
-    arrayToTable
+    arrayToTable,
+    getRange
 } from "../libs/array-tools.js";
 
 describe("arrayFindIndicies", () => {
@@ -137,6 +138,26 @@ describe("arrayToTable", () => {
         expect(result.children[0].children[2].children[2].textContent).toBe("3");
     })
 });
+
+describe("getRange", () => {
+    it("should get range (end only)", () => {
+        const result = getRange({ end: 10 });
+        expect(result).toEqual([0,1,2,3,4,5,6,7,8,9,10]);
+    });
+    it("should get range (start to end)", () => {
+        const result = getRange({ start: -5, end: 10 });
+        expect(result).toEqual([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
+    it("should get range (start to end with step)", () => {
+        const result = getRange({ start: -4, end: 10, step: 2 });
+        expect(result).toEqual([-4, -2, 0, 2, 4, 6, 8, 10]);
+    });
+    it("should get range with remainder", () => {
+        const result = getRange({ end: 10, step: 3 });
+        expect(result).toEqual([0,3,6,9]);
+    });
+});
+
 
 /*
 

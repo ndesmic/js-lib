@@ -21,6 +21,7 @@ module.exports = function(config) {
       { pattern: 'libs/array-tools.js', type: "module", included: false },
       { pattern: 'libs/binary-tools.js', type: "module", included: false },
       { pattern: 'libs/bool-tools.js', type: "module", included: false },
+      { pattern: 'libs/combinatorics-tools.js', type: "module", included: false },
       { pattern: 'libs/color-tools.js', type: "module", included: false },
       { pattern: 'libs/encoding-tools.js', type: "module", included: false },
       { pattern: 'libs/exception-tools.js', type: "module", included: false },
@@ -50,6 +51,7 @@ module.exports = function(config) {
       //test files
       { pattern: 'tests/array-tools-test.js', type: "module" },
       { pattern: 'tests/binary-tools-test.js', type: "module" },
+      { pattern: 'tests/combinatorics-tools-test.js', type: "module" },
       { pattern: 'tests/color-tools-test.js', type: "module" },
       { pattern: 'tests/exception-tools-test.js', type: "module" },
       { pattern: 'tests/encoding-tools-test.js', type: "module" },
