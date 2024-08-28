@@ -73,7 +73,7 @@ export class TextReader {
         let buffer = "";
         let i = this.index;
         while(i < this.text.length){
-            var match = findMatch(this.text, i, args);
+            var match = this.findMatch(this.text, i, args);
             if(match.result){
                 return { result : buffer, match : match.valueMatched };
             }else{
@@ -115,7 +115,7 @@ export class TextReader {
     readWhiteSpace() {
         let nextChar = this.peekChar();
         let outText = "";
-        while (isWhiteSpace(nextChar)) {
+        while (this.isWhiteSpace(nextChar)) {
             outText += this.readChar();
             nextChar = this.peekChar();
         }

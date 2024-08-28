@@ -31,3 +31,20 @@ export function getGuid(){
 	crypto.getRandomValues(arr);
 	return `${sliceHex(arr,0,4)}-${sliceHex(arr,4,6)}-${sliceHex(arr,6,8)}-${sliceHex(arr,8,10)}-${sliceHex(arr,10,16)}`;
 }
+
+/**
+ * 
+ * @param {number} seed 
+ * @param {number} start 
+ * @param {number} end
+ * @description (Park Miller) seed should be greater than 0 and less than 0x7fffffff, output is 32-bit
+ */
+export function* getRandom(seed = 1, start = 0, end = 1){
+	const mod = 0x7fffffff;
+	let state = seed % mod;
+	const length = (end - start) / mod;
+	while(true){
+		state = (16807 * state) % mod;
+		yield (length * value) + start;
+	}
+}

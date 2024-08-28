@@ -47,6 +47,7 @@ module.exports = function(config) {
       { pattern: 'simple-implementations/hyper.js', type: "module", included: false },
       { pattern: 'simple-implementations/bitstream.js', type: "module", included: false },
       { pattern: 'simple-implementations/galois-field.js', type: "module", included: false },
+      { pattern: 'simple-implementations/text-reader.js', type: "module", included: false },
 
       //test files
       { pattern: 'tests/array-tools-test.js', type: "module" },
@@ -74,6 +75,7 @@ module.exports = function(config) {
       { pattern: 'tests/bitstream-test.js', type: "module" },
       { pattern: 'tests/galois-field-test.js', type: "module" },
       { pattern: 'tests/stat-tools-test.js', type: "module" },
+      { pattern: 'tests/text-reader-test.js', type: "module" },
       { pattern: 'tests/value-tools-test.js', type: "module" },
       { pattern: 'tests/vector-tools-test.js', type: "module" },
       { pattern: 'tests/sorting-test.js', type: "module" }

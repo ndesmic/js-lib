@@ -94,6 +94,7 @@ export function accessProperty(obj, accessor, defaultValue = null){
     return accessProperty(obj[accessorParts[0]], accessorParts.slice(1), defaultValue);
 }
 
+//old
 export function diff(oldObject, newObject){
 	var diffObject;
 	if(typeof(oldObject) === "object"){
@@ -129,6 +130,43 @@ export function diff(oldObject, newObject){
 			}
 		}
 	}
+}
+
+export function diffObject(baseObject, testObject, path = ""){
+	const added = [];
+	const missing = [];
+	const different = [];
+
+	if(typeof(baseObject) !== typeof(testObject)){
+		different.push({ path, baseValue: baseObject, testValue: testObject });
+	} else if(typeof(baseObject) === "object" && typeof(testObject) === "object"){
+		for(const key in baseObject){
+			const newPath = path + "." + key;
+			if(!testObject.hasOwnProperty(key)){
+				missing.push(newPath);
+			} else {
+				const result = diffObject(baseObject[key], testObject[key], newPath);
+				added.push(...result.added);
+				missing.push(...result.missing);
+				different.push(...result.different);
+			}
+		}
+
+		for(const key in testObject){
+			const newPath = path + "." + key;
+			if(!baseObject.hasOwnProperty(key)){
+				added.push(newPath);
+			}
+		}
+	} else if(baseObject !== testObject){
+		different.push({ path, baseValue: baseObject, testValue: testObject });
+	}
+
+	return {
+		added,
+		missing,
+		different
+	};
 }
 
 export function objectIsSuperset(objectTest, objectControl){
