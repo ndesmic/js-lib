@@ -1,12 +1,47 @@
-export function getSteps(step, end, start = 0) {
-	const steps = [start];
+/**
+ * Creates an array by starting at `start` and jumping `step` amount until `end`
+ * @param {number} end
+ * @param {{ step?: number, start?: number, includeEnd?: boolean }} options
+ * @returns {number[]}
+ */
+export function getSteps(end, options = {}) {
+	const step = options.step ?? 1;
+	const start = options.start ?? 0;
+	const includeEnd = options.includeEnd ?? true;
+	const length = (includeEnd ? Math.ceil : Math.floor)((end - start) / step);
+	const steps = new Array(length + 1);
+	steps[0] = start;
 	let current = start + step;
+	let i = 1;
 	while (current < end) {
-		steps.push(current);
+		steps[i] = current;
 		current += step;
+		i += 1;
 	}
-	steps.push(end);
+	if(steps[i - 1] < end && includeEnd){
+		steps[i] = end;
+	}
 	return steps;
+}
+
+/**
+ * Creates an array given `steps` nodes between `start` and `end`.  Array with be length `steps`. Same as torch.linspace
+ * @param {number} start
+ * @param {number} end
+ * @param {number} steps
+ * @returns {number[]}
+ */
+export function getLinearSpace(start, end, steps){
+	steps = steps - 1; //counting the spaces not the nodes
+	const length = end - start;
+	const partLength = length / steps;
+	const array = new Array(steps);
+	let current = start;
+	for(let i = 0; i <= steps; i++){
+		array[i] = current;
+		current += partLength
+	}
+	return array;
 }
 
 export function getClosest(value, possibleValues){
@@ -43,4 +78,16 @@ export function lerp(start, end, normalValue) {
 
 export function inverseLerp(start, end, value){
 	return (value - start) / (end - start);
+}
+
+export function leftShiftBase10(value, places){
+	return value * (10 ** places);
+} 
+
+export function rightShiftBase10(value, places){
+	return value / (10 ** places);
+}
+
+export function floorAtPosition(value, position){
+	return leftShiftBase10(Math.floor(rightShiftBase10(value, position)), position);
 }

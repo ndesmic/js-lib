@@ -1,11 +1,18 @@
+import { describe, it } from "@std/testing/bdd"
+import { expect } from "@std/expect";
 import {
     getStringInit,
     getLevenshteinDistance,
     parseXsv,
     parseKeyVals,
     mixedByteArrayToString,
-    parseLiteralList
+    parseLiteralList,
+    capitalizeAll,
+    stringRemove,
+    capitalizeFirst
  } from "../libs/string-tools.js";
+import { multiTest } from "./test-tools.js";
+import { templateString } from "../libs/string-tools.js";
 
 
 describe("getStringInit", () => {
@@ -96,7 +103,7 @@ describe("parseKeyVals", () => {
    });
 });
 
-describe(".parseLiteralList", () => {
+describe("parseLiteralList", () => {
    it("gets number values", () => {
       const result = parseLiteralList("1,2,3");
       expect(result).toEqual([1, 2, 3]);
@@ -131,7 +138,7 @@ describe(".parseLiteralList", () => {
    });
 });
 
-describe(".mixedByteArrayToString", () => {
+describe("mixedByteArrayToString", () => {
    [
       { value: ["h", "e", "l", "l", "o"], result: "hello" },
       { value: [104, 101, 108, 108, 111], result: "hello" },
@@ -143,4 +150,46 @@ describe(".mixedByteArrayToString", () => {
          expect(result).toEqual(test.result);
       });
    });
+});
+
+
+describe(".capitalizeFirst", () => {
+   multiTest([
+      { args: ["lorem"], expected: "Lorem" },
+      { args: ["lorem ipsum"], expected: "Lorem ipsum" }
+   ], ({ args, expected }) => {
+      expect(capitalizeFirst(...args)).toEqual(expected);
+   })
+});
+
+describe("capitalizeAll", () => {
+   [
+      [["lorem"], "Lorem"],
+      [["lorem ipsum"], "Lorem Ipsum"],
+      [[" lorem ipsum"], " Lorem Ipsum"]
+   ].forEach(test => it(`should get ${test[1]} for args ${[test[0]]}`, () => {
+      expect(capitalizeAll(test[0][0])).toEqual(test[1])
+   }))
+});
+
+describe("stringRemove", () => {
+   multiTest([
+      { args: ["lorem ipsum", "ipsum"], expected: "lorem ", name: "removes a word" },
+      { args: ["lorem", ["."]], expected: "lorem", name: "does not bork on periods" },
+      { args: ["lorem ipsum, lorem ipsum", "ipsum"], expected: "lorem , lorem ", name: "removes a word (multi)" },
+      { args: ["hello lorem ipsum world", ["hello", "ipsum"]], expected: " lorem  world", name: "removes multiple words" }
+   ], ({ args, expected }) => {
+      expect(stringRemove(...args)).toEqual(expected);
+   })
 })
+
+describe("templateString", () => {
+   multiTest([
+      { args: ["hello ${value} world!", { value: "lorem" }], expected: "hello lorem world!" },
+      { args: ["hello ${value} ${foo} world!", { value: "lorem", foo: "ipsum" }], expected: "hello lorem ipsum world!" },
+      { args: ["hello ${value} ${value} world!", { value: "lorem", foo: "ipsum" }], expected: "hello lorem lorem world!" }
+
+   ], ({ args, expected }) => {
+      expect(templateString(...args)).toEqual(expected);
+   });
+});

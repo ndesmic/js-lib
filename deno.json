@@ -1,0 +1,15 @@
+{
+  "tasks": {
+    "test": "deno test"
+  },
+  "test": {
+    "include": [
+      "tests/math-tools-test.js",
+	  "tests/string-tools-test.js"
+    ]
+  },
+  "imports": {
+    "@std/expect": "jsr:@std/expect@^1.0.5",
+    "@std/testing": "jsr:@std/testing@^1.0.3"
+  }
+}

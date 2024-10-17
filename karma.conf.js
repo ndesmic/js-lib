@@ -16,7 +16,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       //files to test
-      
       { pattern: 'libs/algorithms.js', type: "module", included: false },
       { pattern: 'libs/array-tools.js', type: "module", included: false },
       { pattern: 'libs/binary-tools.js', type: "module", included: false },
@@ -28,9 +27,7 @@ module.exports = function(config) {
       { pattern: 'libs/geometry-tools.js', type: "module", included: false },
       { pattern: 'libs/image-tools.js', type: "module", included: false },
       { pattern: 'libs/linear-algebra-tools.js', type: "module", included: false },
-      { pattern: 'libs/math-tools.js', type: "module", included: false },
       { pattern: 'libs/object-tools.js', type: "module", included: false },
-      { pattern: 'libs/string-tools.js', type: "module", included: false },
       { pattern: 'libs/function-tools.js', type: "module", included: false },
       { pattern: 'libs/time-tools.js', type: "module", included: false },
       { pattern: 'libs/dom-tools.js', type: "module", included: false },
@@ -59,9 +56,6 @@ module.exports = function(config) {
       { pattern: 'tests/geometry-tools-test.js', type: "module" },
       { pattern: 'tests/image-tools-test.js', type: "module" },
       { pattern: 'tests/linear-algebra-tools-test.js', type: "module" },
-      { pattern: 'tests/math-tools-test.js', type: "module" },
-      { pattern: 'tests/object-tools-test.js', type: "module" },
-      { pattern: 'tests/string-tools-test.js', type: "module" },
       { pattern: 'tests/function-tools-test.js', type: "module" },
       { pattern: 'tests/tensor-tools-test.js', type: "module" },
       { pattern: 'tests/time-tools-test.js', type: "module" },

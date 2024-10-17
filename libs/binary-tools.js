@@ -29,18 +29,17 @@ export function arrayBufferToBinary(arrayBuffer, splitLength){
 	}
 	return bin.trim();
 }
-export function arrayBufferToString(arrayBuffer, start, length){
-	start = start || 0;
-	length = length || arrayBuffer.byteLength;
-	var dataView = new DataView(arrayBuffer, start, length);
-	var newString = "";
-	for(var i = 0; i < dataView.byteLength; i++){
-		newString += String.fromCharCode(dataView.getUint8(start + i));
-	}
-	return newString;
-}
+
+/**
+ * Converts arraybuffer to base64 string (eg. for data url)
+ * @param {ArrayBuffer} arrayBuffer 
+ * @param {number} start
+ * @param {number} length 
+ * @returns {string}
+ */
 export function arrayBufferToBase64(arrayBuffer, start, length){
-	return btoa(arrayBufferToString());
+	const uint8Array = new Uint8Array(arrayBuffer, start, length);
+	return window.btoa(String.fromCharCode(...uint8Array));
 }
 //can use padLeft
 export function pad(n, width, z) {

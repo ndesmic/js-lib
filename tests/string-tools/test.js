@@ -1,21 +1,3 @@
-QUnit.module(".stringRemove");
-QUnit.test("removes a word", function(assert){
-  var text = StringTools.stringRemove("lorem ipsum", "ipsum");
-	assert.equal(text, "lorem ", "removed first");
-});
-QUnit.test("does not bork on periods", function(assert){
-  var text = StringTools.stringRemove("lorem", ["."]);
-	assert.equal(text, "lorem", "removed none");
-});
-QUnit.test("removes a word (multi)", function(assert){
-  var text = StringTools.stringRemove("lorem ipsum, lorem ipsum", "ipsum");
-	assert.equal(text, "lorem , lorem ", "removed multi");
-});
-QUnit.test("removes multiple words", function(assert){
-  var text = StringTools.stringRemove("hello lorem ipsum world", ["hello", "ipsum"]);
-	assert.equal(text, " lorem  world", "removed multiple words");
-});
-
 QUnit.module(".insertString");
 var tests = [
     { args : ["lorem ipsum", 6, "hello "], result : "lorem hello ipsum" },
@@ -27,29 +9,6 @@ tests.forEach(x => {
         var text = StringTools.insertString(...x.args);
         assert.equal(text, x.result);
     });
-});
-
-QUnit.module(".capitalizeFirst");
-QUnit.test("capitalizes first word", function(assert){
-  var capitalText = StringTools.capitalizeFirst("lorem");
-	assert.equal(capitalText, "Lorem", "capitalizes first word (one)");
-
-	var capitalText2 = StringTools.capitalizeFirst("lorem ipsum");
-	assert.equal(capitalText2, "Lorem ipsum", "capitalizes first word (multi)");
-});
-
-QUnit.module(".capitalizeAll");
-QUnit.test("capitalizes one word", function(assert){
-  var capitalText = StringTools.capitalizeAll("lorem");
-	assert.equal(capitalText, "Lorem", "capitalizes one word");
-});
-QUnit.test("capitalizes multiple words", function(assert){
-	var capitalText = StringTools.capitalizeAll("lorem ipsum");
-	assert.equal(capitalText, "Lorem Ipsum", "capitalizes multiple words");
-});
-QUnit.test("capitalizes with leading space", function(assert){
-	var capitalText = StringTools.capitalizeAll(" lorem ipsum");
-	assert.equal(capitalText, " Lorem Ipsum", "capitalizes with leading space");
 });
 
 QUnit.module(".kebabCase");
@@ -280,18 +239,4 @@ QUnit.test("splits whitespace (but not quoted text)", function(assert){
 
 	var result2 = StringTools.splitWhitespace('"abc  Abc"  Xyz');
 	assert.deepEqual(result2, ["abc  Abc", "Xyz"]);
-});
-
-QUnit.module(".templateString");
-QUnit.test("templates value", function(assert){
-	var result = StringTools.templateString("hello ${value} world!", { value : "lorem" });
-	assert.equal(result, "hello lorem world!");
-});
-QUnit.test("templates values", function(assert){
-	var result = StringTools.templateString("hello ${value} ${foo} world!", { value : "lorem", foo : "ipsum" });
-	assert.equal(result, "hello lorem ipsum world!");
-});
-QUnit.test("templates value multiple times", function(assert){
-	var result = StringTools.templateString("hello ${value} ${value} world!", { value : "lorem", foo : "ipsum" });
-	assert.equal(result, "hello lorem lorem world!");
-});
+});	

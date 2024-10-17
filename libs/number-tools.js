@@ -33,19 +33,28 @@ export function mirrorWrap(value, min = Number.MIN_SAFE_INTEGER, max = Number.MA
 	return value;
 }
 
-export function toBinary(n) {
-	if(n === 0) return [0];
-	function bin(n) {
-		if (n > 1) {
-			return [n % 2, ...bin(Math.floor(n / 2))];
-		}
-		return [1];
-	}
-	return bin(n).reverse();
-}
-
 export function normalizeNumber(num, len) {
 	num = parseFloat(num.toFixed(len));
 	num = num === -0 ? 0 : num;
 	return num;
 }
+
+/**
+ * Converts number to it's representative digits in a particular base
+ * @param {number} n 
+ * @returns {number[]}
+ */
+export function toBase(n, base){
+	const digits = [];
+	let num = n;
+	if(num === 0){
+		return [0];
+	}
+	while(num > 0){
+		digits.push(num % base);
+		num = Math.floor(num / base);
+	}
+	return digits.reverse();
+}
+
+export const toBinary = n => toBase(n,2);
