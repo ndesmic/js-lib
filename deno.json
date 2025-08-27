@@ -4,8 +4,14 @@
   },
   "test": {
     "include": [
-      "tests/math-tools-test.js",
-	  "tests/string-tools-test.js"
+      "tests/formats/xsv-test.js",
+      "tests/formats/keyvals-test.js",
+      "tests/libs/array-tools-test.js",
+      "tests/libs/iterator-tools-test.js",
+      "tests/libs/math-tools-test.js",
+	    "tests/libs/string-tools-test.js",
+      "tests/libs/vector-tools-test.js",
+      "tests/simple-implementations/sampler-test.js"
     ]
   },
   "imports": {

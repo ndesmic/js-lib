@@ -1,5 +1,16 @@
+/**
+ * @typedef {[number, number, number]} Color
+ */
+
+/**
+ * 
+ * @param {string} hexString hexidecimal RGBA with or without # 
+ * @returns {Color}
+ */
 export function hexStringToColor(hexString) {
-	const hex = hexString.substr(1);
+	const hex = hexString.startWith("#")
+		? hexString.slice(1)
+		: hexString;
 	return [
 		parseInt(hex.substring(0, 2), 16),
 		parseInt(hex.substring(2, 4), 16),

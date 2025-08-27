@@ -91,3 +91,30 @@ export function tableToArray(table){
   return [...table.querySelectorAll("tr")].map(row =>
     [...row.querySelectorAll("td")].map(td => td.textContent));
 }
+
+export function arrayToTable(array, { headings } = {}) {
+  const table = document.createElement("table");
+  let i = 0;
+  if (headings) {
+    const thead = document.createElement("thead");
+    array[0].forEach(h => {
+      const th = document.createElement("th");
+      th.textContent = h;
+      thead.append(th);
+    });
+    table.append(thead);
+    i = 1;
+  }
+  const tbody = document.createElement("tbody");
+  for (; i < array.length; i++) {
+    const tr = document.createElement("tr");
+    for (let j = 0; j < array[i].length; j++) {
+      const td = document.createElement("td");
+      td.textContent = array[i][j];
+      tr.append(td);
+    }
+    tbody.append(tr);
+  }
+  table.appendChild(tbody);
+  return table;
+}

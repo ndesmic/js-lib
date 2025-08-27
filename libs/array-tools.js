@@ -1,25 +1,7 @@
-//push into array if it does match another item
-export function arrayPushNoDupe(array, item) {
-    if (array.indexOf(item) == -1) {
-        array.push(item);
-    }
-}
-
-//removes matching items from array
-export function arrayRemoveWhere(array, whereFunction) {
-    var remaining = [];
-    for (var i = 0; i < array.length; i++) {
-        if (!whereFunction(array[i])) {
-            remaining.push(array[i]);
-        }
-    }
-    return remaining;
-}
-
 //replaces matching elements
 export function arrayReplaceWhere(array, whereFunction, newValue) {
-    var resultArray = array.slice(0);
-    for (var i = 0; i < resultArray.length; i++) {
+    const resultArray = array.slice(0);
+    for (let i = 0; i < resultArray.length; i++) {
         if (whereFunction(resultArray[i])) {
             resultArray.splice(i, 1, newValue);
         }
@@ -30,8 +12,8 @@ export function arrayReplaceWhere(array, whereFunction, newValue) {
 //gets all matching indexes
 //ES6 map with index
 export function arrayFindIndices(array, whereFunction) {
-    var matches = [];
-    for (var i = 0; i < array.length; i++) {
+    const matches = [];
+    for (let i = 0; i < array.length; i++) {
         if (whereFunction(array[i])) {
             matches.push(i);
         }
@@ -41,7 +23,7 @@ export function arrayFindIndices(array, whereFunction) {
 //does a function for each element
 //ES6 forEach but returns for chaining
 export function arrayDo(array, eachFunction) {
-    for (var i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
         eachFunction(array[i]);
     }
     return array;
@@ -49,8 +31,8 @@ export function arrayDo(array, eachFunction) {
 
 //counts matching items
 export function arrayCount(array, countFunction) {
-    var count = 0;
-    for (var i = 0; i < array.length; i++) {
+    let count = 0;
+    for (let i = 0; i < array.length; i++) {
         if (countFunction(array[i])) {
             count += 1;
         }
@@ -59,7 +41,7 @@ export function arrayCount(array, countFunction) {
 }
 //gets page from array
 export function arrayPage(array, page, pageSize) {
-    var index = page * pageSize;
+    const index = page * pageSize;
     if (index >= array.length || index < 0) {
         return null;
     }
@@ -221,33 +203,6 @@ export function arrayChunk(array, lengthPerChunk){
     }
     if(chunk.length > 0) result.push(chunk);
     return result;
-}
-
-export function arrayToTable(array, { headings } = {}){
-    const table = document.createElement("table");
-    let i = 0;
-    if(headings){
-        const thead = document.createElement("thead");
-        array[0].forEach(h => {
-            const th = document.createElement("th");
-            th.textContent = h;
-            thead.append(th);
-        });
-        table.append(thead);
-        i = 1;
-    }
-    const tbody = document.createElement("tbody");
-    for(;i < array.length;i++){
-        const tr = document.createElement("tr");
-        for(let j = 0; j < array[i].length; j++){
-            const td = document.createElement("td");
-            td.textContent = array[i][j];
-            tr.append(td);
-        }
-        tbody.append(tr);
-    }
-    table.appendChild(tbody);
-    return table;
 }
 
 export function getRange({ start, end, step }){

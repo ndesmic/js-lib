@@ -1,14 +1,14 @@
-//replace all occurances of string
+//replace all occurrences of string
 export function replaceAll(currentString, stringToReplace, replacement) {
     return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
 }
 
-    //this is ghetto hacked for now, handles only single characters and only a subset
+//this is poorly hacked for now, handles only single characters and only a subset
 export function stringRemove(text, thingsToRemove) {
-    var regExSymbols = [".", "$", "^"];
+    const regExSymbols = [".", "$", "^"];
     thingsToRemove = [].concat(thingsToRemove);
-    for (var i = 0; i < thingsToRemove.length; i++) {
-        var regex = thingsToRemove[i];
+    for (let i = 0; i < thingsToRemove.length; i++) {
+        let regex = thingsToRemove[i];
         if (regExSymbols.indexOf(regex) != -1) {
             regex = "\\" + regex;
         }
@@ -20,9 +20,9 @@ export function stringRemove(text, thingsToRemove) {
 export function pad(text, length, padChar) {
     text = text.toString();
     padChar = padChar || "0";
-    var lengthToPad = length - text.length;
+    const lengthToPad = length - text.length;
     if (lengthToPad > 0) {
-        for (var i = 0; i < lengthToPad; i++) {
+        for (let i = 0; i < lengthToPad; i++) {
             text = padChar + text;
         }
     }
@@ -32,9 +32,9 @@ export function pad(text, length, padChar) {
 export function padEnd(text, length, pad) {
     text = text.toString();
     pad = pad || "0";
-    var lengthToPad = length - text.length;
+    const lengthToPad = length - text.length;
     if (lengthToPad > 0) {
-        for (var i = 0; i < lengthToPad; i++) {
+        for (let i = 0; i < lengthToPad; i++) {
             text = text + pad;
         }
     }
@@ -43,20 +43,20 @@ export function padEnd(text, length, pad) {
 //truncates with ellipsis
 export function truncate(text, length) {
     if (text.length > length) {
-        var truncatedText = text.substring(0, length - 4);
+        const truncatedText = text.substring(0, length - 4);
         return truncatedText + "...";
     }
     return text;
 }
 //takes number and converts to bytes
+const unitSuffix = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 export function getUnitSuffixedBytes(bytes, significantDecimal) {
-    var unitSuffix = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-    var currentSuffixIndex = 0;
+    let currentSuffixIndex = 0;
     while (bytes >= 1024) {
         bytes = bytes / 1024;
         currentSuffixIndex++;
     }
-    var rounded = significantDecimal === undefined ? bytes : bytes.toFixed(significantDecimal);
+    const rounded = significantDecimal === undefined ? bytes : bytes.toFixed(significantDecimal);
     return rounded + " " + unitSuffix[currentSuffixIndex];
 }
 //adds s to word if count > 1 or 0
@@ -81,7 +81,7 @@ export function kebabCase(str) {
 }
 //generates a random string
 export function generateRandomString(length) {
-    var s = Math.random().toString(36).substring(2);
+    let s = Math.random().toString(36).substring(2);
     while (s.length < length) { //possible to get a round number like 0.5 or run out of digits so append
         s += Math.random().toString(36).substring(2);
     }
@@ -96,15 +96,15 @@ export function stringEndsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 export function getCodes(str) {
-    var codeStr = "";
-    for (var i = 0; i < str.length; i++) {
+    let codeStr = "";
+    for (let i = 0; i < str.length; i++) {
         codeStr += str.charCodeAt(i) + ",";
     }
     return codeStr;
 }
 export function getEscapes(str) {
-    var codeStr = "";
-    for (var i = 0; i < str.length; i++) {
+    let codeStr = "";
+    for (let i = 0; i < str.length; i++) {
         codeStr += getEscape(str[i]);
     }
     return codeStr;
@@ -321,9 +321,9 @@ export function parseLiteralList(list) {
     });
 }
 export function mixedByteArrayToString(array) {
-    var result = "";
-    for (var i = 0; i < array.length; i++) {
-        var value = array[i];
+    let result = "";
+    for (let i = 0; i < array.length; i++) {
+        const value = array[i];
         if (typeof(value) === "string") {
             result += value;
         } else if (typeof(value) === "number") {
@@ -335,7 +335,7 @@ export function mixedByteArrayToString(array) {
 export const getStringInit = str =>
     str.substring(0, str.length - 1);
 
-export function getLevenshteinDistance(stringA, stringB, memo = new Map()){
+export function getLevenshteinDistance(stringA, stringB){
     if(!stringA){
         return stringB.length;
     }
@@ -354,23 +354,25 @@ export function getLevenshteinDistance(stringA, stringB, memo = new Map()){
     );
 }
 
-export function parseXsv(xsv, { valueDelimiter = "\t", lineDelimiter = "\n"} = {}){
-    return xsv.split(lineDelimiter)
-       .filter(x => x.trim() !== "")
-       .map(line => line.split(valueDelimiter)
-                         .filter(v => v.trim())
-                         .map(v => v.trim()));
-}
-
-export function parseKeyVals(txt, { valueDelimiter = ":", lineDelimiter = "\n"} = {}){
-    const keyvals = txt.split(lineDelimiter)
-        .filter(x => x.trim() !== "")
-        .map(kv => kv.split(valueDelimiter))
-        .filter(x => x.length > 1)
-        .map(x => x.map(y => y.trim()));
-    return Object.fromEntries(keyvals);
-}
-
 export function hashString(txt){
     return SubtleCrypto.digest("sha-256", new TextEncoder().encode(txt));
+}
+
+export function removeAnsiColors(text){
+    return text.replace(/\x1b\[[0-9;]*m/g, "");
+}
+
+/**
+ * @typedef {{ r: number, b: number, g: number }} RGBColor
+ * @typedef {{ foreground: RGBColor, background: RGBColor}} AnsiColorOptions
+ * @param {string} text 
+ * @param {AnsiColorOptions} options 
+ * @returns 
+ */
+export function ansiColor(text, options){
+    let output = `\x1b[38;2;${options.foreground.r};${options.foreground.g};${options.foreground.b};m${text}${options.background ? "" : "\x1b[0m"}`;
+    if(options.background){
+        output = `\x1b[38;2;${options.background.r};${options.background.g};${options.background.b};m${output}\x1b[0m`;
+    }
+    return output;
 }

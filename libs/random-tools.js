@@ -33,18 +33,22 @@ export function getGuid(){
 }
 
 /**
- * 
- * @param {number} seed 
- * @param {number} start 
- * @param {number} end
+ * @param {number} min 
+ * @param {number} max 
+ * @param {number} seed
  * @description (Park Miller) seed should be greater than 0 and less than 0x7fffffff, output is 32-bit
  */
-export function* getRandom(seed = 1, start = 0, end = 1){
+export function* getRandom(min = 0, max = 1, seed = undefined) {
 	const mod = 0x7fffffff;
+
+	//seeds must be less than mod
+	seed = seed ?? Math.floor(Math.random() * (0x7fffffff - 1));
 	let state = seed % mod;
-	const length = (end - start) / mod;
-	while(true){
+
+	const length = (max - min) / mod;
+
+	while (true) {
 		state = (16807 * state) % mod;
-		yield (length * value) + start;
+		yield (length * state) + min;
 	}
 }

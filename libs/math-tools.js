@@ -91,3 +91,7 @@ export function rightShiftBase10(value, places){
 export function floorAtPosition(value, position){
 	return leftShiftBase10(Math.floor(rightShiftBase10(value, position)), position);
 }
+
+export function getFractionalPart(num) {
+	return Math.abs(num % 1);
+}
