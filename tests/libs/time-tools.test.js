@@ -1,3 +1,5 @@
+import { describe, it } from "@std/testing/bdd"
+import { expect } from "@std/expect";
 import { getTimezone, isLeapYear, getDaysInMonth, getMonthMatrix } from "../../libs/time-tools.js"
 
 /*
@@ -10,16 +12,16 @@ describe(".getTimezone", () => {
 
 describe(".isLeapYear", () => {
 	it("should get a normal year", () => {
-		expect(isLeapYear(2001)).toBeFalse();
+		expect(isLeapYear(2001)).toEqual(false);
 	});
 	it("should get a normal year century", () => {
-		expect(isLeapYear(1700)).toBeFalse();
+		expect(isLeapYear(1700)).toEqual(false);
 	});
 	it("should get a leap year", () => {
-		expect(isLeapYear(2020)).toBeTrue();
+		expect(isLeapYear(2020)).toEqual(true);
 	});
 	it("should get a leap century", () => {
-		expect(isLeapYear(1600)).toBeTrue();
+		expect(isLeapYear(1600)).toEqual(true);
 	});
 });
 

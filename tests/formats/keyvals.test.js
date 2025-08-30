@@ -3,7 +3,7 @@ import { describe, it } from "@std/testing/bdd";
 import { expect } from "@std/expect";
 
 describe("parseKeyVals", () => {
-   it("parses keyvals", () => {
+   it("parses keyVals", () => {
 	  const keyvals =  `
 		 name: Apple
 		 ===========

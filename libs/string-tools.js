@@ -137,7 +137,7 @@ export function isAlpha(character) {
     return /^[a-zA-Z]+$/.test(character);
 }
 export function isWhitespace(char) {
-    var whitespace = [
+    const whitespace = [
         String.fromCharCode(13), //carriage return
         String.fromCharCode(10), //new line
         String.fromCharCode(32), //space
@@ -152,8 +152,8 @@ export function insertString(text, index, textToInsert) {
     return text.slice(0, index) + textToInsert + text.slice(index);
 }
 export function printStringAsTable(str) {
-    var table = [];
-    for (var i = 0; i < str.length; i++) {
+    const table = [];
+    for (let i = 0; i < str.length; i++) {
         table[i] = {
             char: str[i]
         };
@@ -161,14 +161,14 @@ export function printStringAsTable(str) {
     console.table(table);
 }
 export function printStringAsTableHorizontal(str) {
-    var table = [{}];
-    for (var i = 0; i < str.length; i++) {
+    const table = [{}];
+    for (let i = 0; i < str.length; i++) {
         table[0][i] = str[i];
     }
     console.table(table);
 }
 export function stringToFileUrl(text) {
-    var file = new Blob([text], {
+    const file = new Blob([text], {
         type: 'text/plain'
     });
     return Url.createObjectURL(file);
@@ -293,15 +293,15 @@ export function splitWhitespace(text) {
     return split;
 }
 export function templateString(text, values) {
-    for (var key in values) {
-        var regex = new RegExp("\\${" + key + "}", "g");
+    for (const key in values) {
+        const regex = new RegExp("\\${" + key + "}", "g");
         text = text.replace(regex, values[key]);
     }
     return text;
 }
 export function parseLiteralList(list) {
     return list.split(/(?!\B"[^"]*),(?![^"]*"\B)/g).map(function(item) {
-        var value = item.trim();
+        const value = item.trim();
         if (isNumber(value)) {
             return parseFloat(value);
         }
@@ -375,4 +375,37 @@ export function ansiColor(text, options){
         output = `\x1b[38;2;${options.background.r};${options.background.g};${options.background.b};m${output}\x1b[0m`;
     }
     return output;
+}
+
+/**
+ * Trims only lines from the text  
+ * @param {string} text 
+ * @returns 
+ */
+export function lineTrim(text){
+    return text.replace(/^(\r?\n)+/us, "")
+        .replace(/(\r?\n)+$/us, "")
+}
+
+/**
+ * dedents the text based on first line
+ * @param {string} text 
+ */
+export function dedent(text){
+    const lines = text.split("\n");
+    let char = lines[0].charAt(0);
+    let count = 0;
+    const spacingChar = char;
+    if(!/[ \t]/.test(spacingChar)){
+        return text;
+    }
+    while(char === spacingChar){
+        count++;
+        char = lines[0].charAt(count);
+    }
+    if(count === 0){
+        return text;
+    }
+    const regExp = new RegExp(`^${spacingChar}{${count}}`, "us");
+    return lines.map(line => line.replace(regExp, "")).join("\n");
 }

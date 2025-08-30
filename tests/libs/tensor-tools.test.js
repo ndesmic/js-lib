@@ -1,3 +1,5 @@
+import { describe, it } from "@std/testing/bdd"
+import { expect } from "@std/expect";
 import { getFlatIndex, getDimensionalIndices, sum } from "../../libs/tensor-tools.js";
 
 describe("getFlatIndex", () => {

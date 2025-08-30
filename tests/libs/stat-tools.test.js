@@ -1,3 +1,5 @@
+import { describe, it } from "@std/testing/bdd"
+import { expect } from "@std/expect";
 import { sum, min, max, average, standardDeviation } from "../../libs/stat-tools.js";
 
 describe("sum", () => {

@@ -1,3 +1,5 @@
+import { describe, it } from "@std/testing/bdd"
+import { expect } from "@std/expect";
 import { TextReader } from "../../simple-implementations/text-reader.js"
 
 describe(".readChar", () => {
