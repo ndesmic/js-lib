@@ -1,16 +1,3 @@
-QUnit.module(".insertString");
-var tests = [
-    { args : ["lorem ipsum", 6, "hello "], result : "lorem hello ipsum" },
-    { args : ["lorem ipsum", 0, "hello "], result : "hello lorem ipsum" },
-    { args : ["lorem ipsum", 100, " hello"], result : "lorem ipsum hello" }
-];
-tests.forEach(x => {
-    QUnit.test("inserts text", function(assert){
-        var text = StringTools.insertString(...x.args);
-        assert.equal(text, x.result);
-    });
-});
-
 QUnit.module(".kebabCase");
 var tests = [
   { args : ["hello world"], result : "hello-world" },

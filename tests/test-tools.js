@@ -1,6 +1,6 @@
 import { it } from "@std/testing/bdd";
 /**
- * @typedef {{ args: any[], expected: any }}
+ * @typedef {{ args: any[], expected: any, name?: string }} Case
  * @param {Case[]} cases 
  * @param {(case: Case) => void} testFunc 
  */

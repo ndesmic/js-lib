@@ -1,8 +1,3 @@
-//replace all occurrences of string
-export function replaceAll(currentString, stringToReplace, replacement) {
-    return currentString.replace(new RegExp(stringToReplace, ["g"]), replacement);
-}
-
 //this is poorly hacked for now, handles only single characters and only a subset
 export function stringRemove(text, thingsToRemove) {
     const regExSymbols = [".", "$", "^"];
@@ -13,30 +8,6 @@ export function stringRemove(text, thingsToRemove) {
             regex = "\\" + regex;
         }
         text = text.replace(new RegExp(regex, ["g"]), "");
-    }
-    return text;
-}
-//pads string to length with character
-export function pad(text, length, padChar) {
-    text = text.toString();
-    padChar = padChar || "0";
-    const lengthToPad = length - text.length;
-    if (lengthToPad > 0) {
-        for (let i = 0; i < lengthToPad; i++) {
-            text = padChar + text;
-        }
-    }
-    return text;
-}
-//pads string end to length with character
-export function padEnd(text, length, pad) {
-    text = text.toString();
-    pad = pad || "0";
-    const lengthToPad = length - text.length;
-    if (lengthToPad > 0) {
-        for (let i = 0; i < lengthToPad; i++) {
-            text = text + pad;
-        }
     }
     return text;
 }
@@ -148,6 +119,14 @@ export function isWhitespace(char) {
 export function spliceString(str, index, count, add) {
     return str.slice(0, index) + add + str.slice(index + count);
 }
+
+/**
+ * Inserts string at index {index}.  If longer than string it insert at end.
+ * @param {string} text 
+ * @param {number} index index to insert at 
+ * @param {string} textToInsert 
+ * @returns 
+ */
 export function insertString(text, index, textToInsert) {
     return text.slice(0, index) + textToInsert + text.slice(index);
 }
@@ -160,6 +139,7 @@ export function printStringAsTable(str) {
     }
     console.table(table);
 }
+
 export function printStringAsTableHorizontal(str) {
     const table = [{}];
     for (let i = 0; i < str.length; i++) {
@@ -173,9 +153,16 @@ export function stringToFileUrl(text) {
     });
     return Url.createObjectURL(file);
 }
+
+/**
+ * Splits a string in substrings of length {count}
+ * @param {string} text 
+ * @param {number} chunkLength 
+ * @returns 
+ */
 export function lengthChunk(text, chunkLength) {
-    var chunks = [];
-    var remaining = text;
+    const chunks = [];
+    let remaining = text;
     while (remaining.length > chunkLength) {
         chunks.push(remaining.substring(0, chunkLength));
         remaining = remaining.substr(chunkLength);
@@ -183,10 +170,17 @@ export function lengthChunk(text, chunkLength) {
     chunks.push(remaining);
     return chunks;
 }
+
+/**
+ * Splits a string into {count} number of substrings
+ * @param {string} text 
+ * @param {number} count 
+ * @returns 
+ */
 export function countChunk(text, count) {
-    var chunks = [];
-    var chunkLength = Math.ceil(text.length / count);
-    for (var i = 0; i < count; i++) {
+    const chunks = [];
+    const chunkLength = Math.ceil(text.length / count);
+    for (let i = 0; i < count; i++) {
         chunks.push(text.substring(i * chunkLength, (i + 1) * chunkLength));
     }
     return chunks;
@@ -229,10 +223,12 @@ export function truncateWords(text, length){
     }
     return truncated;
 }
+
 export function htmlStringToDom(htmlString) {
     parser = new DOMParser();
     return parser.parseFromString(htmlString, "text/html");
 }
+
 export function transformToken(text, regex, replaceFunc) {
     var matches = text.match(regex);
     if (!matches) {
@@ -243,12 +239,15 @@ export function transformToken(text, regex, replaceFunc) {
     }
     return text;
 }
+
 export function splitCamelCase(text) {
     return text.replace(/([A-Z])/g, ' $1').split(" ");
 }
+
 export function camelCaseToDashed(text) {
     return text.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
+
 export function dashedToCamelCase(text) {
     var parts = text.split("-");
     for (var i = 0; i < parts.length; i++) {
@@ -261,9 +260,11 @@ export function dashedToCamelCase(text) {
     }
     return parts.join("");
 }
+
 export function collapseWhitespace(text) {
     return text.replace(/\s{2,}/g, ' ');
 }
+
 export function splitWhitespace(text) {
     var split = [];
     var buffer = "";
@@ -292,6 +293,7 @@ export function splitWhitespace(text) {
     }
     return split;
 }
+
 export function templateString(text, values) {
     for (const key in values) {
         const regex = new RegExp("\\${" + key + "}", "g");
@@ -299,6 +301,7 @@ export function templateString(text, values) {
     }
     return text;
 }
+
 export function parseLiteralList(list) {
     return list.split(/(?!\B"[^"]*),(?![^"]*"\B)/g).map(function(item) {
         const value = item.trim();
@@ -320,6 +323,7 @@ export function parseLiteralList(list) {
         return value.replace(/\"/g, "");
     });
 }
+
 export function mixedByteArrayToString(array) {
     let result = "";
     for (let i = 0; i < array.length; i++) {
@@ -332,6 +336,7 @@ export function mixedByteArrayToString(array) {
     }
     return result;
 }
+
 export const getStringInit = str =>
     str.substring(0, str.length - 1);
 
@@ -382,7 +387,7 @@ export function ansiColor(text, options){
  * @param {string} text 
  * @returns 
  */
-export function lineTrim(text){
+export function trimLines(text){
     return text.replace(/^(\r?\n)+/us, "")
         .replace(/(\r?\n)+$/us, "")
 }
@@ -408,4 +413,22 @@ export function dedent(text){
     }
     const regExp = new RegExp(`^${spacingChar}{${count}}`, "us");
     return lines.map(line => line.replace(regExp, "")).join("\n");
+}
+
+const htmlEntityRegExp = /(?=&)(.*)?(?<=;)/gus;
+const htmlEntities = {
+    "gt": ">",
+    "lt": "<",
+    "amp": "&",
+    "nbsp": "\u00a0"
+};
+export function decodeHtml(text){
+    return text.replace(htmlEntityRegExp, value => {
+        const entity = value.replace(/^&/, "").replace(/;$/, "");
+        const entityString = htmlEntities[entity];
+        if(entityString){
+            return entityString;
+        } 
+        throw new Error(`decodeHtml doesn't support ${entity}`);
+    });
 }

@@ -1,6 +1,7 @@
 import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect";
 import {
+   insertString,
     getStringInit,
     getLevenshteinDistance,
     mixedByteArrayToString,
@@ -9,12 +10,22 @@ import {
     stringRemove,
     capitalizeFirst,
     removeAnsiColors,
-    lineTrim,
-    dedent
+    trimLines,
+    dedent,
+    decodeHtml
  } from "../../libs/string-tools.js";
 import { multiTest } from "../test-tools.js";
 import { templateString } from "../../libs/string-tools.js";
 
+describe("insertString", () => {
+   multiTest([
+      { args: ["lorem ipsum", 6, "hello "], expected: "lorem hello ipsum" },
+      { args: ["lorem ipsum", 0, "hello "], expected: "hello lorem ipsum" },
+      { args: ["lorem ipsum", 100, " hello"], expected: "lorem ipsum hello" },
+   ], ({args, expected }) => {
+      expect(insertString(...args)).toEqual(expected);
+   })
+});
 
 describe("getStringInit", () => {
     it("gets the init portion of the string", () => {
@@ -150,14 +161,14 @@ describe("removeAnsiColors", () => {
    })
 });
 
-describe("lineTrim", () => {
+describe("trimLines", () => {
    multiTest([
       { args: ["\n\nSome Text\n\n"], expected: "Some Text" },
       { args: ["\n\n\r\nSome Text\n\n\r\n"], expected: "Some Text" },
       { args: ["Some Text\n\n"], expected: "Some Text" },
       { args: ["\n\nSome Text"], expected: "Some Text" }
    ], ({ args, expected }) => {
-      expect(lineTrim(...args)).toEqual(expected);
+      expect(trimLines(...args)).toEqual(expected);
    });
 });
 
@@ -168,5 +179,16 @@ describe("dedent", () => {
       { args: ["{\n\t\tconsole.log('hello');\n}"], expected: "{\n\t\tconsole.log('hello');\n}" },
    ], ({ args, expected }) => {
       expect(dedent(...args)).toEqual(expected);
+   });
+});
+
+describe("decodeHtml", () => {
+   multiTest([
+      { args: ["hello&gt;"], expected: "hello>" },
+      { args: ["&lt;world"], expected: "<world" },
+      { args: ["&nbsp;"], expected: "\u00a0" },
+      { args: ["&amp;"], expected: "&" }
+   ], ({ args, expected }) => {
+      expect(decodeHtml(...args)).toEqual(expected);
    });
 });

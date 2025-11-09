@@ -75,6 +75,7 @@ export function arrayUnique(array) {
     }
     return resultArray;
 }
+
 //totals value counts as an object { value : count }
 export function arrayBucketCount(array) {
     const totals = {};
@@ -122,7 +123,7 @@ export function arrayPreviousClosest(value, array) {
 }
 //Gets the value from an array or if it doesn't exist get first
 export function arrayValueOrFirst(value, array) {
-    var index = array.indexOf(value);
+    const index = array.indexOf(value);
     if (index != -1) {
         return array[index];
     } else {
